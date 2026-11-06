@@ -176,7 +176,7 @@ function prepareMaterial(m, plane) {
 function loadModel() {
   const loader = new GLTFLoader().setMeshoptDecoder(MeshoptDecoder);
   return new Promise((res, rej) => loader.load(MODEL, res, e => {
-    if (loadNote && e.total) loadNote.textContent = `Loading ArchiTECH’s model · ${Math.round(e.loaded / e.total * 100)}%`;
+    if (loadNote && e.total) loadNote.textContent = `Loading the residence model · ${Math.round(e.loaded / e.total * 100)}%`;
   }, rej));
 }
 
