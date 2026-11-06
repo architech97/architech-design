@@ -422,3 +422,7 @@ body.scene-dusk .dwelling .skip:hover{background:var(--paper);color:var(--ink)}
   .chapter-panel{background:var(--paper)}
   body.scene-dusk .chapter-panel{background:var(--night)}
 }
+
+/* Reuse the transparent artwork; its silhouette follows the surface theme. */
+.bar .logo-mask img{filter:brightness(0)}
+.bar.is-dark .logo-mask img,.foot .logo-mask img,.loader-mark img{filter:brightness(0) invert(1)}
