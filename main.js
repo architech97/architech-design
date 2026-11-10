@@ -6,7 +6,6 @@
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const fine = matchMedia('(pointer: fine)').matches;
   const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
-  const A = 'assets/';
   const hasGsap = !!(window.gsap && window.ScrollTrigger);
   if (hasGsap) gsap.registerPlugin(ScrollTrigger);
 
@@ -40,7 +39,7 @@
   const inView = (k, y, pad = 0) => y + vh > L[k].top - pad && y < L[k].top + L[k].h + pad;
 
   /* ---------- header: one Liquid Glass capsule (logo + navigation), adapts to the section below ---------- */
-  const bar = $('.bar'), nav = $('#navglass'), glass = $('.glass', nav), toggle = $('.nav-toggle'), themeMeta = $('#theme-color');
+  const bar = $('.bar'), nav = $('#navglass'), glass = $('.glass', nav), toggle = $('.nav-toggle'), menu = $('#nav-menu'), themeMeta = $('#theme-color');
   const secLinks = $$('[data-sec]', nav), lensImg = $('#lg-refract feImage');
   let themed = [], logoBox = { x: 0, y: 0, w: 1, h: 1 }, barDark = null, glassHover = false, sx = 1, sy = 1, current = null, menuOpen = false, lensKey = '';
   // SVG refraction inside backdrop-filter is a Chromium feature; Safari and Firefox get the frosted variant
@@ -92,6 +91,7 @@
   // the mobile menu: the capsule itself expands into a sheet
   function setMenu(open) {
     menuOpen = open; nav.classList.toggle('open', open);
+    menu.inert = !open;
     toggle.setAttribute('aria-expanded', String(open)); toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
     glass.style.setProperty('--sx', 1); glass.style.setProperty('--sy', 1); sx = sy = 1;
     if (open) lenis?.stop(); else { lenis?.start(); lensKey = ''; setTimeout(updateLens, 650); }
@@ -107,7 +107,7 @@
   const pctTick = () => { pct = Math.min(100, pct + (100 - pct) * 0.06 + 0.4); count.textContent = String(Math.round(pct)).padStart(3, '0'); if (!finished) requestAnimationFrame(pctTick); };
   requestAnimationFrame(pctTick);
   let finished = false, heroLoaded = false;
-  ['img/hero-day.jpg', 'img/hero-dusk.jpg'].forEach(src => { const i = new Image(); i.onload = i.onerror = () => { if (i.complete) heroLoaded = true; }; i.src = src; });
+  ['/img/hero-day.jpg', '/img/hero-dusk.jpg'].forEach(src => { const i = new Image(); i.onload = i.onerror = () => { if (i.complete) heroLoaded = true; }; i.src = src; });
   let seen = false; try { seen = sessionStorage.getItem('architech-intro') === '1'; sessionStorage.setItem('architech-intro', '1'); } catch (e) {}
   if (seen) document.documentElement.classList.add('intro-seen');
   const minTime = reduce || seen ? 350 : 2100;
@@ -194,16 +194,16 @@
 
   /* ---------- plan explorer ---------- */
   const FLOORS = [
-    { name: 'Ground floor', slide: 'plan-render-0.jpg', drawing: 'drawing-0.jpg', rooms: [
+    { name: 'Ground floor', slide: '/plan-render-0.jpg', drawing: '/drawing-0.jpg', rooms: [
       [1, 'Entry vestibule', '', 485, 200], [2, 'Living room', '23′ × 19′', 707, 160], [3, 'Dining area', '23′ × 15′3″', 727, 325],
       [4, 'Mandir', '', 485, 110], [5, 'Kitchen', '', 988, 155], [6, 'Master bedroom lounge', '11′5″ × 11′9″', 483, 357],
       [7, 'Master bedroom', '15′2″ × 18′7″', 330, 520], [8, 'Master toilet', '10′10″ × 8′11″', 527, 478], [9, 'Dresser', '10′2″ × 11′5″', 325, 358],
       [10, 'Bedroom', '13′7″ × 16′8″', 713, 505], [11, 'Toilet', '10′7″ × 8′11″', 527, 598], [12, 'Common toilet', '5′5″ × 9′7″', 807, 568]] },
-    { name: 'First floor', slide: 'plan-render-1.jpg', drawing: 'asset-027.jpg', rooms: [
+    { name: 'First floor', slide: '/plan-render-1.jpg', drawing: '/assets/asset-027.jpg', rooms: [
       [1, 'Family lounge', '19′5″ × 17′8″', 722, 310], [2, 'Vestibule', '', 570, 410], [3, 'Bedroom', '15′2″ × 13′9″', 415, 368],
       [3, 'Bedroom', '15′2″ × 16′8″', 360, 520], [3, 'Bedroom', '13′7″ × 16′8″', 698, 520], [4, 'Toilet', '6′6″ × 10′10″', 556, 300],
       [4, 'Toilet', '6′3″ × 10′7″', 535, 566], [4, 'Toilet', '5′5″ × 10′7″', 852, 566], [5, 'Terrace', '', 960, 124]] },
-    { name: 'Second floor', slide: 'plan-render-2.jpg', drawing: 'asset-028.jpg', rooms: [
+    { name: 'Second floor', slide: '/plan-render-2.jpg', drawing: '/assets/asset-028.jpg', rooms: [
       [1, 'Terrace', '', 425, 445], [2, 'Home theatre', '', 702, 121], [3, 'Gaming zone', '', 767, 316],
       [4, 'Bedroom', '13′7″ × 16′8″', 681, 546], [5, 'Toilet', '5′5″ × 10′7″', 842, 604]] }
   ];
@@ -221,7 +221,7 @@
     tabs.forEach((t, i) => t.setAttribute('aria-selected', String(i === f))); moveInk();
     const apply = () => {
       render.src = F.slide; render.alt = `Rendered ${F.name.toLowerCase()} plan with numbered rooms`;
-      drawing.src = F.drawing.startsWith('asset-') ? A + F.drawing : F.drawing; drawing.alt = `${F.name} technical drawing`;
+      drawing.src = F.drawing; drawing.alt = `${F.name} technical drawing`;
       caption.textContent = `${F.name} · ${card.classList.contains('flipped') ? 'technical drawing' : 'rendered plan'}`;
       list.innerHTML = F.rooms.map(r => `<li tabindex="0"><i>${String(r[0]).padStart(2, '0')}</i><span>${r[1]}</span><em>${r[2]}</em></li>`).join('');
       pins.innerHTML = F.rooms.map(r => `<button class="pin" style="left:${((r[3] - 241) / 859 * 100).toFixed(2)}%;top:${(r[4] / 700 * 100).toFixed(2)}%" aria-label="${r[1]}" data-cursor="View">${r[0]}<span class="pin-tip">${r[1]}${r[2] ? ' · ' + r[2] : ''}</span></button>`).join('');

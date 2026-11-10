@@ -1,0 +1,110 @@
+:root {
+  color-scheme: light;
+  --paper: #f3eee6;
+  --ink: #2a2420;
+  --muted: #5b514a;
+  --line: #d1c4b5;
+  --brass: #b98d5c;
+  --blueprint: #7b9be6;
+  --charcoal: #121315;
+  --sans: Outfit, system-ui, sans-serif;
+  --serif: "Cormorant Garamond", Georgia, serif;
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --ease: cubic-bezier(.2, .65, .25, 1);
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; min-width: 0; background: var(--paper); color: var(--ink); font: 400 1rem/1.5 var(--sans); }
+h1, h2, p, figure { margin: 0; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid #315694; outline-offset: 4px; }
+
+.shell { width: min(100% - clamp(36px, 9vw, 130px), 1230px); margin-inline: auto; }
+.skip-link { position: fixed; top: 10px; left: 10px; z-index: 2; transform: translateY(-150%); padding: 10px 14px; color: white; background: var(--charcoal); }
+.skip-link:focus { transform: none; }
+
+.portal-bar { border-bottom: 1px solid var(--line); }
+.portal-bar-inner { min-height: 66px; display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+.portal-brand { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; font-size: 1.55rem; line-height: 1; letter-spacing: -.04em; }
+.portal-brand strong { font-weight: 600; }
+.brand-blade { fill: var(--brass); }
+.portal-bar-note, .portal-foot { color: var(--muted); font: 500 .69rem/1.4 var(--mono); letter-spacing: .075em; text-transform: uppercase; }
+.portal-heading { display: grid; grid-template-columns: minmax(0, 1fr) minmax(235px, 26ch); align-items: end; gap: 12px 28px; padding-block: clamp(28px, 4vw, 58px) clamp(19px, 3.5vw, 42px); }
+.portal-heading h1 { font: 500 clamp(2.85rem, 6vw, 6.1rem)/.9 var(--serif); letter-spacing: -.048em; }
+.portal-heading p { color: var(--muted); font-size: clamp(.99rem, 1.5vw, 1.15rem); line-height: 1.45; }
+
+.division-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(13px, 2vw, 24px); }
+.division-card {
+  --card-background: #faf6ef;
+  --card-ink: var(--ink);
+  --card-muted: var(--muted);
+  --card-line: #d8cdbf;
+  --card-accent: #795333;
+  --card-rule: #b98d5c;
+  --frame-bg: #d8cdbd;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  min-width: 0;
+  border: 1px solid var(--card-line);
+  border-top: 3px solid var(--card-rule);
+  background: var(--card-background);
+  color: var(--card-ink);
+  text-decoration: none;
+  transition: border-color .22s var(--ease), box-shadow .25s var(--ease);
+}
+.division-card.automation {
+  color-scheme: dark;
+  --card-background: var(--charcoal);
+  --card-ink: #f1efea;
+  --card-muted: #c9c6bf;
+  --card-line: #383b44;
+  --card-accent: #a3baf1;
+  --card-rule: var(--blueprint);
+  --frame-bg: #eaf0e8;
+}
+.division-card:focus-visible { outline-offset: 3px; }
+.division-card:hover { border-color: var(--card-rule); box-shadow: 0 16px 32px -24px #2a242066; }
+.division-card-copy { display: flex; flex-direction: column; align-items: flex-start; padding: clamp(17px, 2.5vw, 32px); }
+.division-index { display: flex; align-items: center; gap: 10px; color: var(--card-accent); font: 500 .7rem/1.3 var(--mono); letter-spacing: .085em; text-transform: uppercase; }
+.division-index span { border-right: 1px solid var(--card-line); padding-right: 10px; }
+.division-card h2 { margin: 7px 0 9px; font: 500 clamp(2.75rem, 4.8vw, 4.85rem)/.98 var(--serif); letter-spacing: -.045em; }
+.automation h2 { font: 500 clamp(2.55rem, 4.4vw, 4.4rem)/1.075 var(--sans); letter-spacing: -.052em; }
+.division-description { max-width: 44ch; margin-bottom: 11px; color: var(--card-muted); font-size: .99rem; }
+.division-action { min-height: 30px; display: inline-flex; align-items: center; gap: 6px; margin-top: auto; color: var(--card-accent); font-size: .88rem; font-weight: 600; }
+.division-action svg { flex: none; transition: transform .24s var(--ease); }
+.division-card:hover .division-action svg, .division-card:focus-visible .division-action svg { transform: translateX(4px); }
+.division-image { border-top: 1px solid var(--card-line); }
+.division-frame { aspect-ratio: 2.02; overflow: hidden; background: var(--frame-bg); }
+.division-frame img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center 45%; transition: transform .48s var(--ease); }
+.automation .division-frame img { object-fit: contain; transform: scale(1.12); }
+.division-card:hover img { transform: scale(1.035); }
+.automation:hover .division-frame img { transform: scale(1.155); }
+.division-image figcaption { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 2px 10px; min-height: 38px; padding: 7px clamp(10px, 1.4vw, 17px); color: var(--card-muted); font: 400 .68rem/1.45 var(--mono); }
+.division-image figcaption span:first-child { color: var(--card-ink); font-weight: 500; }
+
+.portal-foot { min-height: 57px; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.portal-foot a { display: inline-flex; min-height: 44px; align-items: center; text-underline-offset: 3px; }
+
+@media (max-width: 680px) {
+  .portal-bar-inner { min-height: 56px; }
+  .portal-brand { font-size: 1.25rem; }
+  .portal-brand svg { width: 30px; height: 30px; }
+  .portal-bar-note { text-align: right; font-size: .61rem; }
+  .portal-heading { grid-template-columns: 1fr; gap: 10px; padding-block: 25px 18px; }
+  .portal-heading h1 { font-size: clamp(2.65rem, 9vw, 3.4rem); }
+  .portal-heading p { max-width: 40ch; font-size: .93rem; }
+  .division-grid { grid-template-columns: 1fr; gap: 13px; }
+  .division-card-copy { padding: 13px 16px 10px; }
+  .division-index { font-size: .61rem; }
+  .division-card h2 { margin: 5px 0 4px; font-size: 2.6rem; }
+  .automation h2 { font-size: 2.4rem; }
+  .division-description { margin-bottom: 4px; font-size: .89rem; }
+  .division-frame { aspect-ratio: 2.5; }
+  .division-image figcaption { min-height: 31px; font-size: .61rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .division-card, .division-action svg, .division-frame img { transition: none; }
+  .division-card:hover .division-action svg, .division-card:focus-visible .division-action svg, .division-card:hover img { transform: none; }
+  .automation:hover .division-frame img { transform: scale(1.12); }
+}

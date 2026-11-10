@@ -8,7 +8,6 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 
-const A = 'assets/';
 const section = document.getElementById('dwelling');
 const canvas = document.getElementById('scene');
 const labelLayer = document.getElementById('labels');
@@ -22,7 +21,7 @@ const sunTimeEl = document.getElementById('sun-time');
 const mobile = matchMedia('(max-width: 860px)').matches;
 const coarse = matchMedia('(pointer: coarse)').matches;
 const lowPower = mobile || coarse || (navigator.hardwareConcurrency || 8) <= 4;
-const MODEL = lowPower ? 'architech-model-lite.glb' : 'architech-model.glb';
+const MODEL = lowPower ? '/architech-model-lite.glb' : '/architech-model.glb';
 
 const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
 const seg = (p, a, b) => clamp((p - a) / (b - a));
@@ -435,10 +434,10 @@ function fail() {
 (async () => {
   try {
     measure();
-    buildSheet(await loadTexture(lowPower ? 'drawing-ground-lite.jpg' : 'drawing-ground.jpg'));
+    buildSheet(await loadTexture(lowPower ? '/drawing-ground-lite.jpg' : '/drawing-ground.jpg'));
     resize(); ready = true;            // the drawing shows while the model streams in
     requestAnimationFrame(loop);
-    const [gltf, rooms] = await Promise.all([loadModel(), fetch('rooms.json').then(r => r.json())]);
+    const [gltf, rooms] = await Promise.all([loadModel(), fetch('/rooms.json').then(r => r.json())]);
     const root = gltf.scene;
     root.rotation.y = -Math.PI / 2;    // model x/y → drawing rows/columns
     LEVEL_KEYS.forEach((n, i) => {

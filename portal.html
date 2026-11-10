@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f3eee6">
+  <title>ArchiTECH · Design and Automation</title>
+  <meta name="description" content="Explore ArchiTECH Design's architecture and interiors, or discover ArchiTECH Automation's Revit and CAD tools.">
+  <link rel="canonical" href="https://architechdesign.in/">
+  <link rel="icon" type="image/png" href="/assets/architech-mark-transparent.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Outfit:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/portal.css">
+  <script>
+    // Shared links to sections of the former homepage still open the Design presentation.
+    const legacyDesignSections = new Set([
+      '#top', '#hero', '#intro', '#house', '#dwelling', '#plans',
+      '#light', '#reel', '#living', '#studio', '#contact',
+    ]);
+    if (legacyDesignSections.has(location.hash)) {
+      const section = location.hash === '#house' ? '#dwelling' : location.hash;
+      location.replace('/design/' + location.search + section);
+    }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#divisions">Skip to the divisions</a>
+  <header class="portal-bar">
+    <div class="shell portal-bar-inner">
+      <a class="portal-brand" href="/" aria-label="ArchiTECH home">
+        <svg width="36" height="36" viewBox="1 0 100 100" aria-hidden="true">
+          <path fill="currentColor" d="M8 87.3L51.06 12.7a86.14 86.14 0 0 1 43.08 74.6A140 140 0 0 0 64 28.17H53.96L24.03 80.01l4.21 7.29Z"/>
+          <path class="brand-blade" d="m46.5 48.18 47.64 39.12-53.2-29.48Z"/>
+        </svg>
+        <span>Archi<strong>TECH</strong></span>
+      </a>
+      <span class="portal-bar-note">Architecture &amp; technology</span>
+    </div>
+  </header>
+  <main id="divisions" class="shell" tabindex="-1">
+    <div class="portal-heading">
+      <h1>Design and automation</h1>
+      <p>Visit our architecture studio or explore the software we build for design and BIM.</p>
+    </div>
+    <nav class="division-grid" aria-label="ArchiTECH divisions">
+      <a class="division-card design" href="/design/" aria-labelledby="design-action" aria-describedby="design-description">
+        <div class="division-card-copy">
+          <p class="division-index"><span>01</span> Architecture &amp; interiors</p>
+          <h2>Design</h2>
+          <p class="division-description" id="design-description">Explore the Vasant Kunj residence through drawings, spatial studies and visualizations.</p>
+          <span class="division-action" id="design-action">Explore ArchiTECH Design
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </div>
+        <figure class="division-image">
+          <div class="division-frame">
+            <img src="/img/hero-day.jpg" alt="Design visualization of a three-level residence framed by trees in Vasant Kunj" width="1520" height="1013" fetchpriority="high" decoding="async">
+          </div>
+          <figcaption><span>Residence in Vasant Kunj</span><span>Design visualization</span></figcaption>
+        </figure>
+      </a>
+      <a class="division-card automation" href="/automation/" aria-labelledby="automation-action" aria-describedby="automation-description">
+        <div class="division-card-copy">
+          <p class="division-index"><span>02</span> Software for AEC</p>
+          <h2>Automation</h2>
+          <p class="division-description" id="automation-description">Browse Revit add-ins, CAD connectors and interactive demos for modelling, documentation and review.</p>
+          <span class="division-action" id="automation-action">Explore ArchiTECH Automation
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </div>
+        <figure class="division-image">
+          <div class="division-frame">
+            <img src="/automation/media/revit/snowdon-axon.webp" alt="Elevated Revit view of Snowdon Towers with roof gardens and articulated facades" width="1400" height="1136" decoding="async">
+          </div>
+          <figcaption><span>Snowdon Towers</span><span>Autodesk Revit sample model</span></figcaption>
+        </figure>
+      </a>
+    </nav>
+  </main>
+  <footer class="shell portal-foot">
+    <span>ArchiTECH</span>
+    <a href="mailto:navneet@architechdesign.in">Contact</a>
+  </footer>
+</body>
+</html>

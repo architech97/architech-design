@@ -4,7 +4,6 @@
    pointer parallax and film grain. Falls back to the plain images if WebGL is unavailable. */
 import * as THREE from 'three';
 
-const A = 'assets/';
 const hero = document.getElementById('hero');
 const canvas = document.getElementById('hero-gl');
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -102,7 +101,7 @@ function loop(t) {
 
 (async () => {
   try {
-    const [d, n] = await Promise.all([load('img/hero-day.jpg'), load('img/hero-dusk.jpg')]);
+    const [d, n] = await Promise.all([load('/img/hero-day.jpg'), load('/img/hero-dusk.jpg')]);
     uniforms.tDay.value = d; uniforms.tNight.value = n;
     measure();
     hero.classList.add('has-gl');
