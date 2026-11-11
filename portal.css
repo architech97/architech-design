@@ -189,3 +189,5 @@ body::before { content: ''; position: fixed; inset: 0; z-index: -1; pointer-even
   @keyframes scan { from { left: 15px; } to { left: calc(100% - 16px); } }
 }
 @media (prefers-reduced-motion: reduce) { .division-card { transform: none; } .division-frame img { translate: none; } body::before { display: none; } }
+/* The arrival animation must not hold its final transform, or the pointer tilt can never apply. */
+@media (prefers-reduced-motion: no-preference) and (min-width: 701px) { .division-card { animation-fill-mode: backwards; } }
