@@ -1,4 +1,4 @@
-import { copyFile, cp, mkdir, readFile, readdir, stat } from 'node:fs/promises'
+import { copyFile, cp, mkdir, readFile, readdir, stat, writeFile } from 'node:fs/promises'
 import { basename, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -11,7 +11,8 @@ const root = fileURLToPath(new URL('../', import.meta.url))
 const dist = resolve(distPath)
 const output = resolve(outputPath)
 const publicDesign = [
-  '.nojekyll', 'CNAME', '404.html', 'portal.css', 'portfolio.css',
+  '.nojekyll', 'CNAME', '404.html', 'portal.css', 'chrome.css', 'portfolio.css',
+  'robots.txt', 'favicon.ico',
   'assets', 'img', 'rooms.json', 'hero.js', 'main.js', 'scene.js',
   'style.css', 'style.logo-theme-v2.css', 'style.original-logo-v3.css',
   'architech-model.glb', 'architech-model-lite.glb',
@@ -43,9 +44,16 @@ if (await stat(join(root, 'projects')).catch(() => null)) {
   await cp(join(root, 'projects'), join(output, 'design'), { recursive: true, filter: copyPublic })
 }
 
+const sitemap = ['/', '/design/', '/automation/', '/automation/plugins/', '/automation/demos/', '/automation/coverage/', '/automation/connect/']
 for (const group of ['plugins', 'demos']) {
   const directory = join(output, 'automation', group)
   const routes = (await readdir(directory, { withFileTypes: true })).filter(entry => entry.isDirectory())
   if (routes.length === 0) throw new Error(`Automation emitted no ${group} routes.`)
+  sitemap.push(...routes.map(entry => `/automation/${group}/${entry.name}/`))
   console.log(`Mounted ${routes.length} Automation ${group} at /automation/${group}/`)
 }
+
+// The sitemap lists exactly the routes that were assembled, so it cannot drift from the build.
+const urls = sitemap.map(path => `  <url><loc>https://architechdesign.in${path}</loc></url>`)
+await writeFile(join(output, 'sitemap.xml'), ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">', ...urls, '</urlset>', ''].join('\n'))
+console.log(`Wrote sitemap.xml with ${sitemap.length} URLs`)
