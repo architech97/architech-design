@@ -8,127 +8,214 @@
   <meta name="description" content="Portfolio of Navneet Singh: architectural modelling, rendering and presentation, and the BIM tools he has developed for Revit and CAD.">
   <link rel="canonical" href="https://architechdesign.in/">
   <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ArchiTECH">
+  <meta property="og:url" content="https://architechdesign.in/">
   <meta property="og:title" content="Navneet Singh · ArchiTECH">
   <meta property="og:description" content="I model and render buildings, and I write the Revit tools that document them.">
-  <meta property="og:image" content="https://architechdesign.in/img/hero-dusk.jpg">
+  <meta property="og:image" content="https://architechdesign.in/img/home-share-1200x630.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="The Vasant Kunj residence beside a Revit add-in window, with the line: I model and render buildings, and write the Revit tools that document them.">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" href="/assets/architech-mark-transparent.png">
-  <link rel="preload" as="image" href="/img/hero-day.jpg">
+  <link rel="preload" as="image" type="image/avif" imagesrcset="/img/home-hero-day-640.avif 640w, /img/home-hero-day-1280.avif 1280w, /img/home-hero-day-1520.avif 1520w" imagesizes="(max-width: 700px) 100vw, 50vw" fetchpriority="high">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Outfit:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/portal.css?v=5">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,500&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Jost:wght@300;400;500&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/chrome.css?v=1">
+  <link rel="stylesheet" href="/portal.css?v=6">
   <script>
     // Shared links to sections of the former homepage still open the Design presentation.
     const legacyDesignSections = new Set([
       '#top', '#hero', '#intro', '#house', '#dwelling', '#plans',
-      '#light', '#reel', '#living', '#studio', '#contact',
+      '#light', '#reel', '#living', '#studio',
     ]);
     if (legacyDesignSections.has(location.hash)) {
       const section = location.hash === '#house' ? '#dwelling' : location.hash;
       location.replace('/design/' + location.search + section);
     }
+    // The page tone is scrubbed by CSS scroll timelines; older browsers get the script fallback below.
+    if (!CSS.supports('animation-timeline: view()') && matchMedia('(prefers-reduced-motion: no-preference)').matches) document.documentElement.classList.add('tone-js');
   </script>
 </head>
 <body>
-  <a class="skip-link" href="#divisions">Skip to the two portfolios</a>
-  <div class="first-screen">
-    <header class="bar">
-      <a class="brand" href="/" aria-label="ArchiTECH home">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="ax-header">
+    <div class="ax-bar">
+      <a class="ax-brand" href="/" aria-label="ArchiTECH home">
         <svg width="34" height="34" viewBox="1 0 100 100" aria-hidden="true">
           <path fill="currentColor" d="M8 87.3L51.06 12.7a86.14 86.14 0 0 1 43.08 74.6A140 140 0 0 0 64 28.17H53.96L24.03 80.01l4.21 7.29Z"/>
-          <path class="brand-blade" d="m46.5 48.18 47.64 39.12-53.2-29.48Z"/>
+          <path class="ax-blade" d="m46.5 48.18 47.64 39.12-53.2-29.48Z"/>
         </svg>
         <span>Archi<strong>TECH</strong></span>
       </a>
-      <nav class="bar-nav" aria-label="Site">
-        <a href="/design/">Design</a>
+      <nav class="ax-nav" aria-label="Site">
+        <a href="/design/" data-division="design">Design</a>
         <a href="/automation/">Automation</a>
-        <a href="https://www.linkedin.com/in/architech-india/" rel="noreferrer">LinkedIn</a>
+        <a href="/#about">About</a>
+        <a href="#contact">Contact</a>
       </nav>
-    </header>
-
-    <div class="statement">
-      <h1>
-        <span class="line"><i>I model and render <em class="d">buildings</em>,</i></span>
-        <span class="line"><i>and write the <em class="a">Revit tools</em> that document them.</i></span>
-      </h1>
-      <p><strong>Navneet Singh</strong>3D and BIM modelling, rendering, drawings and presentation. Add-in development for Revit.</p>
     </div>
+  </header>
 
-    <main id="divisions" class="split" tabindex="-1" aria-label="The two portfolios">
-      <a class="side design" href="/design/">
-        <img class="side-photo" src="/img/hero-day.jpg" alt="Visualisation of a three-level residence in Vasant Kunj, seen through trees in daylight" width="1520" height="1013" fetchpriority="high" decoding="async">
-        <span class="side-tag">Vasant Kunj residence<small>Design proposal · visualisation</small></span>
-        <span class="side-copy">
-          <span class="side-name">Design</span>
-          <span class="side-text">One house from drawing to model to finished image.</span>
-          <span class="side-go">Explore my work <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </span>
-      </a>
-      <a class="side automation" href="/automation/">
-        <span class="side-plan" aria-hidden="true"><img src="/drawing-0.jpg" alt="" width="1910" height="1541" decoding="async"></span>
-        <img class="side-dialog" src="/automation/media/dialogs/sheet-manager/sheetmanagerwindow-dark.webp" alt="The Sheet Manager window, one of the Revit add-ins" decoding="async">
-        <span class="side-tag">Sheet Manager<small>Revit add-in · try it in the browser</small></span>
-        <span class="side-copy">
-          <span class="side-name">Automation</span>
-          <span class="side-text">Revit add-ins for sheets, parameters and model checks.</span>
-          <span class="side-go">Try the tools <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </span>
-      </a>
-    </main>
-  </div>
-
-  <section class="stages shell" aria-labelledby="stages-title">
-    <div class="stages-head reveal">
-      <h2 id="stages-title">One house, <em>three stages</em></h2>
-      <p>The Vasant Kunj residence is a design proposal. I built the model, drew the plans and rendered every image shown here. Nothing on this site is a photograph.</p>
-    </div>
-    <ol class="stages-row">
-      <li class="reveal"><a href="/design/#plans">
-        <figure><div class="stage-img paper"><img src="/drawing-0.jpg" alt="Ground floor plan drawing of the residence with room names and dimensions" width="1910" height="1541" loading="lazy" decoding="async"></div>
-        <figcaption><b>01</b><strong>Drawing</strong><span>Ground floor plan</span></figcaption></figure></a></li>
-      <li class="reveal"><a href="/design/#plans">
-        <figure><div class="stage-img"><img src="/plan-render-0.jpg" alt="The same ground floor as a rendered plan with furniture, flooring and planting" width="859" height="700" loading="lazy" decoding="async"></div>
-        <figcaption><b>02</b><strong>Rendered plan</strong><span>Materials and furniture</span></figcaption></figure></a></li>
-      <li class="reveal"><a href="/design/#light">
-        <figure><div class="stage-img"><img src="/img/front-dusk.jpg" alt="Visualisation of the front elevation at dusk with the lights on" width="1496" height="997" loading="lazy" decoding="async"></div>
-        <figcaption><b>03</b><strong>Visualisation</strong><span>Front elevation at dusk</span></figcaption></figure></a></li>
-    </ol>
-  </section>
-
-  <section class="tools" aria-labelledby="tools-title">
-    <div class="shell tools-grid">
-      <div class="tools-copy reveal">
-        <h2 id="tools-title">The same work, <em>without the repeats</em></h2>
-        <p>Numbering sheets, filling parameters and checking a model are the same clicks on every project. I write Revit add-ins that do them, and each one opens here as a working window on sample data.</p>
-        <a class="text-link" href="/automation/demos/">Open a walkthrough <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  <main id="main" tabindex="-1">
+    <div class="first-screen">
+      <div class="statement">
+        <h1>
+          <span class="line"><span>I model and render <em>buildings</em>,</span></span>
+          <span class="line"><span>and write the Revit tools that document them.</span></span>
+        </h1>
+        <p><strong>Navneet Singh</strong>3D and BIM modelling, rendering, drawings and presentation. Add-in development for Revit.</p>
       </div>
-      <ul class="tools-shots">
-        <li class="reveal"><a href="/automation/demos/room-to-view/"><img src="/automation/media/dialogs/room-to-view/roomtoviewwindow-dark.webp" alt="Room to View window" loading="lazy" decoding="async"><span>Room to View</span></a></li>
-        <li class="reveal"><a href="/automation/demos/parameter-manager/"><img src="/automation/media/dialogs/parameter-manager/parametermanagerwindow-dark.webp" alt="Parameter Manager window" loading="lazy" decoding="async"><span>Parameter Manager</span></a></li>
-        <li class="reveal"><a href="/automation/demos/warnings-inspector/"><img src="/automation/media/dialogs/warnings-inspector/warningswindow-dark.webp" alt="Warnings Inspector window" loading="lazy" decoding="async"><span>Warnings Inspector</span></a></li>
-      </ul>
-    </div>
-  </section>
 
-  <footer class="shell foot">
-    <p class="foot-line">Have a project or a workflow to talk through?</p>
-    <div class="foot-links">
-      <a href="https://www.linkedin.com/in/architech-india/" rel="noreferrer">Connect on LinkedIn</a>
-      <a href="/automation/connect/">Share a suggestion</a>
-      <a href="mailto:navneet@architechdesign.in">navneet@architechdesign.in</a>
+      <div id="divisions" class="split" role="group" aria-label="The two portfolios">
+        <a class="side design" href="/design/">
+          <picture>
+            <source type="image/avif" srcset="/img/home-hero-day-640.avif 640w, /img/home-hero-day-1280.avif 1280w, /img/home-hero-day-1520.avif 1520w" sizes="(max-width: 700px) 100vw, 50vw">
+            <source type="image/webp" srcset="/img/home-hero-day-640.webp 640w, /img/home-hero-day-1280.webp 1280w, /img/home-hero-day-1520.webp 1520w" sizes="(max-width: 700px) 100vw, 50vw">
+            <img class="side-photo" src="/img/home-hero-day-1280.webp" alt="Visualisation of a three-level residence in Vasant Kunj, seen through trees in daylight" width="1520" height="1013" fetchpriority="high" decoding="async">
+          </picture>
+          <span class="side-tag">A-201 · Vasant Kunj residence<small>Design proposal · visualisation</small></span>
+          <span class="side-copy">
+            <span class="side-name">Design</span>
+            <span class="side-text">One house from drawing to model to finished image.</span>
+            <span class="side-go">Explore my work <span aria-hidden="true">→</span></span>
+          </span>
+        </a>
+        <a class="side automation" href="/automation/">
+          <span class="side-plan" aria-hidden="true"><img src="/img/home-drawing-1280.webp" alt="" width="1280" height="1033" decoding="async"></span>
+          <img class="side-dialog" src="/automation/media/dialogs/sheet-manager/sheetmanagerwindow-dark.webp" alt="The Sheet Manager window, one of the Revit add-ins" width="1306" height="866" decoding="async">
+          <span class="side-tag">Sheet Manager<small>Revit add-in · try it in the browser</small></span>
+          <span class="side-copy">
+            <span class="side-name">Automation</span>
+            <span class="side-text">Revit add-ins for sheets, parameters and model checks.</span>
+            <span class="side-go">Try the tools <span aria-hidden="true">→</span></span>
+          </span>
+        </a>
+      </div>
     </div>
-    <p class="foot-note">ArchiTECH · Portfolio of Navneet Singh</p>
+
+    <section class="stages" aria-labelledby="stages-title">
+      <div class="stages-head">
+        <p class="label">01 · Design</p>
+        <h2 id="stages-title">One house, three stages</h2>
+        <p class="stages-note">The Vasant Kunj residence is a design proposal. I built the model, drew the plans and rendered every image shown here. Nothing on this site is a photograph.</p>
+      </div>
+      <ol class="stages-row">
+        <li class="stage-01"><a href="/design/#plans">
+          <figure><div class="stage-img paper"><img src="/img/home-drawing-1280.webp" alt="Ground floor plan drawing of the residence with room names and dimensions" width="1280" height="1033" loading="lazy" decoding="async"></div>
+          <figcaption><b>A-101</b><strong>Drawing</strong><span>Ground floor plan</span></figcaption></figure></a></li>
+        <li class="stage-02"><a href="/design/#plans">
+          <figure><div class="stage-img"><picture>
+            <source type="image/avif" srcset="/img/home-plan-render-640.avif 640w, /img/home-plan-render-859.avif 859w" sizes="(max-width: 860px) 50vw, 26vw">
+            <img src="/img/home-plan-render-640.webp" srcset="/img/home-plan-render-640.webp 640w, /img/home-plan-render-859.webp 859w" sizes="(max-width: 860px) 50vw, 26vw" alt="The same ground floor as a rendered plan with furniture, flooring and planting" width="859" height="700" loading="lazy" decoding="async">
+          </picture></div>
+          <figcaption><b>A-102</b><strong>Rendered plan</strong><span>Materials and furniture</span></figcaption></figure></a></li>
+        <li class="stage-03"><a href="/design/#light">
+          <figure><div class="stage-img"><picture>
+            <source type="image/avif" srcset="/img/home-front-dusk-640.avif 640w, /img/home-front-dusk-1280.avif 1280w, /img/home-front-dusk-1496.avif 1496w" sizes="(max-width: 860px) 100vw, 44vw">
+            <img src="/img/home-front-dusk-1280.webp" srcset="/img/home-front-dusk-640.webp 640w, /img/home-front-dusk-1280.webp 1280w, /img/home-front-dusk-1496.webp 1496w" sizes="(max-width: 860px) 100vw, 44vw" alt="Visualisation of the front elevation at dusk with the lights on" width="1496" height="997" loading="lazy" decoding="async">
+          </picture></div>
+          <figcaption><b>A-202</b><strong>Visualisation</strong><span>Front elevation at dusk</span></figcaption></figure></a></li>
+      </ol>
+    </section>
+
+    <section class="tools" aria-labelledby="tools-title">
+      <!-- The dialog straddles the tone change: its title bar sits over the render on paper, its body on the darker ground. -->
+      <a class="cross-dialog" href="/automation/demos/sheet-manager/" aria-label="Open the Sheet Manager walkthrough">
+        <picture>
+          <source type="image/avif" srcset="/img/home-sheet-manager-light-640.avif 640w, /img/home-sheet-manager-light-1186.avif 1186w" sizes="(max-width: 860px) 92vw, 42vw">
+          <img src="/img/home-sheet-manager-light-1186.webp" srcset="/img/home-sheet-manager-light-640.webp 640w, /img/home-sheet-manager-light-1186.webp 1186w" sizes="(max-width: 860px) 92vw, 42vw" alt="Sheet Manager, light theme, with sheets A-101 and A-102 of the same house ticked" width="1186" height="460" loading="lazy" decoding="async">
+        </picture>
+        <span class="cross-caption">Sheet Manager · numbering the sheets of this house</span>
+      </a>
+      <div class="tools-grid">
+        <div class="tools-head">
+          <p class="label">02 · Automation</p>
+          <h2 id="tools-title">The same work, without the repeats</h2>
+        </div>
+        <div class="tools-copy">
+          <p>Numbering sheets, filling parameters and checking a model are the same clicks on every project. I write Revit add-ins that do them, and each one opens here as a working window on sample data.</p>
+          <ul class="tool-index">
+            <li><a href="/automation/demos/room-to-view/"><b>Arch Folio</b><strong>Room to View</strong><span>Plans, elevations and sheets for every ticked room</span><i aria-hidden="true">→</i></a></li>
+            <li><a href="/automation/demos/parameter-manager/"><b>Arch Forge</b><strong>Parameter Manager</strong><span>Define and bind project parameters</span><i aria-hidden="true">→</i></a></li>
+            <li><a href="/automation/demos/warnings-inspector/"><b>Arch Sentinel</b><strong>Warnings Inspector</strong><span>Find and isolate the warnings that matter</span><i aria-hidden="true">→</i></a></li>
+          </ul>
+          <a class="text-link" href="/automation/demos/">Open a walkthrough <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="about" id="about" aria-labelledby="about-title">
+      <!-- TODO(Navneet): add a portrait (new file, e.g. img/home-navneet-640.avif), years in practice,
+           where you have worked and your BIM background. Only facts already published are used below. -->
+      <p class="label">03 · About</p>
+      <h2 id="about-title">Navneet Singh</h2>
+      <div class="about-copy">
+        <p>I work from New Delhi. I do 3D and BIM modelling, rendering, drawings and presentation, and I develop the Revit add-ins shown under Automation.</p>
+        <p>Every image on this site comes from my own model of the Vasant Kunj residence, and every tool window is one I have written.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="ax-footer" id="contact">
+    <div class="ax-foot-grid">
+      <div class="ax-foot-lead">
+        <p class="ax-foot-line">Have a project or a workflow to talk through?</p>
+        <!-- TODO(Navneet): confirm the reply-time wording. -->
+        <p class="ax-foot-reply">I reply within one working day.</p>
+      </div>
+      <div class="ax-foot-col">
+        <h2 class="ax-foot-h">Contact</h2>
+        <a href="mailto:navneet@architechdesign.in">navneet@architechdesign.in</a>
+        <a href="tel:+917838040375">+91 78380 40375</a>
+        <a href="tel:+918920821258">+91 89208 21258</a>
+        <!-- TODO(Navneet): WhatsApp number. Put it in the href (digits only, with 91) and remove `hidden`. -->
+        <a href="https://wa.me/TODO" hidden>WhatsApp ↗</a>
+        <a href="https://www.linkedin.com/in/architech-india/" rel="noreferrer">LinkedIn ↗</a>
+      </div>
+      <div class="ax-foot-col">
+        <h2 class="ax-foot-h">Work</h2>
+        <a href="/design/">Design portfolio →</a>
+        <a href="/automation/">Automation →</a>
+        <a href="/automation/demos/">Browser demos →</a>
+        <a href="/automation/connect/">Discuss a workflow →</a>
+      </div>
+      <div class="ax-foot-col">
+        <h2 class="ax-foot-h">Products</h2>
+        <a href="/automation/plugins/?suite=folio">Arch Folio</a>
+        <a href="/automation/plugins/?suite=forge">Arch Forge</a>
+        <a href="/automation/plugins/?suite=sentinel">Arch Sentinel</a>
+        <a href="/automation/plugins/architech-i3d/">ArchiTECH I3D</a>
+        <a href="/automation/plugins/architech-assistant/">ArchiTECH Assistant</a>
+        <a href="/automation/plugins/?suite=ai">ArchiTECH MCP Connector</a>
+      </div>
+    </div>
+    <div class="ax-foot-base">
+      <span class="ax-foot-mark"><svg width="26" height="26" viewBox="1 0 100 100" aria-hidden="true"><path d="M8 87.3L51.06 12.7a86.14 86.14 0 0 1 43.08 74.6A140 140 0 0 0 64 28.17H53.96L24.03 80.01l4.21 7.29Z"/><path class="ax-blade" d="m46.5 48.18 47.64 39.12-53.2-29.48Z"/></svg>Archi<strong>TECH</strong></span>
+      <p>Portfolio of Navneet Singh, New Delhi. All images are visualisations, not photographs. Autodesk and Revit are trademarks of Autodesk, Inc.</p>
+    </div>
   </footer>
 
   <script>
-    document.documentElement.classList.add('js');
-    // Blocks rise in as they scroll into view; a timer catches any the observer misses.
-    const seen = new IntersectionObserver((entries) => entries.forEach((entry) => {
-      if (entry.isIntersecting) { entry.target.classList.add('in'); seen.unobserve(entry.target); }
-    }), { rootMargin: '0px 0px -8% 0px' });
-    document.querySelectorAll('.reveal').forEach((block) => seen.observe(block));
-    setInterval(() => document.querySelectorAll('.reveal:not(.in)').forEach((block) => { const box = block.getBoundingClientRect(); if (box.top < innerHeight && box.bottom > 0) block.classList.add('in'); }), 2000);
+    // Fallback for browsers without scroll timelines: the same tone scrub, driven by scroll position.
+    if (document.documentElement.classList.contains('tone-js') && matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+      const root = document.documentElement;
+      // [property, element, where the ramp starts, its length], as fractions of the viewport; matches the CSS ranges.
+      const stops = [['--p1', document.querySelector('.tools'), .45, .3], ['--p2', document.querySelector('.about'), 1, .4]];
+      let frame = 0;
+      const tone = () => {
+        frame = 0;
+        for (const [name, el, start, span] of stops) root.style.setProperty(name, Math.min(1, Math.max(0, (innerHeight * start - el.getBoundingClientRect().top) / (innerHeight * span))).toFixed(3));
+      };
+      // Only listen while a tone boundary is near the viewport.
+      let near = 0;
+      const io = new IntersectionObserver((entries) => entries.forEach((e) => { near += e.isIntersecting ? 1 : -1; tone(); }), { rootMargin: '50% 0px' });
+      stops.forEach(([, el]) => io.observe(el));
+      addEventListener('scroll', () => { if (near > 0 && !frame) frame = requestAnimationFrame(tone); }, { passive: true });
+      tone();
+    }
     // Each side's picture drifts a little against the pointer.
     if (matchMedia('(prefers-reduced-motion: no-preference) and (pointer: fine)').matches) {
       document.querySelectorAll('.side').forEach((side) => {
