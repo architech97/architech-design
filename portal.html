@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,16 +13,22 @@
   <meta property="og:title" content="Navneet Singh · ArchiTECH">
   <meta property="og:description" content="I model and render buildings, and I write the Revit tools that document them.">
   <meta property="og:image" content="https://architechdesign.in/img/home-share-1200x630.jpg">
+  <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="The Vasant Kunj residence beside a Revit add-in window, with the line: I model and render buildings, and write the Revit tools that document them.">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Navneet Singh · ArchiTECH">
+  <meta name="twitter:description" content="I model and render buildings, and I write the Revit tools that document them.">
+  <meta name="twitter:image" content="https://architechdesign.in/img/home-share-1200x630.jpg">
+  <meta name="twitter:image:alt" content="The Vasant Kunj residence beside a Revit add-in window, with the line: I model and render buildings, and write the Revit tools that document them.">
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" href="/assets/architech-mark-transparent.png">
   <link rel="preload" as="image" type="image/avif" imagesrcset="/img/home-hero-day-640.avif 640w, /img/home-hero-day-1280.avif 1280w, /img/home-hero-day-1520.avif 1520w" imagesizes="(max-width: 700px) 100vw, 50vw" fetchpriority="high">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,500&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Jost:wght@300;400;500&amp;display=swap" rel="stylesheet">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,500&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Jost:wght@300;400;500&amp;display=optional" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,500&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Jost:wght@300;400;500&amp;display=optional"></noscript>
   <link rel="stylesheet" href="/chrome.css?v=1">
   <link rel="stylesheet" href="/portal.css?v=6">
   <script>
@@ -35,8 +41,8 @@
       const section = location.hash === '#house' ? '#dwelling' : location.hash;
       location.replace('/design/' + location.search + section);
     }
-    // The page tone is scrubbed by CSS scroll timelines; older browsers get the script fallback below.
-    if (!CSS.supports('animation-timeline: view()') && matchMedia('(prefers-reduced-motion: no-preference)').matches) document.documentElement.classList.add('tone-js');
+    // Keep a readable static gradient when scripting is unavailable; the script below replaces it with one body tone.
+    document.documentElement.classList.replace('no-js', 'js');
   </script>
 </head>
 <body>
@@ -84,7 +90,10 @@
           </span>
         </a>
         <a class="side automation" href="/automation/">
-          <span class="side-plan" aria-hidden="true"><img src="/img/home-drawing-1280.webp" alt="" width="1280" height="1033" decoding="async"></span>
+          <span class="side-plan" aria-hidden="true"><picture>
+            <source type="image/avif" srcset="/img/home-drawing-1280.avif 1280w" sizes="(max-width: 700px) 100vw, 50vw">
+            <img src="/img/home-drawing-1280.webp" srcset="/img/home-drawing-1280.webp 1280w" sizes="(max-width: 700px) 100vw, 50vw" alt="" width="1280" height="1033" decoding="async">
+          </picture></span>
           <img class="side-dialog" src="/automation/media/dialogs/sheet-manager/sheetmanagerwindow-dark.webp" alt="The Sheet Manager window, one of the Revit add-ins" width="1306" height="866" decoding="async">
           <span class="side-tag">Sheet Manager<small>Revit add-in · try it in the browser</small></span>
           <span class="side-copy">
@@ -104,7 +113,10 @@
       </div>
       <ol class="stages-row">
         <li class="stage-01"><a href="/design/#plans">
-          <figure><div class="stage-img paper"><img src="/img/home-drawing-1280.webp" alt="Ground floor plan drawing of the residence with room names and dimensions" width="1280" height="1033" loading="lazy" decoding="async"></div>
+          <figure><div class="stage-img paper"><picture>
+            <source type="image/avif" srcset="/img/home-drawing-1280.avif 1280w" sizes="(max-width: 860px) 50vw, 22vw">
+            <img src="/img/home-drawing-1280.webp" srcset="/img/home-drawing-1280.webp 1280w" sizes="(max-width: 860px) 50vw, 22vw" alt="Ground floor plan drawing of the residence with room names and dimensions" width="1280" height="1033" loading="lazy" decoding="async">
+          </picture></div>
           <figcaption><b>A-101</b><strong>Drawing</strong><span>Ground floor plan</span></figcaption></figure></a></li>
         <li class="stage-02"><a href="/design/#plans">
           <figure><div class="stage-img"><picture>
@@ -122,14 +134,25 @@
     </section>
 
     <section class="tools" aria-labelledby="tools-title">
-      <!-- The dialog straddles the tone change: its title bar sits over the render on paper, its body on the darker ground. -->
-      <a class="cross-dialog" href="/automation/demos/sheet-manager/" aria-label="Open the Sheet Manager walkthrough">
-        <picture>
-          <source type="image/avif" srcset="/img/home-sheet-manager-light-640.avif 640w, /img/home-sheet-manager-light-1186.avif 1186w" sizes="(max-width: 860px) 92vw, 42vw">
-          <img src="/img/home-sheet-manager-light-1186.webp" srcset="/img/home-sheet-manager-light-640.webp 640w, /img/home-sheet-manager-light-1186.webp 1186w" sizes="(max-width: 860px) 92vw, 42vw" alt="Sheet Manager, light theme, with sheets A-101 and A-102 of the same house ticked" width="1186" height="460" loading="lazy" decoding="async">
-        </picture>
-        <span class="cross-caption">Sheet Manager · numbering the sheets of this house</span>
-      </a>
+      <!-- A-202 stays pinned while the light Sheet Manager window moves over it and the page tone becomes taupe-d. -->
+      <div class="visual-crossing">
+        <div class="visual-pin">
+          <figure class="cross-render" aria-hidden="true">
+            <picture>
+              <source type="image/avif" srcset="/img/home-front-dusk-640.avif 640w, /img/home-front-dusk-1280.avif 1280w, /img/home-front-dusk-1496.avif 1496w" sizes="(max-width: 860px) 92vw, 70vw">
+              <img src="/img/home-front-dusk-1280.webp" srcset="/img/home-front-dusk-640.webp 640w, /img/home-front-dusk-1280.webp 1280w, /img/home-front-dusk-1496.webp 1496w" sizes="(max-width: 860px) 92vw, 70vw" alt="" width="1496" height="997" loading="lazy" decoding="async">
+            </picture>
+            <figcaption>A-202 · Visualisation · front elevation at dusk</figcaption>
+          </figure>
+          <a class="cross-dialog" href="/automation/demos/sheet-manager/" aria-label="Open the Sheet Manager walkthrough">
+            <picture>
+              <source type="image/avif" srcset="/img/home-sheet-manager-light-640.avif 640w, /img/home-sheet-manager-light-1186.avif 1186w" sizes="(max-width: 860px) 92vw, 50vw">
+              <img src="/img/home-sheet-manager-light-1186.webp" srcset="/img/home-sheet-manager-light-640.webp 640w, /img/home-sheet-manager-light-1186.webp 1186w" sizes="(max-width: 860px) 92vw, 50vw" alt="Sheet Manager, light theme, with sheets A-101 and A-102 of the same house ticked" width="1186" height="460" loading="lazy" decoding="async">
+            </picture>
+            <span class="cross-caption">Sheet Manager · numbering the sheets of this house</span>
+          </a>
+        </div>
+      </div>
       <div class="tools-grid">
         <div class="tools-head">
           <p class="label">02 · Automation</p>
@@ -167,7 +190,7 @@
         <p class="ax-foot-reply">I reply within one working day.</p>
       </div>
       <div class="ax-foot-col">
-        <h2 class="ax-foot-h">Contact</h2>
+        <p class="ax-foot-h">Contact</p>
         <a href="mailto:navneet@architechdesign.in">navneet@architechdesign.in</a>
         <a href="tel:+917838040375">+91 78380 40375</a>
         <a href="tel:+918920821258">+91 89208 21258</a>
@@ -176,14 +199,14 @@
         <a href="https://www.linkedin.com/in/architech-india/" rel="noreferrer">LinkedIn ↗</a>
       </div>
       <div class="ax-foot-col">
-        <h2 class="ax-foot-h">Work</h2>
+        <p class="ax-foot-h">Work</p>
         <a href="/design/">Design portfolio →</a>
         <a href="/automation/">Automation →</a>
         <a href="/automation/demos/">Browser demos →</a>
         <a href="/automation/connect/">Discuss a workflow →</a>
       </div>
       <div class="ax-foot-col">
-        <h2 class="ax-foot-h">Products</h2>
+        <p class="ax-foot-h">Products</p>
         <a href="/automation/plugins/?suite=folio">Arch Folio</a>
         <a href="/automation/plugins/?suite=forge">Arch Forge</a>
         <a href="/automation/plugins/?suite=sentinel">Arch Sentinel</a>
@@ -199,23 +222,43 @@
   </footer>
 
   <script>
-    // Fallback for browsers without scroll timelines: the same tone scrub, driven by scroll position.
-    if (document.documentElement.classList.contains('tone-js') && matchMedia('(prefers-reduced-motion: no-preference)').matches) {
-      const root = document.documentElement;
-      // [property, element, where the ramp starts, its length], as fractions of the viewport; matches the CSS ranges.
-      const stops = [['--p1', document.querySelector('.tools'), .45, .3], ['--p2', document.querySelector('.about'), 1, .4]];
-      let frame = 0;
-      const tone = () => {
-        frame = 0;
-        for (const [name, el, start, span] of stops) root.style.setProperty(name, Math.min(1, Math.max(0, (innerHeight * start - el.getBoundingClientRect().top) / (innerHeight * span))).toFixed(3));
-      };
-      // Only listen while a tone boundary is near the viewport.
-      let near = 0;
-      const io = new IntersectionObserver((entries) => entries.forEach((e) => { near += e.isIntersecting ? 1 : -1; tone(); }), { rootMargin: '50% 0px' });
-      stops.forEach(([, el]) => io.observe(el));
-      addEventListener('scroll', () => { if (near > 0 && !frame) frame = requestAnimationFrame(tone); }, { passive: true });
-      tone();
-    }
+    // One body background, scrubbed in JavaScript in every browser. A scroll event schedules at most one frame.
+    const body = document.body;
+    const crossing = document.querySelector('.visual-crossing');
+    const about = document.querySelector('.about');
+    const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+    const clamp01 = (value) => Math.min(1, Math.max(0, value));
+    let toneFrame = 0;
+    const updateTone = () => {
+      toneFrame = 0;
+      const viewport = Math.max(document.documentElement.clientHeight, innerHeight || 0, 1);
+      const crossingBox = crossing.getBoundingClientRect();
+      const aboutBox = about.getBoundingClientRect();
+
+      // Paper → taupe-d over 40vh, after the Design captions have left and while the render is pinned.
+      const toTools = clamp01((viewport * .2 - crossingBox.top) / (viewport * .4));
+      // Taupe-d → night over 40vh as About enters; it reaches night well before the footer.
+      const toNight = clamp01((viewport - aboutBox.top) / (viewport * .4));
+      body.style.setProperty('--tools-mix', `${(toTools * 100).toFixed(2)}%`);
+      body.style.setProperty('--night-mix', `${(toNight * 100).toFixed(2)}%`);
+
+      // The dialog crosses the pinned render. Reduced motion keeps the final composition without translation or zoom.
+      const crossProgress = reducedMotion.matches ? 1 : clamp01((viewport * .7 - crossingBox.top) / (viewport * .8));
+      const travelX = Math.min(innerWidth * .18, 180);
+      crossing.style.setProperty('--dialog-x', `${((1 - crossProgress) * travelX).toFixed(1)}px`);
+      crossing.style.setProperty('--dialog-y', `${((1 - crossProgress) * 72).toFixed(1)}px`);
+      crossing.style.setProperty('--dialog-opacity', (.28 + crossProgress * .72).toFixed(3));
+      crossing.style.setProperty('--render-scale', (1.045 - crossProgress * .045).toFixed(4));
+      body.classList.add('tone-ready');
+    };
+    const scheduleTone = () => {
+      if (!toneFrame) toneFrame = requestAnimationFrame(updateTone);
+    };
+    addEventListener('scroll', scheduleTone, { passive: true });
+    addEventListener('resize', scheduleTone, { passive: true });
+    if (reducedMotion.addEventListener) reducedMotion.addEventListener('change', scheduleTone);
+    else reducedMotion.addListener(scheduleTone);
+    updateTone();
     // Each side's picture drifts a little against the pointer.
     if (matchMedia('(prefers-reduced-motion: no-preference) and (pointer: fine)').matches) {
       document.querySelectorAll('.side').forEach((side) => {

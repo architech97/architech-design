@@ -1,26 +1,23 @@
 /* Home. Tokens, header and footer come from chrome.css (values from /design/). */
 
-/* The page tone: one background on the root, scrubbed by scroll from paper to taupe-d (tools) to night (about). */
-@property --p1 { syntax: '<number>'; inherits: false; initial-value: 0; }
-@property --p2 { syntax: '<number>'; inherits: false; initial-value: 0; }
-html {
-  color-scheme: light;
-  --tone: color-mix(in oklab, var(--night) calc(var(--p2) * 100%), color-mix(in oklab, var(--taupe-d) calc(var(--p1) * 100%), var(--paper)));
-  background: var(--paper);
-  /* While the tone is live, text on both sides of the boundary flips from ink to paper at 60% of the ramp,
-     where ink and paper both keep at least 3.4:1 against the mid-tone. */
-  --flip: clamp(0%, calc((var(--p1) - .6) * 5000%), 100%);
-  --live-ink: color-mix(in oklab, var(--on-dark) var(--flip), var(--ink));
-  --live-ink-2: color-mix(in oklab, var(--on-dark-2) var(--flip), var(--ink-2));
-  --live-design: color-mix(in oklab, #e0bf94 var(--flip), var(--brass-ink));
-  --live-auto: color-mix(in oklab, var(--focus-dark) var(--flip), var(--blue-ink));
-  --live-rule: color-mix(in oklab, #f3eee659 var(--flip), var(--taupe));
-}
-@keyframes tone-1 { from { --p1: 0; } to { --p1: 1; } }
-@keyframes tone-2 { from { --p2: 0; } to { --p2: 1; } }
+/* One canvas tone. JavaScript scrubs these percentages on scroll in every browser. */
+html { color-scheme: light; background: var(--paper); }
 
 * { box-sizing: border-box; }
-body { margin: 0; min-width: 0; color: var(--ink); font: 300 1.0625rem/1.6 var(--sans); -webkit-font-smoothing: antialiased; }
+body {
+  --tools-mix: 0%;
+  --night-mix: 0%;
+  --paper-to-tools: color-mix(in oklab, var(--taupe-d) var(--tools-mix), var(--paper));
+  --bg: color-mix(in oklab, var(--night) var(--night-mix), var(--paper-to-tools));
+  margin: 0;
+  min-width: 0;
+  min-height: 100%;
+  background: var(--paper);
+  background: var(--bg);
+  color: var(--ink);
+  font: 300 1.0625rem/1.6 var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
 main { overflow-x: clip; }
 h1, h2, p, figure, ol, ul { margin: 0; padding: 0; }
 ol, ul { list-style: none; }
@@ -50,7 +47,7 @@ main:focus { outline: none; }
 .side + .side { border-left: .75px solid #ffffff38; }
 .split:hover .side:hover, .split:focus-within .side:focus-visible { flex-grow: 1.4; }
 .side:focus-visible { outline-offset: -6px; }
-.side picture { position: absolute; inset: 0; z-index: -2; }
+.side > picture { position: absolute; inset: 0; z-index: -2; }
 .side-photo { position: absolute; inset: -14px; width: calc(100% + 28px); max-width: none; height: calc(100% + 28px); object-fit: cover; object-position: 50% 46%; translate: calc(var(--tx, 0) * -14px) calc(var(--ty, 0) * -14px); transition: translate var(--t-scene) var(--ease), scale var(--t-scene) var(--ease); }
 .side:hover .side-photo { scale: 1.03; }
 .side.design::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, #17131100 40%, #171311d9 100%); }
@@ -84,15 +81,25 @@ main:focus { outline: none; }
 .side:hover .side-go, .side:focus-visible .side-go { gap: 14px; border-color: currentColor; }
 
 /* Design: the house at three stages, drawing, material, light. */
-.stages, .tools, .about { padding: var(--s-6) var(--gut); }
+.stages, .about { padding: var(--s-6) var(--gut); }
 .stages { padding-bottom: var(--s-7); }
 .stages > *, .tools > *, .about { max-width: 1520px; margin-inline: auto; }
-.stages-head { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); align-items: end; gap: var(--s-3); margin-bottom: var(--s-5); }
+.stages-head {
+  position: relative;
+  z-index: 4;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  align-items: end;
+  gap: var(--s-3);
+  margin-bottom: var(--s-5);
+  background: var(--paper);
+  box-shadow: 0 0 0 var(--s-2) var(--paper);
+}
 .stages-head .label { grid-column: 1 / -1; color: var(--brass-ink); }
 h2 { font: 500 clamp(2.4rem, 5.2vw, 5.4rem)/.95 var(--serif); letter-spacing: -.035em; text-wrap: balance; }
 .stages-head h2 { grid-column: 1 / span 7; }
 .stages-note { grid-column: 9 / -1; color: var(--ink-2); font-size: clamp(1rem, 1.2vw, 1.1rem); }
-.stages-row { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--s-3); align-items: end; }
+.stages-row { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--s-3); align-items: end; }
 .stage-01 { grid-column: span 3; position: relative; z-index: 3; }
 .stage-02 { grid-column: span 4; }
 .stage-03 { grid-column: span 5; }
@@ -108,13 +115,72 @@ h2 { font: 500 clamp(2.4rem, 5.2vw, 5.4rem)/.95 var(--serif); letter-spacing: -.
 .stages-row strong { font: 500 clamp(1.25rem, 2vw, 1.85rem)/1.1 var(--serif); letter-spacing: -.02em; }
 .stages-row span { color: var(--ink-2); font-size: .88rem; }
 
-/* Automation: the darker ground. A light-theme dialog straddles the change of tone. */
-.tools { --focus: var(--focus-dark); color: var(--on-dark); padding-top: 0; background: linear-gradient(var(--paper), var(--stone) 14vh, var(--taupe-d) 42vh); }
-.cross-dialog { position: relative; z-index: 2; display: block; width: min(52%, 720px); margin: calc(-1 * clamp(56px, 7vw, 96px)) 0 0 auto; color: var(--on-dark-2); }
-.cross-dialog img { width: 100%; border: .75px solid #2a242040; border-radius: 4px 4px 0 0; box-shadow: 0 50px 80px -40px #0b0807; transition: translate var(--t-reveal) var(--ease); }
-.cross-dialog:hover img { translate: 0 -4px; }
-.cross-caption { display: block; margin-top: 10px; font: 400 .72rem/1.4 var(--mono); letter-spacing: .04em; text-align: right; }
-.tools-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--s-3); align-items: start; margin-top: var(--s-5); }
+/* Automation: a real crossing. The render pins while the light dialog moves over it and the body becomes taupe-d. */
+.tools {
+  --focus: var(--focus-dark);
+  position: relative;
+  isolation: isolate;
+  padding: 0 var(--gut) var(--s-6);
+  color: var(--on-dark);
+  background: transparent;
+}
+.tools::before, .about::before { content: ''; position: absolute; z-index: -1; inset: 0; pointer-events: none; }
+.tools::before { background: linear-gradient(var(--paper), var(--stone) 18vh, var(--taupe-d) 42vh, var(--taupe-d)); }
+.visual-crossing {
+  /* Final values are the no-script fallback; the scrubber writes the travelling values before this enters view. */
+  --dialog-x: 0px;
+  --dialog-y: 0px;
+  --dialog-opacity: 1;
+  --render-scale: 1;
+  position: relative;
+  height: max(130vh, 860px);
+}
+.visual-pin {
+  position: sticky;
+  top: clamp(24px, 8vh, 72px);
+  height: clamp(480px, 72vh, 680px);
+  isolation: isolate;
+}
+.cross-render {
+  position: absolute;
+  inset: 0 18% 8% 0;
+  overflow: hidden;
+  background: var(--night);
+  border-radius: 2px;
+  box-shadow: 0 50px 90px -55px #0b080799;
+}
+.cross-render picture, .cross-render img { display: block; width: 100%; height: 100%; }
+.cross-render img { object-fit: cover; object-position: 50% 56%; scale: var(--render-scale); }
+.cross-render::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, #17131100 50%, #171311b8 100%); pointer-events: none; }
+.cross-render figcaption {
+  position: absolute;
+  z-index: 1;
+  left: var(--s-2);
+  bottom: var(--s-2);
+  padding: 6px 9px;
+  color: var(--on-dark);
+  background: #171311d9;
+  border-radius: 2px;
+  font: 400 .72rem/1.4 var(--mono);
+  letter-spacing: .04em;
+}
+.cross-dialog {
+  position: absolute;
+  z-index: 2;
+  top: 44%;
+  right: 0;
+  display: block;
+  width: min(55%, 720px);
+  color: var(--on-dark);
+  opacity: var(--dialog-opacity);
+  transform: translate3d(var(--dialog-x), var(--dialog-y), 0);
+  will-change: transform, opacity;
+}
+.cross-dialog picture, .cross-dialog img { display: block; width: 100%; }
+.cross-dialog img { border: .75px solid #2a242066; border-radius: 4px; box-shadow: 0 50px 80px -40px #0b0807; }
+.cross-dialog:focus-visible { outline: 3px solid var(--night); outline-offset: 4px; box-shadow: 0 0 0 6px var(--focus-dark); }
+.cross-caption { display: table; margin: 10px 0 0 auto; padding: 5px 8px; color: var(--on-dark); background: #171311e6; border-radius: 2px; font: 400 .72rem/1.4 var(--mono); letter-spacing: .04em; text-align: right; }
+.tools-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--s-3); align-items: start; }
 .tools-head { grid-column: 1 / span 6; display: grid; gap: var(--s-3); }
 .tools .label { color: var(--focus-dark); }
 .tools-copy { grid-column: 8 / -1; }
@@ -129,8 +195,9 @@ h2 { font: 500 clamp(2.4rem, 5.2vw, 5.4rem)/.95 var(--serif); letter-spacing: -.
 .text-link { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; color: var(--focus-dark); font-weight: 400; border-bottom: .75px solid #c3d2f773; transition: gap var(--t-reveal) var(--ease), border-color var(--t-ui); }
 .text-link:hover, .text-link:focus-visible { gap: 14px; border-color: currentColor; }
 
-/* About, on the night tone the footer continues. */
-.about { --focus: var(--focus-dark); display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--s-3); color: var(--on-dark); background: linear-gradient(var(--taupe-d), var(--night) 40vh); scroll-margin-top: 24px; }
+/* About takes the one canvas from taupe-d to night before the footer starts on the same night. */
+.about { --focus: var(--focus-dark); position: relative; isolation: isolate; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); align-content: center; gap: var(--s-3); min-height: min(70vh, 680px); color: var(--on-dark); background: transparent; scroll-margin-top: 24px; }
+.about::before { background: linear-gradient(var(--taupe-d), var(--umber) 20vh, var(--night) 40vh, var(--night)); }
 .about .label { grid-column: 1 / -1; color: var(--on-dark-2); }
 .about h2 { grid-column: 1 / span 6; }
 .about-copy { grid-column: 8 / -1; display: grid; gap: var(--s-2); color: var(--on-dark-2); font-size: clamp(1rem, 1.2vw, 1.1rem); max-width: 50ch; }
@@ -144,7 +211,10 @@ body > .ax-footer { padding-top: var(--s-5); }
   /* Captions stack: number and title on one line, the description below. */
   .stages-row figcaption { grid-template-columns: auto minmax(0, 1fr); row-gap: 2px; }
   .stages-row figcaption span { grid-column: 1 / -1; }
-  .cross-dialog { width: 92%; }
+  .visual-crossing { height: max(125vh, 780px); }
+  .visual-pin { height: clamp(500px, 72vh, 640px); }
+  .cross-render { inset: 0 0 16% 0; }
+  .cross-dialog { top: auto; right: 4%; bottom: 0; width: 92%; }
 }
 @media (max-width: 700px) {
   .first-screen { grid-template-rows: auto auto; min-height: 0; }
@@ -172,19 +242,6 @@ body > .ax-footer { padding-top: var(--s-5); }
   @keyframes dialog-in { from { opacity: 0; transform: translate(-50%, 34px); } to { opacity: 1; transform: translateX(-50%); } }
 
   @supports (animation-timeline: view()) {
-    /* The page tone follows the two darker sections in. */
-    html { background: var(--tone); timeline-scope: --to-tools, --to-night; animation: tone-1 linear both, tone-2 linear both; animation-timeline: --to-tools, --to-night; animation-range: cover 55vh cover 85vh, cover 0% cover 40vh; }
-    /* Paper to taupe-d runs over 30vh while the boundary travels from 45vh to 15vh: mostly the crossing dialog is in view. */
-    .tools { view-timeline: --to-tools block; }
-    .about { view-timeline: --to-night block; }
-    /* Sections let the page tone through (the empty image keeps contrast checkers from guessing a background). */
-    .tools, .about { background: linear-gradient(#0000, #0000); }
-    .stages, .tools { color: var(--live-ink); }
-    .stages-note, .stages-row span, .tools-copy > p, .tool-index span, .cross-caption { color: var(--live-ink-2); }
-    .stages-head .label, .stages-row b { color: var(--live-design); }
-    .tools .label, .tool-index b, .text-link { color: var(--live-auto); }
-    .stages-row figcaption, .tool-index, .tool-index a { border-color: var(--live-rule); }
-
     /* The paper frame opens to full bleed over the first 70vh of scroll. */
     .split { animation: bleed linear both; animation-timeline: scroll(root); animation-range: 0 70vh; }
     @keyframes bleed { to { clip-path: inset(0 0 round 0); } }
@@ -208,23 +265,15 @@ body > .ax-footer { padding-top: var(--s-5); }
     @keyframes light { from { filter: brightness(.4) saturate(.5); } to { filter: none; } }
     .label::after { animation: rule linear both; animation-timeline: view(); animation-range: entry 0% cover 30%; }
     @keyframes rule { from { transform: scaleX(0); } to { transform: none; } }
-    /* A tool slides over the house as the ground darkens. */
-    .cross-dialog { animation: slide-over linear both; animation-timeline: view(); animation-range: entry 0% cover 40%; }
-    @keyframes slide-over { from { transform: translateX(22%); } to { transform: none; } }
   }
   @media (max-width: 700px) { .stage-01 { --land-x: 20vw; --land-y: -46vh; } }
-
-  /* Script fallback: the same tone, driven by --p1/--p2 written on the root. */
-  .tone-js { background: var(--tone); }
-  .tone-js .tools, .tone-js .about { background: linear-gradient(#0000, #0000); }
-  .tone-js .stages, .tone-js .tools { color: var(--live-ink); }
-  .tone-js .stages-note, .tone-js .stages-row span, .tone-js .tools-copy > p, .tone-js .tool-index span, .tone-js .cross-caption { color: var(--live-ink-2); }
-  .tone-js .stages-head .label, .tone-js .stages-row b { color: var(--live-design); }
-  .tone-js .tools .label, .tone-js .tool-index b, .tone-js .text-link { color: var(--live-auto); }
-  .tone-js .stages-row figcaption, .tone-js .tool-index, .tone-js .tool-index a { border-color: var(--live-rule); }
 }
 
 @media (prefers-reduced-motion: reduce) {
   *, ::before, ::after { animation: none !important; transition: none !important; }
   .side-photo, .side-dialog, .side-plan img { translate: none; }
+  .visual-crossing { height: auto; padding: var(--s-4) 0 var(--s-6); }
+  .visual-pin { position: relative; top: auto; }
+  .cross-dialog { opacity: 1; transform: none; will-change: auto; }
+  .cross-render img { scale: 1; }
 }
