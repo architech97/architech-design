@@ -1,7 +1,27 @@
 /* Home. Tokens, header and footer come from chrome.css (values from /design/). */
 
+:root {
+  --home-white: #fff;
+  --home-clear: transparent;
+  --home-rule-dark: #ffffff38;
+  --home-rule-light: #ffffff73;
+  --home-night-clear: #17131100;
+  --home-night-chip: #171311c4;
+  --home-night-label: #171311d9;
+  --home-night-overlay: #171311b8;
+  --home-copy-light: #ffffffe6;
+  --home-design-link: #f3d9b5;
+  --home-shadow-solid: #000;
+  --home-shadow-soft: #0b080799;
+  --home-shadow-deep: #0b0807;
+  --home-dialog-rule: #2a242066;
+  --home-paper-rule: #f3eee640;
+  --home-focus-rule: #c3d2f773;
+}
+
 /* One canvas tone. JavaScript scrubs these percentages on scroll in every browser. */
 html { color-scheme: light; background: var(--paper); }
+html, body { overflow-x: clip; }
 
 * { box-sizing: border-box; }
 body {
@@ -23,15 +43,10 @@ h1, h2, p, figure, ol, ul { margin: 0; padding: 0; }
 ol, ul { list-style: none; }
 img { display: block; max-width: 100%; height: auto; }
 a { color: inherit; text-decoration: none; }
-em { font-style: italic; }
 :focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; }
 .skip-link { position: fixed; top: 10px; left: 10px; z-index: 50; transform: translateY(-160%); padding: 10px 14px; color: var(--paper); background: var(--night); }
 .skip-link:focus { transform: none; }
 main:focus { outline: none; }
-
-/* Mono index label with a plan line that draws to the right. */
-.label { display: flex; align-items: center; gap: var(--s-2); font: 400 .75rem/1.4 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); }
-.label::after { content: ''; flex: 1; border-top: .75px solid currentColor; opacity: .55; transform-origin: left; }
 
 /* First screen: one line about the person, then the two portfolios framed by the paper. */
 .first-screen { min-height: calc(100svh - 64px); display: grid; grid-template-rows: auto minmax(380px, 1fr); }
@@ -42,28 +57,27 @@ main:focus { outline: none; }
 .statement p { grid-column: 10 / -1; color: var(--ink-2); font-size: .95rem; line-height: 1.45; padding-bottom: .55em; }
 .statement p strong { display: block; margin-bottom: 4px; color: var(--ink); font-weight: 500; font-size: 1.05rem; }
 
-.split { --pad-x: calc(var(--gut) + clamp(16px, 2.6vw, 40px)); --focus: var(--focus-dark); display: flex; min-height: 0; background: var(--night); clip-path: inset(0 var(--gut) round 2px); }
-.side { position: relative; flex: 1 1 0; min-width: 0; overflow: hidden; isolation: isolate; color: #fff; transition: flex-grow var(--t-scene) var(--ease); }
-.side + .side { border-left: .75px solid #ffffff38; }
+.split { --pad-x: calc(var(--gut) + clamp(16px, 2.6vw, 40px)); --focus: var(--focus-dark); display: flex; min-height: 0; background: var(--night); clip-path: inset(0 var(--gut)); }
+.side { position: relative; flex: 1 1 0; min-width: 0; overflow: hidden; isolation: isolate; color: var(--home-white); transition: flex-grow var(--t-scene) var(--ease); }
+.side + .side { border-left: .75px solid var(--home-rule-dark); }
 .split:hover .side:hover, .split:focus-within .side:focus-visible { flex-grow: 1.4; }
 .side:focus-visible { outline-offset: -6px; }
 .side > picture { position: absolute; inset: 0; z-index: -2; }
 .side-photo { position: absolute; inset: -14px; width: calc(100% + 28px); max-width: none; height: calc(100% + 28px); object-fit: cover; object-position: 50% 46%; translate: calc(var(--tx, 0) * -14px) calc(var(--ty, 0) * -14px); transition: translate var(--t-scene) var(--ease), scale var(--t-scene) var(--ease); }
 .side:hover .side-photo { scale: 1.03; }
-.side.design::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, #17131100 40%, #171311d9 100%); }
+.side.design::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, var(--home-night-clear) 40%, var(--home-night-label) 78%, var(--night) 100%); }
 
 /* Automation side: the house's own ground floor plan as a blueprint, with a real add-in window over it. */
 .side.automation { background: var(--night); }
-.side-plan { position: absolute; inset: 0; z-index: -2; overflow: hidden; }
+.side-plan { position: absolute; inset: 0; z-index: -2; overflow: hidden; isolation: isolate; background: var(--night); }
 .side-plan img { position: absolute; top: 50%; left: 44%; width: max(118%, 760px); max-width: none; transform: translate(-50%, -50%); filter: grayscale(1) invert(1) brightness(.75) contrast(3); mix-blend-mode: screen; opacity: .55; translate: calc(var(--tx, 0) * 16px) calc(var(--ty, 0) * 16px); transition: translate var(--t-scene) var(--ease), opacity var(--t-reveal); }
-.side-plan::after { content: ''; position: absolute; inset: 0; background: var(--blueprint); mix-blend-mode: multiply; }
-.side.automation::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, #17131100 30%, #171311f0 92%); }
-.side-dialog { position: absolute; z-index: -1; top: 9%; left: 50%; width: min(70%, 700px); transform: translateX(-50%); border: .75px solid #ffffff38; box-shadow: 0 40px 70px -30px #000; translate: calc(var(--tx, 0) * -12px) calc(var(--ty, 0) * -12px); transition: translate var(--t-scene) var(--ease), scale var(--t-scene) var(--ease); view-transition-name: automation-dialog; }
+.side.automation::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, var(--night), var(--home-night-clear) 18%, var(--home-night-clear) 30%, var(--night) 100%); }
+.side-dialog { position: absolute; z-index: -1; top: 9%; left: 50%; width: min(70%, 700px); transform: translateX(-50%); border: .75px solid var(--home-rule-dark); box-shadow: 0 40px 70px -30px var(--home-shadow-solid); translate: calc(var(--tx, 0) * -12px) calc(var(--ty, 0) * -12px); transition: translate var(--t-scene) var(--ease), scale var(--t-scene) var(--ease); view-transition-name: automation-dialog; }
 .side:hover .side-dialog { scale: 1.02; }
 .side:hover .side-plan img { opacity: .8; }
 
 /* Sheet-style tag on a solid chip, so it reads on any part of the picture. */
-.side-tag { position: absolute; top: 18px; right: calc(var(--gut) + 18px); padding: 6px 10px; text-align: right; color: var(--on-dark); background: #171311c4; border-radius: 2px; font: 500 .72rem/1.45 var(--mono); letter-spacing: .02em; }
+.side-tag { position: absolute; top: 18px; right: calc(var(--gut) + 18px); padding: 6px 10px; text-align: right; color: var(--on-dark); background: var(--home-night-chip); border-radius: 2px; font: 400 .8125rem/1.45 var(--sans); }
 .side.automation .side-tag { right: calc(var(--gut) + 18px); }
 .side.design .side-tag { left: calc(var(--gut) + 18px); right: auto; text-align: left; }
 .side-tag small { display: block; font-size: inherit; font-weight: 400; color: var(--on-dark-2); }
@@ -74,15 +88,31 @@ main:focus { outline: none; }
 .side-name { grid-column: 1 / -1; font: 500 clamp(3rem, 7vw, 7.6rem)/.86 var(--serif); letter-spacing: -.04em; }
 .side-name::after { content: ''; display: block; width: 1.05em; height: 2px; margin-top: .16em; background: var(--brass); }
 .automation .side-name::after { background: var(--blueprint); }
-.side-text { grid-column: 1; max-width: 34ch; margin-top: 12px; font-size: clamp(.95rem, 1.15vw, 1.08rem); line-height: 1.4; color: #ffffffe6; }
-.side-go { grid-column: 2; display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding-bottom: 2px; font-weight: 400; white-space: nowrap; border-bottom: .75px solid #ffffff73; transition: border-color var(--t-ui), gap var(--t-reveal) var(--ease); }
-.design .side-go { color: #f3d9b5; }
+.side-text { grid-column: 1; max-width: 34ch; margin-top: 12px; font-size: clamp(.95rem, 1.15vw, 1.08rem); line-height: 1.4; color: var(--home-copy-light); }
+.side-go { grid-column: 2; display: inline-flex; align-items: center; min-height: 44px; padding-bottom: 2px; font-weight: 400; white-space: nowrap; border-bottom: .75px solid var(--home-rule-light); transition: border-color var(--t-ui); }
+.design .side-go { color: var(--home-design-link); }
 .automation .side-go { color: var(--focus-dark); }
-.side:hover .side-go, .side:focus-visible .side-go { gap: 14px; border-color: currentColor; }
+.side:hover .side-go, .side:focus-visible .side-go { border-color: currentColor; }
 
 /* Design: the house at three stages, drawing, material, light. */
 .stages, .about { padding: var(--s-6) var(--gut); }
-.stages { padding-bottom: var(--s-7); }
+.stages {
+  --hero-feather: max(180px, 32vh);
+  position: relative;
+  isolation: isolate;
+  padding-top: calc(var(--hero-feather) + var(--s-4));
+  padding-bottom: var(--s-7);
+}
+.stages::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 0 0 auto;
+  height: var(--hero-feather);
+  pointer-events: none;
+  clip-path: inset(0 var(--gut));
+  background: linear-gradient(var(--night), var(--umber) 24%, var(--taupe-d) 47%, var(--taupe) 68%, var(--stone) 85%, var(--paper));
+}
 .stages > *, .tools > *, .about { max-width: 1520px; margin-inline: auto; }
 .stages-head {
   position: relative;
@@ -95,24 +125,23 @@ main:focus { outline: none; }
   background: var(--paper);
   box-shadow: 0 0 0 var(--s-2) var(--paper);
 }
-.stages-head .label { grid-column: 1 / -1; color: var(--brass-ink); }
 h2 { font: 500 clamp(2.4rem, 5.2vw, 5.4rem)/.95 var(--serif); letter-spacing: -.035em; text-wrap: balance; }
 .stages-head h2 { grid-column: 1 / span 7; }
 .stages-note { grid-column: 9 / -1; color: var(--ink-2); font-size: clamp(1rem, 1.2vw, 1.1rem); }
 .stages-row { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--s-3); align-items: end; }
-.stage-01 { grid-column: span 3; position: relative; z-index: 3; }
+.stage-01 { grid-column: span 3; position: relative; }
 .stage-02 { grid-column: span 4; }
 .stage-03 { grid-column: span 5; }
 .stage-img { overflow: hidden; background: var(--paper-2); aspect-ratio: 4 / 3.3; }
 .stage-03 .stage-img { aspect-ratio: 4 / 2.7; }
 .stage-img img, .stage-img picture { width: 100%; height: 100%; object-fit: cover; }
-.stage-img.paper { background: #ece4d7; }
-.stage-img.paper img { object-fit: contain; padding: 4%; mix-blend-mode: multiply; }
+.stage-img.paper { background: var(--paper-2); }
+.stage-img.paper img { object-fit: contain; padding: 4%; mix-blend-mode: normal; }
 .stages-row a:hover img { scale: 1.03; }
 .stage-img img { transition: scale var(--t-scene) var(--ease); }
 .stages-row figcaption { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: baseline; gap: 12px; padding-top: 14px; margin-top: 14px; border-top: .75px solid var(--taupe); }
-.stages-row b { font: 400 .75rem var(--mono); letter-spacing: .04em; color: var(--brass-ink); }
-.stages-row strong { font: 500 clamp(1.25rem, 2vw, 1.85rem)/1.1 var(--serif); letter-spacing: -.02em; }
+.stages-row b { font: 500 .8125rem/1.4 var(--sans); color: var(--brass-ink); }
+.stages-row strong { font: 500 clamp(1rem, 1.3vw, 1.15rem)/1.3 var(--sans); }
 .stages-row span { color: var(--ink-2); font-size: .88rem; }
 
 /* Automation: a real crossing. The render pins while the light dialog moves over it and the body becomes taupe-d. */
@@ -122,7 +151,7 @@ h2 { font: 500 clamp(2.4rem, 5.2vw, 5.4rem)/.95 var(--serif); letter-spacing: -.
   isolation: isolate;
   padding: 0 var(--gut) var(--s-6);
   color: var(--on-dark);
-  background: transparent;
+  background: var(--home-clear);
 }
 .tools::before, .about::before { content: ''; position: absolute; z-index: -1; inset: 0; pointer-events: none; }
 .tools::before { background: linear-gradient(var(--paper), var(--stone) 18vh, var(--taupe-d) 42vh, var(--taupe-d)); }
@@ -130,7 +159,6 @@ h2 { font: 500 clamp(2.4rem, 5.2vw, 5.4rem)/.95 var(--serif); letter-spacing: -.
   /* Final values are the no-script fallback; the scrubber writes the travelling values before this enters view. */
   --dialog-x: 0px;
   --dialog-y: 0px;
-  --dialog-opacity: 1;
   --render-scale: 1;
   position: relative;
   height: max(130vh, 860px);
@@ -147,11 +175,11 @@ h2 { font: 500 clamp(2.4rem, 5.2vw, 5.4rem)/.95 var(--serif); letter-spacing: -.
   overflow: hidden;
   background: var(--night);
   border-radius: 2px;
-  box-shadow: 0 50px 90px -55px #0b080799;
+  box-shadow: 0 50px 90px -55px var(--home-shadow-soft);
 }
 .cross-render picture, .cross-render img { display: block; width: 100%; height: 100%; }
 .cross-render img { object-fit: cover; object-position: 50% 56%; scale: var(--render-scale); }
-.cross-render::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, #17131100 50%, #171311b8 100%); pointer-events: none; }
+.cross-render::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, var(--home-night-clear) 50%, var(--home-night-overlay) 100%); pointer-events: none; }
 .cross-render figcaption {
   position: absolute;
   z-index: 1;
@@ -159,10 +187,9 @@ h2 { font: 500 clamp(2.4rem, 5.2vw, 5.4rem)/.95 var(--serif); letter-spacing: -.
   bottom: var(--s-2);
   padding: 6px 9px;
   color: var(--on-dark);
-  background: #171311d9;
+  background: var(--home-night-label);
   border-radius: 2px;
-  font: 400 .72rem/1.4 var(--mono);
-  letter-spacing: .04em;
+  font: 400 .8125rem/1.4 var(--sans);
 }
 .cross-dialog {
   position: absolute;
@@ -172,33 +199,28 @@ h2 { font: 500 clamp(2.4rem, 5.2vw, 5.4rem)/.95 var(--serif); letter-spacing: -.
   display: block;
   width: min(55%, 720px);
   color: var(--on-dark);
-  opacity: var(--dialog-opacity);
   transform: translate3d(var(--dialog-x), var(--dialog-y), 0);
-  will-change: transform, opacity;
+  will-change: transform;
 }
 .cross-dialog picture, .cross-dialog img { display: block; width: 100%; }
-.cross-dialog img { border: .75px solid #2a242066; border-radius: 4px; box-shadow: 0 50px 80px -40px #0b0807; }
+.cross-dialog img { border: .75px solid var(--home-dialog-rule); border-radius: 4px; box-shadow: 0 50px 80px -40px var(--home-shadow-deep); }
 .cross-dialog:focus-visible { outline: 3px solid var(--night); outline-offset: 4px; box-shadow: 0 0 0 6px var(--focus-dark); }
-.cross-caption { display: table; margin: 10px 0 0 auto; padding: 5px 8px; color: var(--on-dark); background: #171311e6; border-radius: 2px; font: 400 .72rem/1.4 var(--mono); letter-spacing: .04em; text-align: right; }
+.cross-caption { display: table; margin: 10px 0 0 auto; padding: 5px 8px; color: var(--on-dark); background: var(--home-night-label); border-radius: 2px; font: 400 .8125rem/1.4 var(--sans); text-align: right; }
 .tools-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--s-3); align-items: start; }
 .tools-head { grid-column: 1 / span 6; display: grid; gap: var(--s-3); }
-.tools .label { color: var(--focus-dark); }
 .tools-copy { grid-column: 8 / -1; }
 .tools-copy > p { color: var(--on-dark-2); font-size: clamp(1rem, 1.2vw, 1.1rem); max-width: 48ch; }
-.tool-index { margin: var(--s-4) 0 var(--s-3); border-top: .75px solid #f3eee640; }
-.tool-index a { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr) auto; align-items: baseline; gap: 2px 16px; padding: 14px 0; border-bottom: .75px solid #f3eee640; transition: padding var(--t-reveal) var(--ease); }
-.tool-index b { grid-row: span 2; font: 400 .72rem/1.6 var(--mono); letter-spacing: .04em; color: var(--focus-dark); }
+.tool-index { margin: var(--s-4) 0 var(--s-3); border-top: .75px solid var(--home-paper-rule); }
+.tool-index a { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); align-items: baseline; gap: 2px 16px; padding: 14px 0; border-bottom: .75px solid var(--home-paper-rule); transition: padding var(--t-reveal) var(--ease); }
+.tool-index b { grid-row: span 2; font: 500 .8125rem/1.6 var(--sans); color: var(--focus-dark); }
 .tool-index strong { font-weight: 500; font-size: 1.1rem; }
 .tool-index span { grid-column: 2; color: var(--on-dark-2); font-size: .9rem; }
-.tool-index i { grid-column: 3; grid-row: 1 / span 2; align-self: center; font-style: normal; transition: translate var(--t-reveal) var(--ease); }
-.tool-index a:hover i, .tool-index a:focus-visible i { translate: 6px 0; }
-.text-link { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; color: var(--focus-dark); font-weight: 400; border-bottom: .75px solid #c3d2f773; transition: gap var(--t-reveal) var(--ease), border-color var(--t-ui); }
-.text-link:hover, .text-link:focus-visible { gap: 14px; border-color: currentColor; }
+.text-link { display: inline-flex; align-items: center; min-height: 44px; color: var(--focus-dark); font-weight: 400; border-bottom: .75px solid var(--home-focus-rule); transition: border-color var(--t-ui); }
+.text-link:hover, .text-link:focus-visible { border-color: currentColor; }
 
 /* About takes the one canvas from taupe-d to night before the footer starts on the same night. */
-.about { --focus: var(--focus-dark); position: relative; isolation: isolate; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); align-content: center; gap: var(--s-3); min-height: min(70vh, 680px); color: var(--on-dark); background: transparent; scroll-margin-top: 24px; }
+.about { --focus: var(--focus-dark); position: relative; isolation: isolate; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); align-content: center; gap: var(--s-3); min-height: min(70vh, 680px); color: var(--on-dark); background: var(--home-clear); scroll-margin-top: 24px; }
 .about::before { background: linear-gradient(var(--taupe-d), var(--umber) 20vh, var(--night) 40vh, var(--night)); }
-.about .label { grid-column: 1 / -1; color: var(--on-dark-2); }
 .about h2 { grid-column: 1 / span 6; }
 .about-copy { grid-column: 8 / -1; display: grid; gap: var(--s-2); color: var(--on-dark-2); font-size: clamp(1rem, 1.2vw, 1.1rem); max-width: 50ch; }
 .about + * { margin-top: 0; }
@@ -218,13 +240,13 @@ body > .ax-footer { padding-top: var(--s-5); }
 }
 @media (max-width: 700px) {
   .first-screen { grid-template-rows: auto auto; min-height: 0; }
-  .split { flex-direction: column; clip-path: inset(0 var(--gut) round 2px); }
+  .split { flex-direction: column; clip-path: inset(0 var(--gut)); }
   .side { flex: none; height: 62svh; min-height: 380px; max-height: 560px; }
-  .side + .side { border-left: 0; border-top: .75px solid #ffffff38; }
+  .side + .side { border: 0; }
   .side-copy, .side.design .side-copy, .side.automation .side-copy { grid-template-columns: minmax(0, 1fr); padding-inline: var(--pad-x); }
   .side-go { grid-column: 1; justify-self: start; margin-top: 8px; }
   .side-dialog { top: 15%; width: calc(100% - 2 * var(--pad-x)); }
-  .side-tag, .side.design .side-tag, .side.automation .side-tag { top: 12px; left: calc(var(--gut) + 12px); right: auto; text-align: left; font-size: .66rem; }
+  .side-tag, .side.design .side-tag, .side.automation .side-tag { top: 12px; left: calc(var(--gut) + 12px); right: auto; text-align: left; font-size: .75rem; }
   .split:hover .side:hover { flex-grow: 0; }
 }
 
@@ -243,19 +265,15 @@ body > .ax-footer { padding-top: var(--s-5); }
 
   @supports (animation-timeline: view()) {
     /* The paper frame opens to full bleed over the first 70vh of scroll. */
-    .split { animation: bleed linear both; animation-timeline: scroll(root); animation-range: 0 70vh; }
-    @keyframes bleed { to { clip-path: inset(0 0 round 0); } }
+    .split, .stages::before { animation: bleed linear both; animation-timeline: scroll(root); animation-range: 0 70vh; }
+    @keyframes bleed { to { clip-path: inset(0); } }
 
-    /* Drawing: the blueprint from the Automation panel lands as card A-101. */
-    .stage-01 { --land-x: 34vw; --land-y: -38vh; }
-    .stage-01 .stage-img { animation: land linear both; animation-timeline: view(); animation-range: entry 0% cover 50%; }
-    .stage-01 .stage-img img { animation: unink linear both; animation-timeline: view(); animation-range: entry 0% cover 50%; }
-    @keyframes land { from { transform: translate(var(--land-x), var(--land-y)) scale(1.2); background: var(--night); } to { transform: none; } }
-    @keyframes unink { from { filter: invert(1) brightness(.8) contrast(1.6); mix-blend-mode: screen; } to { filter: none; } }
-    /* The same blueprint recipe as the Automation panel: inverted lines under a blueprint-blue multiply that fades as it lands. */
-    .stage-01 .stage-img { position: relative; }
-    .stage-01 .stage-img::after { content: ''; position: absolute; inset: 0; background: var(--blueprint); mix-blend-mode: multiply; pointer-events: none; animation: unblue linear both; animation-timeline: view(); animation-range: entry 0% cover 50%; }
-    @keyframes unblue { from { opacity: 1; } to { opacity: 0; } }
+    /* The drawing settles within its own clipped card at every scrub position. */
+    .stage-01 .stage-img img { animation: drawing-settle linear both; animation-timeline: view(); animation-range: entry 0% cover 40%; }
+    @keyframes drawing-settle {
+      from { opacity: .72; transform: translateY(-3%) scale(1.03); filter: grayscale(1) contrast(1.08); }
+      to { opacity: 1; transform: none; filter: none; }
+    }
     /* Material, then light; pictures move at 0.9x the scroll. */
     .stage-02 img, .stage-03 img { scale: 1.08; animation: drift linear both; animation-timeline: view(); }
     .stage-02 .stage-img { animation: material linear both; animation-timeline: view(); animation-range: entry 10% cover 45%; }
@@ -263,10 +281,7 @@ body > .ax-footer { padding-top: var(--s-5); }
     @keyframes drift { from { translate: 0 -4%; } to { translate: 0 4%; } }
     @keyframes material { from { filter: grayscale(1) contrast(.85) brightness(1.18); } to { filter: none; } }
     @keyframes light { from { filter: brightness(.4) saturate(.5); } to { filter: none; } }
-    .label::after { animation: rule linear both; animation-timeline: view(); animation-range: entry 0% cover 30%; }
-    @keyframes rule { from { transform: scaleX(0); } to { transform: none; } }
   }
-  @media (max-width: 700px) { .stage-01 { --land-x: 20vw; --land-y: -46vh; } }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -274,6 +289,6 @@ body > .ax-footer { padding-top: var(--s-5); }
   .side-photo, .side-dialog, .side-plan img { translate: none; }
   .visual-crossing { height: auto; padding: var(--s-4) 0 var(--s-6); }
   .visual-pin { position: relative; top: auto; }
-  .cross-dialog { opacity: 1; transform: none; will-change: auto; }
+  .cross-dialog { transform: none; will-change: auto; }
   .cross-render img { scale: 1; }
 }
