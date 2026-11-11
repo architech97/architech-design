@@ -20,7 +20,7 @@
 <link rel="preload" href="/architech-model-lite.glb" as="fetch" crossorigin media="(max-width: 860px), (pointer: coarse)">
 <link rel="icon" type="image/png" href="/assets/architech-mark-transparent.png">
 <link rel="stylesheet" href="/style.original-logo-v3.css?v=divisions1">
-<link rel="stylesheet" href="/portfolio.css?v=1">
+<link rel="stylesheet" href="/portfolio.css?v=2">
 <style id="logo-theme-critical">
 /* Keep the supplied artwork's original colors, even with an older cached stylesheet. */
 .bar .logo-mask img,.bar.is-dark .logo-mask img,.foot .logo-mask img,.loader-mark img{-webkit-filter:none;filter:none}
@@ -136,9 +136,9 @@
 <section class="project-record" id="project" aria-labelledby="project-title">
   <div class="project-record-head">
     <p class="kicker">Case study 01</p>
-    <h2 id="project-title">Residence <em>in Vasant Kunj.</em></h2>
+    <h2 class="split" id="project-title">Residence <em>in Vasant Kunj.</em></h2>
   </div>
-  <dl class="project-facts">
+  <dl class="project-facts pf-stagger">
     <div><dt>Project</dt><dd>Three-level family residence</dd></div>
     <div><dt>Location</dt><dd>Vasant Kunj, New Delhi</dd></div>
     <div><dt>Status</dt><dd>Design proposal. Every image on this page is a visualisation, not a photograph.</dd></div>
@@ -146,7 +146,7 @@
     <div><dt>Software</dt><dd>Revit, SketchUp, Rhino, 3ds Max</dd></div>
     <div><dt>Deliverables</dt><dd>3D model, rendered plans for three levels, day and dusk exterior views, lifestyle views, this interactive presentation</dd></div>
   </dl>
-  <ol class="project-process" aria-label="Process">
+  <ol class="project-process pf-stagger" aria-label="Process">
     <li><a href="#dwelling"><span>01</span><strong>Drawing</strong><small>The ground-floor plan as drawn</small></a></li>
     <li><a href="#dwelling"><span>02</span><strong>Model</strong><small>The plan becomes a 3D model, level by level</small></a></li>
     <li><a href="#light"><span>03</span><strong>Materials and light</strong><small>The same façade by day and after dark</small></a></li>
@@ -279,9 +279,9 @@
 <section class="project-index" id="projects" aria-labelledby="projects-title">
   <div class="studio-head">
     <p class="kicker">Projects</p>
-    <h2 id="projects-title">Selected <em>work.</em></h2>
+    <h2 class="split" id="projects-title">Selected <em>work.</em></h2>
   </div>
-  <ol class="project-list">
+  <ol class="project-list pf-stagger">
     <li><a href="#top" aria-current="page"><span>01</span><strong>Residence in Vasant Kunj</strong><small>Design proposal · New Delhi · Modelling, rendering, presentation</small><i aria-hidden="true">↑</i></a></li>
   </ol>
 </section>
@@ -329,6 +329,18 @@
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script>
+  // Stagger the portfolio blocks in as they scroll into view.
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.documentElement.classList.add('pf-motion');
+    const seen = new IntersectionObserver((entries) => entries.forEach((entry) => {
+      if (entry.isIntersecting) { entry.target.classList.add('pf-in'); seen.unobserve(entry.target); }
+    }), { rootMargin: '0px 0px -10% 0px' });
+    document.querySelectorAll('.pf-stagger').forEach((block) => seen.observe(block));
+    // If a block was never reported as visible, show it once it is on screen.
+    setInterval(() => document.querySelectorAll('.pf-stagger:not(.pf-in)').forEach((block) => { const box = block.getBoundingClientRect(); if (box.top < innerHeight && box.bottom > 0) block.classList.add('pf-in'); }), 2000);
+  }
+</script>
 <script src="/main.js?v=divisions1"></script>
 <script type="module" src="/hero.js?v=divisions1"></script>
 <script type="module" src="/scene.js?v=divisions1"></script>

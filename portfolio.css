@@ -31,3 +31,21 @@
   .project-list small { grid-column: 2; grid-row: 2; }
 }
 @media (prefers-reduced-motion: reduce) { .project-process a { transition: none; } }
+
+/* Motion for the portfolio blocks: children rise in one after another; the process rule draws across. */
+.pf-motion .pf-stagger > * { opacity: 0; transform: translateY(26px); transition: opacity .8s var(--ease), transform .9s var(--ease); }
+.pf-motion .pf-stagger.pf-in > * { opacity: 1; transform: none; }
+.pf-motion .pf-stagger > :nth-child(2) { transition-delay: .08s; } .pf-motion .pf-stagger > :nth-child(3) { transition-delay: .16s; }
+.pf-motion .pf-stagger > :nth-child(4) { transition-delay: .24s; } .pf-motion .pf-stagger > :nth-child(5) { transition-delay: .32s; }
+.pf-motion .pf-stagger > :nth-child(6) { transition-delay: .4s; }
+.project-process a { position: relative; border-top-color: var(--line); }
+.project-process a::before { content: ''; position: absolute; left: 0; right: 0; top: -2px; height: 2px; background: var(--ink); transform: scaleX(0); transform-origin: left; transition: transform 1.1s var(--ease), background .4s; }
+.pf-in.project-process a::before, html:not(.pf-motion) .project-process a::before { transform: scaleX(1); }
+.project-process li:nth-child(2) a::before { transition-delay: .25s; } .project-process li:nth-child(3) a::before { transition-delay: .5s; } .project-process li:nth-child(4) a::before { transition-delay: .75s; }
+.project-process a:hover::before, .project-process a:focus-visible::before { background: var(--gold); }
+.project-process strong { transition: transform .5s var(--ease); }
+.project-process a:hover strong { transform: translateX(8px); }
+.project-list a { transition: padding .5s var(--ease), color .4s; }
+.project-list a:hover { padding-left: 18px; color: var(--taupe); }
+.contact-more a { transition: opacity .3s, letter-spacing .4s var(--ease); }
+.contact-more a:hover { letter-spacing: .1em; }

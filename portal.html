@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Outfit:wght@400;500;600&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/portal.css">
+  <link rel="stylesheet" href="/portal.css?v=3">
   <script>
     // Shared links to sections of the former homepage still open the Design presentation.
     const legacyDesignSections = new Set([
@@ -40,7 +40,7 @@
   </header>
   <main id="divisions" class="shell" tabindex="-1">
     <div class="portal-heading">
-      <h1>Design and automation</h1>
+      <h1><span><i>Design</i></span> <span><i>and automation</i></span></h1>
       <p>Explore my modelling and rendering work, or try the BIM tools I have developed.</p>
     </div>
     <nav class="division-grid" aria-label="ArchiTECH divisions">
@@ -113,6 +113,22 @@
       if (entry.isIntersecting) { entry.target.classList.add('in'); seen.unobserve(entry.target); }
     }), { rootMargin: '0px 0px -8% 0px' });
     document.querySelectorAll('.reveal').forEach((block) => seen.observe(block));
+    setInterval(() => document.querySelectorAll('.reveal:not(.in)').forEach((block) => { const box = block.getBoundingClientRect(); if (box.top < innerHeight && box.bottom > 0) block.classList.add('in'); }), 2000);
+    // Division cards lean toward the pointer; a soft light follows it across the page.
+    if (matchMedia('(prefers-reduced-motion: no-preference) and (pointer: fine)').matches) {
+      document.querySelectorAll('.division-card').forEach((card) => {
+        card.addEventListener('pointermove', (event) => {
+          const box = card.getBoundingClientRect();
+          card.style.setProperty('--tx', ((event.clientX - box.left) / box.width - .5).toFixed(3));
+          card.style.setProperty('--ty', ((event.clientY - box.top) / box.height - .5).toFixed(3));
+        });
+        card.addEventListener('pointerleave', () => { card.style.setProperty('--tx', 0); card.style.setProperty('--ty', 0); });
+      });
+      addEventListener('pointermove', (event) => {
+        document.body.style.setProperty('--gx', event.clientX + 'px');
+        document.body.style.setProperty('--gy', event.clientY + 'px');
+      }, { passive: true });
+    }
   </script>
 </body>
 </html>
