@@ -13,3 +13,11 @@ node scripts/assemble-site.mjs ../architech-plugins/dist _site
 ```
 
 Serve `_site` at the root of a static HTTP server. Use a fresh output directory for each assembly.
+
+## Adding a Design project
+
+`index.html` is the featured case study. To add another building:
+
+1. Create `projects/<slug>/index.html`. It is published at `/design/<slug>/`.
+2. Copy the `PROJECT RECORD` block from `index.html` and fill in project, location, status, role, software and deliverables. State only what is true for that project, and say when images are visualisations.
+3. Add one `<li>` to the `PROJECT INDEX` list in `index.html` linking to `/design/<slug>/`.

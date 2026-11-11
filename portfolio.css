@@ -1,0 +1,33 @@
+/* Portfolio structure added on top of the residence presentation: project record, process, project index. */
+.project-record, .project-index { padding: clamp(70px, 11vh, 130px) var(--pad); max-width: calc(1500px + 2 * var(--pad)); margin: 0 auto; }
+.project-record { border-top: 1px solid var(--line); }
+.project-record-head { margin-bottom: clamp(30px, 5vh, 56px); }
+.project-facts { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); }
+.project-facts > div { padding: 22px 26px 26px 0; border-bottom: 1px solid var(--line); }
+.project-facts dt { font: 400 11px/1.4 var(--sans); letter-spacing: .24em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+.project-facts dd { font: 300 clamp(19px, 1.7vw, 25px)/1.3 var(--serif); max-width: 26em; }
+.project-process { list-style: none; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: clamp(40px, 7vh, 80px); counter-reset: none; }
+.project-process a { display: grid; gap: 8px; height: 100%; padding: 22px 22px 26px 0; border-top: 2px solid var(--ink); transition: border-color .4s var(--ease), padding .5s var(--ease); }
+.project-process li + li a { padding-left: 22px; border-left: 1px solid var(--line); }
+.project-process span { font: 400 11px/1 var(--sans); letter-spacing: .24em; color: var(--ink-2); }
+.project-process strong { font: 300 clamp(24px, 2.4vw, 36px)/1.05 var(--serif); }
+.project-process small { font-size: 14px; line-height: 1.45; color: var(--ink-2); }
+.project-process a:hover, .project-process a:focus-visible { border-top-color: var(--gold); }
+.project-list { list-style: none; border-top: 1px solid var(--line); max-width: 1500px; margin: 0 auto; }
+.project-list a { display: grid; grid-template-columns: 70px minmax(0, 1fr) minmax(0, 1fr) auto; align-items: center; gap: 12px; padding: clamp(20px, 3.4vh, 34px) 0; border-bottom: 1px solid var(--line); }
+.project-list span { font: 400 12px var(--sans); letter-spacing: .2em; color: var(--ink-2); }
+.project-list strong { font: 300 clamp(26px, 3.6vw, 52px)/1 var(--serif); }
+.project-list small { font-size: 14px; color: var(--ink-2); letter-spacing: .04em; }
+.project-list i { font-style: normal; color: var(--gold); }
+.contact-more { display: flex; flex-wrap: wrap; gap: 10px 26px; margin-top: 26px; font-size: 14px; letter-spacing: .06em; }
+.contact-more a { border-bottom: 1px solid currentColor; padding-bottom: 2px; opacity: .85; }
+.contact-more a:hover { opacity: 1; }
+@media (max-width: 860px) {
+  .project-facts { grid-template-columns: 1fr; }
+  .project-process { grid-template-columns: 1fr 1fr; }
+  .project-process li + li a { padding-left: 0; border-left: 0; }
+  .project-process li:nth-child(even) a { padding-left: 18px; border-left: 1px solid var(--line); }
+  .project-list a { grid-template-columns: 40px minmax(0, 1fr) auto; }
+  .project-list small { grid-column: 2; grid-row: 2; }
+}
+@media (prefers-reduced-motion: reduce) { .project-process a { transition: none; } }

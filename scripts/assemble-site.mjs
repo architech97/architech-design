@@ -1,4 +1,4 @@
-import { copyFile, cp, mkdir, readFile, readdir } from 'node:fs/promises'
+import { copyFile, cp, mkdir, readFile, readdir, stat } from 'node:fs/promises'
 import { basename, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -11,7 +11,7 @@ const root = fileURLToPath(new URL('../', import.meta.url))
 const dist = resolve(distPath)
 const output = resolve(outputPath)
 const publicDesign = [
-  '.nojekyll', 'CNAME', '404.html', 'portal.css',
+  '.nojekyll', 'CNAME', '404.html', 'portal.css', 'portfolio.css',
   'assets', 'img', 'rooms.json', 'hero.js', 'main.js', 'scene.js',
   'style.css', 'style.logo-theme-v2.css', 'style.original-logo-v3.css',
   'architech-model.glb', 'architech-model-lite.glb',
@@ -37,6 +37,11 @@ await Promise.all([
     filter: path => path !== join(dist, '404.html') && copyPublic(path),
   }),
 ])
+
+// Further Design projects live in projects/<slug>/ and are published at /design/<slug>/.
+if (await stat(join(root, 'projects')).catch(() => null)) {
+  await cp(join(root, 'projects'), join(output, 'design'), { recursive: true, filter: copyPublic })
+}
 
 for (const group of ['plugins', 'demos']) {
   const directory = join(output, 'automation', group)
