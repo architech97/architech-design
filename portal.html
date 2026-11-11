@@ -77,10 +77,42 @@
         </figure>
       </a>
     </nav>
+    <section class="portal-index" aria-labelledby="portal-index-title">
+      <div class="portal-index-heading reveal">
+        <h2 id="portal-index-title">One practice, two kinds of work</h2>
+        <p>The studio designs buildings. The software comes from the same practice: Revit and CAD tools shaped by our own project work.</p>
+      </div>
+      <div class="portal-index-grid">
+        <div class="portal-index-col design reveal">
+          <p class="division-index"><span>01</span> Design</p>
+          <ul>
+          <li><a href="/design/#dwelling"><strong>The dwelling</strong><span>The Vasant Kunj residence, from drawing to building</span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+          <li><a href="/design/#plans"><strong>Plans</strong><span>Every room, on plan</span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+          <li><a href="/design/#studio"><strong>Studio</strong><span>How the practice works</span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+          </ul>
+        </div>
+        <div class="portal-index-col automation reveal">
+          <p class="division-index"><span>02</span> Automation</p>
+          <ul>
+          <li><a href="/automation/demos/"><strong>Demo library</strong><span>Try the dialogs in your browser on sample data</span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+          <li><a href="/automation/plugins/"><strong>Tool catalog</strong><span>Revit add-ins, I3D and AI connectors</span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+          <li><a href="/automation/custom-development/"><strong>Custom development</strong><span>Tools built around your workflow</span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
   </main>
   <footer class="shell portal-foot">
-    <span>ArchiTECH</span>
-    <a href="mailto:navneet@architechdesign.in">Contact</a>
+    <span>ArchiTECH · Navneet Singh</span>
+    <span class="portal-foot-links"><a href="https://www.linkedin.com/in/architech-india/" rel="noreferrer">LinkedIn</a><a href="mailto:navneet@architechdesign.in">Contact</a></span>
   </footer>
+  <script>
+    // Reveal second-screen blocks as they scroll into view.
+    document.documentElement.classList.add('js');
+    const seen = new IntersectionObserver((entries) => entries.forEach((entry) => {
+      if (entry.isIntersecting) { entry.target.classList.add('in'); seen.unobserve(entry.target); }
+    }), { rootMargin: '0px 0px -8% 0px' });
+    document.querySelectorAll('.reveal').forEach((block) => seen.observe(block));
+  </script>
 </body>
 </html>
