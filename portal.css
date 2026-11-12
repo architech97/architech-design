@@ -96,14 +96,10 @@ main:focus { outline: none; }
 
 /* Design: the house at three stages, drawing, material, light. */
 .stages, .about { padding: var(--s-6) var(--gut); }
-.stages {
-  --hero-feather: max(180px, 32vh);
-  position: relative;
-  isolation: isolate;
-  padding-top: calc(var(--hero-feather) + var(--s-4));
-  padding-bottom: var(--s-7);
-}
-.stages::before {
+.caps, .stages { position: relative; isolation: isolate; }
+.caps { --hero-feather: max(180px, 32vh); padding-top: calc(var(--hero-feather) + var(--s-4)); }
+.stages { padding-top: var(--s-5); padding-bottom: var(--s-7); }
+.caps::before {
   content: '';
   position: absolute;
   z-index: -1;
@@ -292,3 +288,70 @@ body > .ax-footer { padding-top: var(--s-5); }
   .cross-dialog { transform: none; will-change: auto; }
   .cross-render img { scale: 1; }
 }
+
+/* Hero: who, what, proof, two actions. */
+.statement { row-gap: var(--s-3); }
+.statement .kicker { grid-column: 1 / -1; display: flex; align-items: center; gap: 12px; color: var(--ink); font: 500 1rem/1.3 var(--sans); }
+.statement .kicker span { padding-left: 12px; border-left: .75px solid var(--stone); color: var(--ink-2); font-weight: 400; }
+.statement h1 { grid-column: 1 / span 8; font-size: clamp(2.6rem, 6vw, 6.4rem); line-height: .95; }
+.statement h1 em { color: var(--brass-ink); }
+.statement-side { grid-column: 9 / -1; align-self: end; display: grid; gap: var(--s-3); padding-bottom: .4em; }
+.statement .statement-sub { grid-column: auto; padding: 0; color: var(--ink-2); font-size: clamp(1rem, 1.25vw, 1.15rem); line-height: 1.5; }
+.statement-cta { display: flex; flex-wrap: wrap; gap: 12px; }
+.cta { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: 0 22px; border-radius: 2px; font: 500 .95rem/1 var(--sans); text-decoration: none; transition: background var(--t-ui), color var(--t-ui), border-color var(--t-ui); }
+.cta-solid { background: var(--ink); color: var(--paper); border: .75px solid var(--ink); }
+.cta-solid:hover, .cta-solid:focus-visible { background: var(--brass-ink); border-color: var(--brass-ink); }
+.cta-line { border: .75px solid var(--ink); color: var(--ink); }
+.cta-line:hover, .cta-line:focus-visible { background: var(--ink); color: var(--paper); }
+.skills { grid-column: 1 / span 8; display: flex; flex-wrap: wrap; gap: 0; margin: 0; padding: 0; list-style: none; border-top: .75px solid var(--stone); }
+.skills li { padding: 12px 18px 0 0; margin-right: 18px; color: var(--ink); font: 400 clamp(.95rem, 1.1vw, 1.05rem)/1.3 var(--sans); position: relative; }
+.skills li:not(:last-child)::after { content: ''; position: absolute; right: -2px; top: calc(12px + .55em); width: 5px; height: 5px; border-radius: 50%; background: var(--brass); }
+.proof { grid-column: 9 / -1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 0; border-top: .75px solid var(--stone); }
+.proof div { display: flex; flex-direction: column-reverse; justify-content: flex-end; gap: 4px; padding-top: 10px; }
+.proof dd { margin: 0; font: 500 clamp(2rem, 3vw, 3rem)/.9 var(--serif); letter-spacing: -.03em; color: var(--ink); font-variant-numeric: lining-nums; }
+.proof dt { color: var(--ink-2); font-size: .82rem; line-height: 1.3; }
+
+/* What I bring: five disciplines, each with its own evidence. */
+.caps { padding-inline: var(--gut); padding-bottom: var(--s-5); }
+.caps > * { max-width: 1520px; margin-inline: auto; }
+.caps-head { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--s-2) var(--s-3); align-items: end; margin-bottom: var(--s-4); }
+.caps-head h2 { grid-column: 1 / span 7; font: 500 clamp(2.2rem, 4.6vw, 4.6rem)/.95 var(--serif); letter-spacing: -.03em; }
+.caps-head p { grid-column: 9 / -1; color: var(--ink-2); font-size: clamp(1rem, 1.2vw, 1.1rem); }
+.caps-row { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--s-3); margin: 0; padding: 0; list-style: none; }
+.caps-row a { display: grid; grid-template-rows: auto auto auto 1fr auto; gap: 6px; height: 100%; color: var(--ink); text-decoration: none; }
+.cap-img { display: block; aspect-ratio: 4 / 3; overflow: hidden; margin-bottom: 10px; background: var(--night); }
+.cap-img img { width: 100%; height: 100%; object-fit: cover; transition: scale 1.1s var(--ease); }
+.caps-row li:nth-child(2) .cap-img { background: var(--paper-2); }
+.caps-row li:nth-child(2) .cap-img img { object-fit: contain; padding: 6%; mix-blend-mode: multiply; }
+.caps-row li:nth-child(5) .cap-img img { object-position: left top; }
+.caps-row a:hover .cap-img img, .caps-row a:focus-visible .cap-img img { scale: 1.05; }
+.cap-no { color: var(--brass-ink); font: 400 .85rem/1 var(--sans); }
+.caps-row strong { font: 500 clamp(1.5rem, 2vw, 2rem)/1.05 var(--serif); letter-spacing: -.02em; }
+.cap-text { color: var(--ink-2); font-size: .95rem; line-height: 1.45; }
+.cap-go { justify-self: start; margin-top: 8px; padding-bottom: 2px; border-bottom: .75px solid var(--stone); font-size: .92rem; transition: border-color var(--t-ui); }
+.caps-row a:hover .cap-go, .caps-row a:focus-visible .cap-go { border-color: var(--ink); }
+
+.about h2 em { color: var(--brass); }
+.about .statement-cta { margin-top: var(--s-1); }
+.about .cta-solid { background: var(--paper); color: var(--night); border-color: var(--paper); }
+.about .cta-solid:hover, .about .cta-solid:focus-visible { background: var(--brass); border-color: var(--brass); }
+.about .cta-line { border-color: var(--on-dark-2); color: var(--on-dark); }
+.about .cta-line:hover, .about .cta-line:focus-visible { background: var(--on-dark); color: var(--night); }
+
+@media (max-width: 1100px) {
+  .caps-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .caps-row li:last-child { grid-column: 1 / -1; }
+  .caps-row li:last-child .cap-img { aspect-ratio: 16 / 7; }
+}
+@media (max-width: 860px) {
+  .statement h1, .statement-side, .skills, .proof, .caps-head h2, .caps-head p { grid-column: 1 / -1; }
+}
+@media (max-width: 560px) {
+  .caps-row { grid-template-columns: 1fr; }
+  .caps-row li:last-child .cap-img { aspect-ratio: 4 / 3; }
+  .proof dt { font-size: .76rem; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .statement .kicker, .statement-side, .skills, .proof { animation: settle var(--t-scene) var(--ease) .3s both; }
+}
+@media (prefers-reduced-motion: reduce) { .cap-img img { transition: none; } }
