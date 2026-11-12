@@ -355,3 +355,34 @@ body > .ax-footer { padding-top: var(--s-5); }
   .statement .kicker, .statement-side, .skills, .proof { animation: settle var(--t-scene) var(--ease) .3s both; }
 }
 @media (prefers-reduced-motion: reduce) { .cap-img img { transition: none; } }
+
+/* ---------- Crisp sections: paper, then one night band from Automation to the footer ---------- */
+body { background: var(--paper); }
+.caps::before { content: none; }
+.caps { padding-top: var(--s-6); }
+.tools { background: var(--night); padding-top: var(--s-6); }
+.tools::before { background: var(--night); inset-inline: calc(50% - 50vw); }
+.about::before { background: var(--night); }
+.about { border-top: .75px solid var(--chrome-footer-rule); }
+.about-head { grid-column: 1 / span 6; display: grid; gap: var(--s-2); align-content: start; }
+.about-head h2 { grid-column: auto; }
+
+/* Drawing-sheet labels: a number and a title on a hairline, as on a title block. */
+.sheet-label { display: flex; align-items: center; gap: 12px; margin-bottom: var(--s-2); padding-top: 10px; border-top: .75px solid var(--stone); color: var(--ink-2); font: 400 .82rem/1 var(--sans); letter-spacing: .04em; text-transform: uppercase; }
+.sheet-label b { font-weight: 500; color: var(--brass-ink); }
+.caps-head .sheet-label, .stages-head .sheet-label { grid-column: 1 / -1; }
+.tools .sheet-label, .about .sheet-label { border-color: var(--chrome-footer-rule); color: var(--on-dark-2); }
+.tools .sheet-label b, .about .sheet-label b { color: var(--brass); }
+
+/* Pictures arrive like a sheet being drawn: a wipe from the left as they enter view. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .cap-img, .stage-img { animation: sheet-wipe linear both; animation-timeline: view(); animation-range: entry 5% cover 35%; }
+    .caps-row li:nth-child(2) .cap-img, .stage-02 .stage-img { animation-range: entry 10% cover 40%; }
+    .caps-row li:nth-child(3) .cap-img, .stage-03 .stage-img { animation-range: entry 15% cover 45%; }
+    .sheet-label { animation: rule-draw linear both; animation-timeline: view(); animation-range: entry 0% cover 25%; }
+    @keyframes sheet-wipe { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0); } }
+    @keyframes rule-draw { from { border-top-color: transparent; opacity: .2; } to { opacity: 1; } }
+  }
+}
+@media (max-width: 860px) { .about-head { grid-column: 1 / -1; } }
