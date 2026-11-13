@@ -30,7 +30,7 @@
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&amp;family=Jost:wght@300;400;500&amp;display=optional" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&amp;family=Jost:wght@300;400;500&amp;display=optional"></noscript>
   <link rel="stylesheet" href="/chrome.css?v=2">
-  <link rel="stylesheet" href="/portal.css?v=8">
+  <link rel="stylesheet" href="/portal.css?v=9">
   <script>
     // Shared links to sections of the former homepage still open the Design presentation.
     const legacyDesignSections = new Set([
@@ -232,12 +232,25 @@
     </section>
 
     <section class="about" id="about" aria-labelledby="about-title">
-      <!-- TODO(Navneet): add a portrait (e.g. img/home-navneet-640.avif), years in practice and where you have worked. -->
+      <!-- Facts from Navneet's CV (2026-11-13). By his choice, no roles or employer names. -->
       <div class="about-head"><p class="sheet-label"><b>04</b>About</p>
-      <h2 id="about-title">Navneet Singh, <em>architect</em></h2></div>
+      <h2 id="about-title">Navneet Singh, <em>architect</em></h2>
+      <div class="about-id">
+        <picture class="about-portrait">
+          <source type="image/avif" srcset="/img/about-navneet-572.avif 572w" sizes="(max-width: 560px) 40vw, 220px">
+          <img src="/img/about-navneet-572.webp" srcset="/img/about-navneet-300.webp 300w, /img/about-navneet-572.webp 572w" sizes="(max-width: 560px) 40vw, 220px" width="572" height="640" alt="Navneet Singh" loading="lazy" decoding="async">
+        </picture>
+        <dl class="about-facts">
+          <div><dt>Education</dt><dd>Bachelor of Architecture, Lovely Professional University, <span class="nw">2016–2021</span></dd></div>
+          <div><dt>Training</dt><dd>BIM Professional Course, Novatr, 2023</dd></div>
+          <div><dt>In practice</dt><dd>Since 2021, New Delhi</dd></div>
+          <div><dt>Works in</dt><dd>Revit, Navisworks, SketchUp, Rhino, 3ds Max, C#/.NET, Python, Dynamo</dd></div>
+        </dl>
+      </div></div>
       <div class="about-copy">
-        <p>I am an architect in New Delhi. I take a project from concept and drawings through BIM modelling, documentation and rendering to the final presentation.</p>
-        <p>When a task repeats, I write the tool for it: 58 Revit add-ins so far, a desktop app that turns a photo into a Revit family, an assistant for the open model, and an AI connector for Revit, Rhino, SketchUp, AutoCAD and Blender.</p>
+        <p>I am an architect in New Delhi, in practice since 2021. I have worked on hospitality, healthcare and data-centre projects, from 3D models and working drawings through BIM coordination to documentation, and I take my own projects from concept to rendering and the final presentation.</p>
+        <p>On coordination work I cut data extraction from about four hours to one, brought clash grouping down from two days to four to six hours, and managed more than 20,000 clashes in Navisworks.</p>
+        <p>When a task repeats, I write the tool for it, in C# on the Revit API: 58 Revit add-ins so far, a desktop app that turns a photo into a Revit family, an assistant for the open model, and an AI connector for Revit, Rhino, SketchUp, AutoCAD and Blender.</p>
         <p>The Vasant Kunj house, from its design to its model and images, and every tool on this site are my own work.</p>
         <div class="statement-cta">
           <a class="cta cta-solid" href="#contact">Work with me</a>

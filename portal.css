@@ -386,3 +386,13 @@ body { background: var(--paper); }
   }
 }
 @media (max-width: 860px) { .about-head { grid-column: 1 / -1; } }
+
+/* About: portrait and facts under the heading (from the CV). */
+.about-id { display: grid; grid-template-columns: minmax(120px, 220px) 1fr; gap: var(--s-2) clamp(18px, 2.4vw, 32px); align-items: start; margin-top: var(--s-1); }
+.about-portrait img { display: block; width: 100%; height: auto; aspect-ratio: 572 / 640; object-fit: cover; border: .75px solid var(--on-dark-2); filter: saturate(.9); }
+.about-facts { display: grid; gap: 0; margin: 0; border-top: .75px solid var(--chrome-footer-rule); }
+.about-facts div { padding: 10px 0; border-bottom: .75px solid var(--chrome-footer-rule); }
+.about-facts dt { font-size: .74rem; letter-spacing: .08em; text-transform: uppercase; color: var(--on-dark-2); }
+.about-facts dd { margin: 3px 0 0; color: var(--on-dark); font-size: .95rem; line-height: 1.45; }
+@media (max-width: 560px) { .about-id { grid-template-columns: 1fr; } .about-portrait { max-width: 200px; } }
+.about-facts .nw { white-space: nowrap; }
