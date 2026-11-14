@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f3eee6">
   <title>Navneet Singh | Architect: design, documentation, BIM, rendering and AI automation</title>
-  <meta name="description" content="Navneet Singh is an architect in New Delhi: design, documentation, BIM modelling and rendering, plus 58 Revit add-ins and AI tools he has built himself.">
+  <meta name="description" content="Navneet Singh is an architect in New Delhi: design, documentation, BIM modelling and rendering, plus 58 Revit add-ins, two desktop apps and AI connectors for five design applications.">
   <link rel="canonical" href="https://architechdesign.in/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ArchiTECH">
@@ -29,8 +29,39 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&amp;family=Jost:wght@300;400;500&amp;display=optional" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&amp;family=Jost:wght@300;400;500&amp;display=optional"></noscript>
-  <link rel="stylesheet" href="/chrome.css?v=2">
-  <link rel="stylesheet" href="/portal.css?v=9">
+  <!-- HOOK(analytics): none. Navneet has not chosen an analytics service. Do not add a tag here. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://architechdesign.in/#organization",
+        "name": "ArchiTECH",
+        "url": "https://architechdesign.in/",
+        "logo": "https://architechdesign.in/assets/architech-mark-transparent.png",
+        "email": "navneet@architechdesign.in",
+        "founder": { "@type": "Person", "name": "Navneet Singh" },
+        "address": { "@type": "PostalAddress", "addressLocality": "New Delhi", "addressCountry": "IN" },
+        "sameAs": [
+          "https://www.linkedin.com/in/architech-india/",
+          "https://www.instagram.com/architechdesign.in/",
+          "https://www.youtube.com/@ArchiTECH97",
+          "https://x.com/Architech_India"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://architechdesign.in/#website",
+        "name": "ArchiTECH",
+        "url": "https://architechdesign.in/",
+        "publisher": { "@id": "https://architechdesign.in/#organization" }
+      }
+    ]
+  }
+  </script>
+  <link rel="stylesheet" href="/chrome.css?v=pf2">
+  <link rel="stylesheet" href="/portal.css?v=pf2">
   <script>
     // Shared links to sections of the former homepage still open the Design presentation.
     const legacyDesignSections = new Set([
@@ -84,10 +115,12 @@
         <ul class="skills" aria-label="What I do">
           <li>Design</li><li>Documentation</li><li>BIM modelling</li><li>Rendering</li><li>AI and automation</li>
         </ul>
+        <!-- Counts from architech-plugins catalog.ts at the pinned automation.ref:
+             REVIT_TOOLS 58, desktop apps 2 (I3D and Assistant), AI connectors 5, PRODUCTS 69. -->
         <dl class="proof" aria-label="What I have built">
-          <div><dt>Revit add-ins built</dt><dd>58</dd></div>
-          <div><dt>products, from ribbon to desktop</dt><dd>6</dd></div>
-          <div><dt>design apps I connected to AI</dt><dd>5</dd></div>
+          <div><dt>Revit add-ins</dt><dd>58</dd></div>
+          <div><dt>desktop apps</dt><dd>2</dd></div>
+          <div><dt>AI connectors</dt><dd>5</dd></div>
         </dl>
       </div>
 
@@ -160,7 +193,7 @@
           <span class="cap-img"><img src="/automation/dialogs/arch-folio/sheet-manager/D104-create-dark-720.webp" alt="The Sheet Manager window, one of my Revit add-ins" width="720" height="480" loading="lazy" decoding="async"></span>
           <span class="cap-no">05</span>
           <strong>AI and automation</strong>
-          <span class="cap-text">58 Revit add-ins, a photo-to-3D app and an AI connector for Revit, Rhino, SketchUp, AutoCAD and Blender.</span>
+          <span class="cap-text">58 Revit add-ins, two desktop apps, and AI connectors for Revit, Rhino, SketchUp, AutoCAD and Blender.</span>
           <span class="cap-go">See the tools</span>
         </a></li>
       </ol>
@@ -220,13 +253,13 @@
           <h2 id="tools-title">Then I automate the repeats</h2>
         </div>
         <div class="tools-copy">
-          <p>Numbering sheets, filling parameters, checking a model: the same clicks on every project. So I wrote Revit add-ins that do them, 58 so far in three suites, each shown here through its real windows.</p>
+          <p>Numbering sheets, filling parameters, checking a model: the same clicks on every project. So I wrote Revit add-ins that do them, 58 so far in three suites, each shown here through its real windows. The catalogue has 69 products in all: those add-ins, the suite home windows, a point-cloud toggle, two desktop apps and five AI connectors.</p>
           <ul class="tool-index">
             <li><a href="/automation/demos/room-to-view/"><b>Arch Folio</b><strong>Room to View</strong><span>Plans, elevations and sheets for every ticked room</span></a></li>
             <li><a href="/automation/demos/parameter-manager/"><b>Arch Forge</b><strong>Parameter Manager</strong><span>Define and bind project parameters</span></a></li>
             <li><a href="/automation/demos/warnings-inspector/"><b>Arch Sentinel</b><strong>Warnings Inspector</strong><span>Find and isolate the warnings that matter</span></a></li>
           </ul>
-          <a class="text-link" href="/automation/plugins/">See all 58 tools</a>
+          <a class="text-link" href="/automation/plugins/">See all 69 products</a>
         </div>
       </div>
     </section>
@@ -250,7 +283,7 @@
       <div class="about-copy">
         <p>I am an architect in New Delhi, in practice since 2021. I have worked on hospitality and data-centre projects, from 3D models and working drawings through BIM coordination to documentation, and I take my own projects from concept to rendering and the final presentation.</p>
         <p>I also have strong expertise in Navisworks: multidisciplinary clash detection, model reviews, search sets, appearance profiles and Autodesk Construction Cloud issue workflows.</p>
-        <p>When a task repeats, I write the tool for it, in C# on the Revit API: 58 Revit add-ins so far, a desktop app that turns a photo into a Revit family, an assistant for the open model, and an AI connector for Revit, Rhino, SketchUp, AutoCAD and Blender.</p>
+        <p>When a task repeats, I write the tool for it, in C# on the Revit API: 58 Revit add-ins so far, two desktop apps (one turns a photo into a Revit family, one is an assistant for the open model), and five AI connectors, for Revit, Rhino, SketchUp, AutoCAD and Blender.</p>
         <p>The Vasant Kunj house, from its design to its model and images, and every tool on this site are my own work.</p>
         <div class="statement-cta">
           <a class="cta cta-solid" href="#contact">Work with me</a>
@@ -272,7 +305,10 @@
         <a href="mailto:navneet@architechdesign.in">navneet@architechdesign.in</a>
         <a href="tel:+917838040375">+91 78380 40375</a>
         <a href="tel:+918920821258">+91 89208 21258</a>
-        <a href="https://www.linkedin.com/in/architech-india/" rel="noreferrer">LinkedIn</a>
+        <a href="https://www.linkedin.com/in/architech-india/" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://www.instagram.com/architechdesign.in/" rel="noopener noreferrer">Instagram</a>
+        <a href="https://www.youtube.com/@ArchiTECH97" rel="noopener noreferrer">YouTube</a>
+        <a href="https://x.com/Architech_India" rel="noopener noreferrer">X</a>
       </div>
       <div class="ax-foot-col">
         <p class="ax-foot-h">Work</p>
@@ -280,6 +316,7 @@
         <a href="/automation/">Automation</a>
         <a href="/automation/demos/">Tool dialogs</a>
         <a href="/automation/connect/">Get in touch</a>
+        <a href="/privacy/">Privacy</a>
       </div>
       <div class="ax-foot-col">
         <p class="ax-foot-h">Tools I built</p>
@@ -295,6 +332,8 @@
       <span class="ax-foot-mark"><svg width="26" height="26" viewBox="1 0 100 100" aria-hidden="true"><path d="M8 87.3L51.06 12.7a86.14 86.14 0 0 1 43.08 74.6A140 140 0 0 0 64 28.17H53.96L24.03 80.01l4.21 7.29Z"/><path class="ax-blade" d="m46.5 48.18 47.64 39.12-53.2-29.48Z"/></svg>Archi<strong>TECH</strong></span>
       <p>Portfolio of Navneet Singh, New Delhi. All images are visualisations, not photographs. Autodesk and Revit are trademarks of Autodesk, Inc.</p>
     </div>
+    <!-- HOOK(contact-form): Navneet has not chosen a form service. Do not post this anywhere and do not add analytics. -->
+    <div id="contact-form" data-form="unconfigured" hidden></div>
   </footer>
 
   <script>

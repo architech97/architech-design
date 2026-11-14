@@ -17,7 +17,7 @@
     if (hasGsap) { gsap.ticker.add(t => lenis.raf(t * 1000)); gsap.ticker.lagSmoothing(0); }
     else { const raf = t => { lenis.raf(t); requestAnimationFrame(raf); }; requestAnimationFrame(raf); }
     $$('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
-      const t = $(a.getAttribute('href')); if (!t) return; e.preventDefault(); lenis.scrollTo(t, { duration: 1.8 });
+      const t = $(a.getAttribute('href')); if (!t) return; e.preventDefault(); lenis.scrollTo(t, { duration: 0.8 });
     }));
   }
   window.__lenis = lenis;
@@ -43,7 +43,7 @@
   const secLinks = $$('[data-sec]', nav), lensImg = $('#lg-refract feImage');
   let themed = [], logoBox = { x: 0, y: 0, w: 1, h: 1 }, barDark = null, glassHover = false, sx = 1, sy = 1, current = null, menuOpen = false, lensKey = '';
   // SVG refraction inside backdrop-filter is a Chromium feature; Safari and Firefox get the frosted variant
-  if (navigator.userAgentData?.brands?.some(b => /Chromium/.test(b.brand))) document.documentElement.classList.add('lg-svg');
+  // The SVG refraction filter is a long-lived main-thread cost. The frosted glass is the shared look.
   nav.addEventListener('pointerenter', () => glassHover = true);
   nav.addEventListener('pointerleave', () => glassHover = false);
   // the refraction map is drawn for the capsule's real size, so the lens edge is the same thickness all round
@@ -79,7 +79,7 @@
   }
   function glassUpdate() {
     // the capsule leans with scroll speed and swells under the pointer, then springs back (CSS adds the overshoot)
-    if (menuOpen) return;
+    if (reduce || menuOpen) return;
     const v = Math.min(1, Math.abs(velocity) / 40);
     const tx = 1 + v * 0.025 + (glassHover ? 0.008 : 0), ty = 1 - v * 0.06 + (glassHover ? 0.04 : 0);
     if (Math.abs(tx - sx) > 0.001 || Math.abs(ty - sy) > 0.002) { sx = tx; sy = ty; glass.style.setProperty('--sx', sx.toFixed(4)); glass.style.setProperty('--sy', sy.toFixed(3)); }
@@ -101,38 +101,25 @@
   addEventListener('keydown', e => { if (e.key === 'Escape' && menuOpen) { setMenu(false); toggle.focus(); } });
   document.addEventListener('pointerdown', e => { if (menuOpen && !nav.contains(e.target)) setMenu(false); });
 
-  /* ---------- loader: the ground-floor plan draws itself ---------- */
-  const count = $('.loader-count'), t0 = performance.now();
-  let pct = 0;
-  const pctTick = () => { pct = Math.min(100, pct + (100 - pct) * 0.06 + 0.4); count.textContent = String(Math.round(pct)).padStart(3, '0'); if (!finished) requestAnimationFrame(pctTick); };
-  requestAnimationFrame(pctTick);
-  let finished = false, heroLoaded = false;
-  ['/img/hero-day.jpg', '/img/hero-dusk.jpg'].forEach(src => { const i = new Image(); i.onload = i.onerror = () => { if (i.complete) heroLoaded = true; }; i.src = src; });
-  let seen = false; try { seen = sessionStorage.getItem('architech-intro') === '1'; sessionStorage.setItem('architech-intro', '1'); } catch (e) {}
-  if (seen) document.documentElement.classList.add('intro-seen');
-  const minTime = reduce || seen ? 350 : 2100;
-  function tryFinish() {
-    if (finished) return;
-    if (performance.now() - t0 < minTime || (!heroLoaded && performance.now() - t0 < 7000)) return void setTimeout(tryFinish, 120);
-    finished = true; count.textContent = '100';
-    document.body.classList.remove('is-loading');
-    dispatchEvent(new Event('architech:ready'));
-    intro();
-  }
-  setTimeout(tryFinish, 200);
+  /* ---------- open on the hero. The full-screen plan loader covered the LCP image, so it stays hidden. ---------- */
+  document.body.classList.remove('is-loading');
+  $('.loader')?.setAttribute('hidden', '');
+  try { sessionStorage.setItem('architech-intro', '1'); } catch (e) {}
   function intro() {
     if (!hasGsap || reduce) { $$('.hero .line-inner').forEach(l => l.style.transform = 'none'); return; }
-    gsap.to('.hero .line-inner', { y: 0, duration: 1.5, ease: 'expo.out', stagger: .12, delay: .55 });
-    gsap.from('.hero .kicker, .hero-foot > *', { opacity: 0, y: 18, duration: 1.2, ease: 'expo.out', stagger: .08, delay: .9 });
+    gsap.to('.hero .line-inner', { y: 0, duration: 0.7, ease: 'power2.out', stagger: 0.06, delay: 0.04 });
+    gsap.from('.hero .kicker, .hero-foot > *', { opacity: 0, y: 16, duration: 0.6, ease: 'power2.out', stagger: 0.05, delay: 0.08 });
   }
+  requestAnimationFrame(() => { dispatchEvent(new Event('architech:ready')); intro(); });
 
   /* ---------- hero UI (clock + copy drift); the picture itself is hero.js ---------- */
   const sun = $('.clock .sun'), time = $('.clock-time'), heroCopy = $('.hero-copy'), heroImgs = $$('.hero-img'), night = $('.hero-night');
   let lastClock = '';
   function heroUpdate(y) {
+    if (reduce) return;
     const p = progressOf('hero', y);
     const dusk = clamp((p - .08) / .52);
-    if (!track.hero.classList.contains('has-gl')) { night.style.opacity = dusk; heroImgs.forEach(i => i.style.transform = `scale(${1.12 - .08 * p})`); }
+    if (!track.hero.classList.contains('has-gl')) { night.style.opacity = dusk; heroImgs.forEach(i => i.style.transform = `scale(${(1.04 - .04 * p).toFixed(3)})`); }
     heroCopy.style.transform = `translate3d(0,${(-p * 90).toFixed(1)}px,0)`;
     heroCopy.style.opacity = 1 - clamp((p - .55) / .4);
     const a = Math.PI * (1 - (.55 + dusk * .45));
@@ -151,6 +138,7 @@
   const wordEls = $$('.w', words);
   let lastN = -1;
   function wordsUpdate(y) {
+    if (reduce) return;
     const r = L.words; const p = clamp((y + vh * .85 - r.top) / (r.h + vh * .4));
     const n = Math.round(p * wordEls.length);
     if (n === lastN) return;
@@ -162,11 +150,13 @@
     if (!e.isIntersecting) return; io.unobserve(e.target);
     const el = e.target;
     if (el.dataset.count) {
-      const to = +el.dataset.count, st = performance.now();
-      const f = t => { const k = clamp((t - st) / 1400); el.textContent = String(Math.round(to * (1 - Math.pow(1 - k, 3)))).padStart(2, '0'); if (k < 1) requestAnimationFrame(f); };
+      const to = +el.dataset.count;
+      if (reduce) { el.textContent = String(to).padStart(2, '0'); return; }
+      const st = performance.now();
+      const f = t => { const k = clamp((t - st) / 800); el.textContent = String(Math.round(to * (1 - Math.pow(1 - k, 3)))).padStart(2, '0'); if (k < 1) requestAnimationFrame(f); };
       requestAnimationFrame(f);
-    } else if (el.classList.contains('split') && hasGsap) {
-      gsap.to($$('.line-inner', el), { y: 0, duration: 1.3, ease: 'expo.out', stagger: .1 });
+    } else if (el.classList.contains('split') && hasGsap && !reduce) {
+      gsap.to($$('.line-inner', el), { y: 0, duration: 0.7, ease: 'power2.out', stagger: 0.05 });
     } else el.classList.add('in');
   }, { threshold: .3 }));
   $$('[data-count]').forEach(el => io.observe(el));
@@ -194,16 +184,16 @@
 
   /* ---------- plan explorer ---------- */
   const FLOORS = [
-    { name: 'Ground floor', slide: '/plan-render-0.jpg', drawing: '/drawing-0.jpg', rooms: [
+    { name: 'Ground floor', slide: '/img/cs-plan-0-859.webp', drawing: '/img/cs-drawing-0-1280.webp', rooms: [
       [1, 'Entry vestibule', '', 485, 200], [2, 'Living room', '23′ × 19′', 707, 160], [3, 'Dining area', '23′ × 15′3″', 727, 325],
       [4, 'Mandir', '', 485, 110], [5, 'Kitchen', '', 988, 155], [6, 'Master bedroom lounge', '11′5″ × 11′9″', 483, 357],
       [7, 'Master bedroom', '15′2″ × 18′7″', 330, 520], [8, 'Master toilet', '10′10″ × 8′11″', 527, 478], [9, 'Dresser', '10′2″ × 11′5″', 325, 358],
       [10, 'Bedroom', '13′7″ × 16′8″', 713, 505], [11, 'Toilet', '10′7″ × 8′11″', 527, 598], [12, 'Common toilet', '5′5″ × 9′7″', 807, 568]] },
-    { name: 'First floor', slide: '/plan-render-1.jpg', drawing: '/assets/asset-027.jpg', rooms: [
+    { name: 'First floor', slide: '/img/cs-plan-1-859.webp', drawing: '/img/cs-drawing-1-1280.webp', rooms: [
       [1, 'Family lounge', '19′5″ × 17′8″', 722, 310], [2, 'Vestibule', '', 570, 410], [3, 'Bedroom', '15′2″ × 13′9″', 415, 368],
       [3, 'Bedroom', '15′2″ × 16′8″', 360, 520], [3, 'Bedroom', '13′7″ × 16′8″', 698, 520], [4, 'Toilet', '6′6″ × 10′10″', 556, 300],
       [4, 'Toilet', '6′3″ × 10′7″', 535, 566], [4, 'Toilet', '5′5″ × 10′7″', 852, 566], [5, 'Terrace', '', 960, 124]] },
-    { name: 'Second floor', slide: '/plan-render-2.jpg', drawing: '/assets/asset-028.jpg', rooms: [
+    { name: 'Second floor', slide: '/img/cs-plan-2-859.webp', drawing: '/img/cs-drawing-2-1280.webp', rooms: [
       [1, 'Terrace', '', 425, 445], [2, 'Home theatre', '', 702, 121], [3, 'Gaming zone', '', 767, 316],
       [4, 'Bedroom', '13′7″ × 16′8″', 681, 546], [5, 'Toilet', '5′5″ × 10′7″', 842, 604]] }
   ];
@@ -267,7 +257,7 @@
   });
   new IntersectionObserver((es, o) => es.forEach(e => {
     if (!e.isIntersecting || reduce || !hasGsap) return; o.disconnect();
-    const s = { v: 88 }; gsap.to(s, { v: 50, duration: 2, ease: 'expo.inOut', onUpdate: () => wipe.style.setProperty('--x', s.v + '%') });
+    const s = { v: 88 }; gsap.to(s, { v: 50, duration: 0.8, ease: 'power2.out', onUpdate: () => wipe.style.setProperty('--x', s.v + '%') });
   }), { threshold: .5 }).observe(wipe);
 
   /* ---------- horizontal reel (positions cached, velocity skew) ---------- */
@@ -280,6 +270,7 @@
     itemCenters = reelItems.map(it => it.offsetLeft + it.offsetWidth / 2);
   }
   function reelUpdate(y) {
+    if (reduce) return;
     const p = progressOf('reel', y), x = -p * reelMax;
     reelTrack.style.transform = `translate3d(${x.toFixed(1)}px,0,0) skewX(${clamp(-velocity * 0.25, -6, 6).toFixed(2)}deg)`;
     const n = String(Math.min(5, 1 + Math.floor(p * 5))).padStart(2, '0');
@@ -289,7 +280,7 @@
 
   /* ---------- contact parallax ---------- */
   const cImg = $('.contact-media img');
-  const contactUpdate = y => { const p = clamp((y + vh - L.contact.top) / vh, 0, 2); cImg.style.transform = `scale(1.15) translate3d(0,${((p - 1) * -6).toFixed(2)}%,0)`; };
+  const contactUpdate = y => { if (reduce || !cImg) return; const p = clamp((y + vh - L.contact.top) / vh, 0, 2); cImg.style.transform = `scale(1.04) translate3d(0,${((p - 1) * -4).toFixed(2)}%,0)`; };
 
   /* ---------- cursor (desktop) + services image ---------- */
   const cursor = $('.cursor'), cLabel = $('.cursor-label', cursor), float = $('.service-float'), fimg = $('img', float);
@@ -360,5 +351,33 @@
   addEventListener('load', () => { measure(); lastY = -1; });
   new ResizeObserver(() => { measure(); lastY = -1; }).observe(document.body);
   requestAnimationFrame(frame);
+
+  /* WebGL and the residence model stay off the first load. A gesture starts the hero shader;
+     the model loads only as its section approaches. Reduced motion keeps the still images. */
+  if (reduce) {
+    wordEls.forEach(w => w.classList.add('on'));
+    $$('.line-inner').forEach(el => { el.style.transform = 'none'; });
+    document.querySelector('.scene-fallback')?.removeAttribute('hidden');
+    $('#model-load')?.setAttribute('hidden', '');
+    $('#hero-gl')?.remove();
+    $('#scene')?.remove();
+  } else {
+    const bootHeavy = () => {
+      if (!document.documentElement.dataset.heroMod) {
+        document.documentElement.dataset.heroMod = '1';
+        import('/hero.js?v=pf2');
+      }
+      const section = $('#dwelling');
+      if (!section || document.documentElement.dataset.sceneWatch) return;
+      document.documentElement.dataset.sceneWatch = '1';
+      const watch = new IntersectionObserver((entries) => {
+        if (!entries.some(entry => entry.isIntersecting)) return;
+        watch.disconnect();
+        import('/scene.js?v=pf2');
+      }, { rootMargin: '500px 0px' });
+      watch.observe(section);
+    };
+    ['pointerdown', 'keydown', 'wheel', 'touchstart'].forEach(type => addEventListener(type, bootHeavy, { once: true, passive: true }));
+  }
 })();
 

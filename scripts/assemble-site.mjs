@@ -11,7 +11,7 @@ const root = fileURLToPath(new URL('../', import.meta.url))
 const dist = resolve(distPath)
 const output = resolve(outputPath)
 const publicDesign = [
-  '.nojekyll', 'CNAME', '404.html', 'portal.css', 'chrome.css', 'portfolio.css',
+  '.nojekyll', 'CNAME', '404.html', 'portal.css', 'chrome.css', 'portfolio.css', 'plain.css', 'privacy',
   'robots.txt', 'favicon.ico',
   'assets', 'img', 'rooms.json', 'hero.js', 'main.js', 'scene.js',
   'style.css', 'style.logo-theme-v2.css', 'style.original-logo-v3.css',
@@ -44,7 +44,7 @@ if (await stat(join(root, 'projects')).catch(() => null)) {
   await cp(join(root, 'projects'), join(output, 'design'), { recursive: true, filter: copyPublic })
 }
 
-const sitemap = ['/', '/design/', '/automation/', '/automation/plugins/', '/automation/demos/', '/automation/coverage/', '/automation/connect/']
+const sitemap = ['/', '/design/', '/privacy/', '/automation/', '/automation/plugins/', '/automation/demos/', '/automation/coverage/', '/automation/connect/']
 for (const group of ['plugins', 'demos']) {
   const directory = join(output, 'automation', group)
   const routes = (await readdir(directory, { withFileTypes: true })).filter(entry => entry.isDirectory())

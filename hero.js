@@ -4,6 +4,9 @@
    pointer parallax and film grain. Falls back to the plain images if WebGL is unavailable. */
 import * as THREE from 'three';
 
+if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  document.getElementById('hero-gl')?.remove();
+} else {
 const hero = document.getElementById('hero');
 const canvas = document.getElementById('hero-gl');
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -110,10 +113,11 @@ function loop(t) {
     const go = () => {
       if (reduce) return;
       const s = performance.now();
-      const step = t => { const k = Math.min(1, (t - s) / 1600); uniforms.uReveal.value = 1 - Math.pow(1 - k, 3); if (k < 1) requestAnimationFrame(step); };
+      const step = t => { const k = Math.min(1, (t - s) / 800); uniforms.uReveal.value = 1 - Math.pow(1 - k, 3); if (k < 1) requestAnimationFrame(step); };
       requestAnimationFrame(step);
     };
     if (document.body.classList.contains('is-loading')) addEventListener('architech:ready', go, { once: true }); else go();
   } catch (e) { console.error(e); canvas.remove(); }
 })();
+}
 
