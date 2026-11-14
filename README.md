@@ -14,6 +14,8 @@ node scripts/assemble-site.mjs ../architech-plugins/dist _site
 
 Serve `_site` at the root of a static HTTP server. Use a fresh output directory for each assembly.
 
+Home's product counts are filled at assembly from the Automation build's `stats.json` (`products`, `revitTools`, `suiteHomes`, `utilities`, `desktopApps`, `connectors`). `portal.html` keeps `{{tokens}}` for those counts. When `stats.json` is missing, as it is on the pinned revision `1239129`, the assembler writes the hard-coded fallback (58 Revit add-ins, 2 desktop apps, 5 AI connectors, 69 products) and logs a warning. The published homepage is static HTML either way.
+
 ## Adding a Design project
 
 `index.html` is the featured case study (the Vasant Kunj residence) and the project grid. It is published at `/design/`.
