@@ -25,8 +25,12 @@ h2 em{color:var(--taupe)}
 .kicker{font:400 11px/1.4 var(--sans);letter-spacing:.24em;text-transform:uppercase;color:var(--ink-2);margin-bottom:22px}
 :focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 
-/* Original Brass Tech artwork with transparent background. */
-.logo-mask{display:inline-flex;align-items:center;width:144px;height:40px;background:transparent}
+/* Official lockup: geometry is in the inline SVG; colours follow the pill surface. */
+.bar[data-logo],.foot[data-logo]{--logo-ink:#2A2420;--logo-accent:#A88752}
+.bar[data-logo="blueprint"],.foot[data-logo="blueprint"]{--logo-accent:#7B9BE6}
+.bar.is-dark[data-logo],.foot[data-logo]{--logo-ink:#F1EFEA}
+.logo-mask{display:inline-flex;align-items:center;flex:none;width:164px;height:40px;background:transparent}
+.logo-mask svg{display:block;width:100%;height:auto}
 
 /* loader: the ground-floor plan draws itself */
 .loader{position:fixed;inset:0;z-index:100;background:var(--taupe);color:var(--paper);display:grid;place-content:center;justify-items:center;gap:26px;transition:clip-path .8s var(--ease-out)}
@@ -69,7 +73,7 @@ body.has-cursor,body.has-cursor a,body.has-cursor button,body.has-cursor #scene,
 .division-switcher a span{font-size:11px}
 .nav-row{position:relative;display:flex;align-items:center;justify-content:space-between;height:60px;padding:0 8px 0 24px}
 .bar-logo{display:inline-flex;align-items:center;height:44px;border-radius:22px;-webkit-tap-highlight-color:transparent}
-.bar .logo-mask{width:134px;height:36px;filter:drop-shadow(0 1px 1px rgba(20,14,10,.16))}
+.bar .logo-mask{width:clamp(144px,15vw,172px);height:42px;filter:drop-shadow(0 1px 1px rgba(20,14,10,.16))}
 .bar.is-dark .logo-mask{filter:drop-shadow(0 1px 2px rgba(0,0,0,.35))}
 .nav-links{display:flex;align-items:center;gap:2px}
 .nav-links a{position:relative;display:inline-flex;align-items:center;height:44px;padding:0 16px;border-radius:22px;font:400 12px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;transition:background .35s,color .35s;-webkit-tap-highlight-color:transparent}
@@ -342,7 +346,7 @@ body.scene-dusk .lbl.level b{color:#efe7da}
 .foot-social{display:flex;flex-wrap:wrap;gap:6px 16px}
 .foot-social a{display:inline-flex;align-items:center;min-height:32px;color:var(--paper)}
 .foot-social a:hover{text-decoration:underline;text-underline-offset:.25em}
-.foot .logo-mask{color:var(--paper);width:144px;height:40px;flex:none}
+.foot .logo-mask{color:var(--paper);width:164px;height:40px;flex:none}
 .foot p{max-width:60em}
 
 .lightbox{border:0;padding:0;max-width:none;max-height:none;width:100vw;height:100vh;background:rgba(15,12,10,.96);color:var(--paper)}
@@ -369,7 +373,7 @@ body.scene-dusk .lbl.level b{color:#efe7da}
   .nav-row{height:54px;padding:0 5px 0 18px}
   .nav-links{display:none}
   .nav-toggle{display:block}
-  .bar .logo-mask{width:120px;height:32px}
+  .bar .logo-mask{width:156px;height:38px}
   /* hero: keep the title legible over a bright façade */
   .hero-shade{background:linear-gradient(180deg,rgba(23,19,17,.45) 0%,rgba(23,19,17,0) 20%,rgba(23,19,17,.12) 42%,rgba(23,19,17,.62) 72%,rgba(23,19,17,.82) 100%)}
   .hero-copy{bottom:calc(132px + env(safe-area-inset-bottom,0px))}
@@ -452,11 +456,6 @@ body.scene-dusk .dwelling .skip:hover{background:var(--paper);color:var(--ink)}
   .chapter-panel{background:var(--paper)}
   body.scene-dusk .chapter-panel{background:var(--night)}
 }
-
-/* Preserve the original white-and-gold artwork without an added logo box. */
-.logo-mask img,.loader-mark img{-webkit-filter:none;filter:none}
-.bar .logo-mask{filter:drop-shadow(0 1px 1px rgba(42,36,32,.8)) drop-shadow(0 0 2px rgba(42,36,32,.35))}
-.bar.is-dark .logo-mask{filter:drop-shadow(0 1px 2px rgba(0,0,0,.35))}
 
 /* Return control matches the shared chrome while the case-study pill keeps its own skin. */
 .ax-back-top{box-sizing:border-box;position:fixed;right:24px;bottom:var(--back-top-bottom,24px);z-index:45;display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;min-width:44px;min-height:44px;padding:10px;border:1px solid var(--paper);border-radius:2px;background:var(--night);color:var(--paper);text-decoration:none}
