@@ -44,7 +44,7 @@ ol, ul { list-style: none; }
 img { display: block; max-width: 100%; height: auto; }
 a { color: inherit; text-decoration: none; }
 :focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; }
-.skip-link { position: fixed; top: 10px; left: 10px; z-index: 50; transform: translateY(-160%); padding: 10px 14px; color: var(--paper); background: var(--night); }
+.skip-link { position: fixed; top: 10px; left: 10px; z-index: 60; transform: translateY(-160%); padding: 10px 14px; color: var(--paper); background: var(--night); }
 .skip-link:focus { transform: none; }
 main:focus { outline: none; }
 
@@ -313,11 +313,11 @@ body > .ax-footer { padding-top: var(--s-5); }
 
 /* What I bring: five disciplines, each with its own evidence. */
 .caps { padding-inline: var(--gut); padding-bottom: var(--s-5); }
-.caps > * { max-width: 1520px; margin-inline: auto; }
+.caps > * { width: 100%; max-width: 1520px; margin-inline: auto; }
 .caps-head { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--s-2) var(--s-3); align-items: end; margin-bottom: var(--s-4); }
 .caps-head h2 { grid-column: 1 / span 7; font: 500 clamp(2.2rem, 4.6vw, 4.6rem)/.95 var(--serif); letter-spacing: -.03em; }
 .caps-head p { grid-column: 9 / -1; color: var(--ink-2); font-size: clamp(1rem, 1.2vw, 1.1rem); }
-.caps-row { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--s-3); margin: 0; padding: 0; list-style: none; }
+.caps-row { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--s-3); margin-inline: auto; margin-block: 0; padding: 0; list-style: none; }
 .caps-row a { display: grid; grid-template-rows: auto auto auto 1fr auto; gap: 6px; height: 100%; color: var(--ink); text-decoration: none; }
 .cap-img { display: block; aspect-ratio: 4 / 3; overflow: hidden; margin-bottom: 10px; background: var(--night); }
 .cap-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s var(--ease-out); }

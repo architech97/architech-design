@@ -11,7 +11,7 @@ const root = fileURLToPath(new URL('../', import.meta.url))
 const dist = resolve(distPath)
 const output = resolve(outputPath)
 const publicDesign = [
-  '.nojekyll', 'CNAME', '404.html', 'portal.css', 'chrome.css', 'portfolio.css', 'plain.css', 'privacy',
+  '.nojekyll', 'CNAME', '404.html', 'portal.css', 'chrome.css', 'chrome-nav.js', 'portfolio.css', 'plain.css', 'privacy',
   'robots.txt', 'favicon.ico',
   'assets', 'img', 'rooms.json', 'hero.js', 'main.js', 'scene.js',
   'style.css', 'style.logo-theme-v2.css', 'style.original-logo-v3.css',

@@ -1,6 +1,6 @@
 /* Quiet pages that share the site header and footer: privacy, 404, empty project slots. */
 body { margin: 0; background: var(--paper); color: var(--ink); font: 300 1.05rem/1.65 var(--sans); }
-.skip-link { position: fixed; top: 10px; left: 10px; z-index: 50; transform: translateY(-160%); padding: 10px 14px; color: var(--paper); background: var(--night); text-decoration: none; }
+.skip-link { position: fixed; top: 10px; left: 10px; z-index: 60; transform: translateY(-160%); padding: 10px 14px; color: var(--paper); background: var(--night); text-decoration: none; }
 .skip-link:focus { transform: none; }
 .plain { width: min(68ch, calc(100% - 2 * var(--gut))); margin: clamp(32px, 6vh, 72px) auto clamp(48px, 8vh, 96px); }
 .plain h1 { font: 500 clamp(2.4rem, 6vw, 4.2rem)/.95 var(--serif); letter-spacing: -.03em; margin: 0 0 16px; text-wrap: balance; }
