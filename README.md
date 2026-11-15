@@ -24,6 +24,6 @@ Home's product counts are filled at assembly from the Automation build's `stats.
 2. Copy the case-study block from `index.html` and fill in project, location, status, role, software, scope (modelling, BIM, renders), process images and outcome. State only what is true for that project, and say when images are visualisations.
 3. Add a card to the project grid in `index.html` linking to `/design/<slug>/`.
 
-`projects/slot-02/` and `projects/slot-03/` are empty placeholders. They are marked `noindex` and are not added to the sitemap. Replace a slot only when Navneet supplies a hero render, a brief, the scope, the software, process or before/after images, and an outcome. Do not invent a client name.
+`projects/slot-02/` and `projects/slot-03/` are empty placeholders kept in the repo and in the `/design/` project list, but hidden until Navneet supplies renders. They are not published, not added to the sitemap, and they stay `noindex`. To show a slot: remove `hidden` from its card in `index.html` and set `publishEmptySlots` to `true` in `scripts/assemble-site.mjs`. Replace a slot only when he supplies a hero render, a brief, the scope, the software, process or before/after images, and an outcome. Do not invent a client name.
 
 `privacy/index.html` is a draft notice for Navneet to review. It is published at `/privacy/`.

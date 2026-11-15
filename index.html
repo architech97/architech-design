@@ -60,7 +60,7 @@
 }
 </script>
 <link rel="stylesheet" href="/style.original-logo-v3.css?v=lockup1">
-<link rel="stylesheet" href="/portfolio.css?v=pf2">
+<link rel="stylesheet" href="/portfolio.css?v=slots1">
 <script>try{if(sessionStorage.getItem('architech-intro')==='1')document.documentElement.classList.add('intro-seen')}catch(e){}</script>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
 </head>
@@ -208,7 +208,10 @@
         </figure>
       </a>
     </li>
-    <li class="work-card is-slot">
+    <!-- Empty slots stay in the markup so they can be shown again when Navneet supplies renders.
+         To re-enable a slot: remove the hidden attribute here, and set publishEmptySlots to true
+         in scripts/assemble-site.mjs so the slot page is published. -->
+    <li class="work-card is-slot" hidden>
       <a href="/design/slot-02/">
         <figure>
           <div class="slot-frame"><span>Hero render needed</span></div>
@@ -220,7 +223,7 @@
         </figure>
       </a>
     </li>
-    <li class="work-card is-slot">
+    <li class="work-card is-slot" hidden>
       <a href="/design/slot-03/">
         <figure>
           <div class="slot-frame"><span>Hero render needed</span></div>
