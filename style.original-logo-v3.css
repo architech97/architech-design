@@ -283,7 +283,7 @@ body.scene-dusk .lbl.level b{color:#efe7da}
 .wipe-tag-l{left:22px}.wipe-tag-r{right:22px}
 
 /* reel */
-.reel{height:420vh;position:relative;background:var(--taupe-d);color:var(--paper)}
+.reel{height:340vh;position:relative;background:var(--taupe-d);color:var(--paper)}
 .reel-sticky{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:flex;flex-direction:column;justify-content:center}
 .reel-head{position:absolute;top:96px;left:var(--pad);right:var(--pad);display:flex;justify-content:space-between}
 .reel-head .kicker{color:rgba(243,238,230,.6)}

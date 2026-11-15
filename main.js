@@ -358,7 +358,8 @@
     if (reduce) return;
     const p = progressOf('reel', y), x = -p * reelMax;
     reelTrack.style.transform = `translate3d(${x.toFixed(1)}px,0,0) skewX(${clamp(-velocity * 0.25, -6, 6).toFixed(2)}deg)`;
-    const n = String(Math.min(5, 1 + Math.floor(p * 5))).padStart(2, '0');
+    const reelCount = reelItems.length;
+    const n = String(Math.min(reelCount, 1 + Math.floor(p * reelCount))).padStart(2, '0');
     if (n !== lastReelN) { reelN.textContent = n; lastReelN = n; }
     reelImgs.forEach((img, i) => { if (!img) return; const c = (itemCenters[i] + x - vw / 2) / vw; img.style.transform = `scale(1.18) translate3d(${(c * -8).toFixed(2)}%,0,0)`; });
   }
@@ -401,10 +402,11 @@
 
   /* ---------- lightbox ---------- */
   // one list for the exterior reel and the living section, in the order they appear on the page
-  const LB = $$('[data-lb]').sort((a, b) => a.dataset.lb - b.dataset.lb).map(b => { const im = $('img', b), cap = b.closest('figure')?.querySelector('figcaption'); const t = cap ? [...cap.childNodes].map(n => n.textContent.trim()).filter(Boolean).join(' · ').replace(/^\d+ · /, '') : im.alt; return [im.getAttribute('src'), t]; });
+  const lbButtons = $$('[data-lb]').sort((a, b) => a.dataset.lb - b.dataset.lb);
+  const LB = lbButtons.map(b => { const im = $('img', b), cap = b.closest('figure')?.querySelector('figcaption'); const t = cap ? [...cap.childNodes].map(n => n.textContent.trim()).filter(Boolean).join(' · ').replace(/^\d+ · /, '') : im.alt; return [im.getAttribute('src'), t]; });
   const lb = $('#lightbox'), lbImg = $('img', lb), lbCap = $('.lb-cap', lb); let lbi = 0;
   const lbShow = i => { lbi = (i + LB.length) % LB.length; lbImg.src = LB[lbi][0]; lbImg.alt = LB[lbi][1]; lbCap.textContent = `${String(lbi + 1).padStart(2, '0')} / ${String(LB.length).padStart(2, '0')} · ${LB[lbi][1]}`; };
-  $$('[data-lb]').forEach(b => b.addEventListener('click', () => { lbShow(+b.dataset.lb); lb.showModal(); lenis?.stop(); }));
+  lbButtons.forEach(b => b.addEventListener('click', () => { lbShow(lbButtons.indexOf(b)); lb.showModal(); lenis?.stop(); }));
   $('.lb-close', lb).onclick = () => lb.close(); $('.lb-prev', lb).onclick = () => lbShow(lbi - 1); $('.lb-next', lb).onclick = () => lbShow(lbi + 1);
   lb.addEventListener('close', () => lenis?.start());
   lb.addEventListener('keydown', e => { if (e.key === 'ArrowLeft') lbShow(lbi - 1); if (e.key === 'ArrowRight') lbShow(lbi + 1); });
