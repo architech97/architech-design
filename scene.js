@@ -8,6 +8,11 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 
+if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  document.querySelector('.scene-fallback')?.removeAttribute('hidden');
+  document.getElementById('model-load')?.setAttribute('hidden', '');
+  document.getElementById('scene')?.remove();
+} else {
 const section = document.getElementById('dwelling');
 const canvas = document.getElementById('scene');
 const labelLayer = document.getElementById('labels');
@@ -469,6 +474,7 @@ function fail() {
       await new Promise(r => setTimeout(r, 0));
     }
     if (loadNote) loadNote.hidden = true;
+    document.querySelector('.scene-fallback')?.setAttribute('hidden', '');
     modelReady = true; lastKey = ''; dirty = true;
     window.__architechScene = { update, renderer, camera, levels, scene, THREE, get dpr() { return dpr; } };
   } catch (err) {
@@ -476,4 +482,5 @@ function fail() {
     fail();
   }
 })();
+}
 
