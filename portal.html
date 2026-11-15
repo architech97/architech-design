@@ -65,7 +65,7 @@
   <script>
     // Shared links to sections of the former homepage still open the Design presentation.
     const legacyDesignSections = new Set([
-      '#top', '#hero', '#intro', '#house', '#dwelling', '#plans',
+      '#hero', '#intro', '#house', '#dwelling', '#plans',
       '#light', '#reel', '#living', '#studio',
     ]);
     if (legacyDesignSections.has(location.hash)) {
@@ -75,27 +75,50 @@
     // Keep a readable static gradient when scripting is unavailable; the script below replaces it with one body tone.
     document.documentElement.classList.replace('no-js', 'js');
   </script>
+  <script src="/chrome-nav.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
-  <header class="ax-header">
-    <div class="ax-bar">
-      <a class="ax-brand" href="/" aria-label="ArchiTECH home">
-        <svg width="34" height="34" viewBox="1 0 100 100" aria-hidden="true">
-          <path fill="currentColor" d="M8 87.3L51.06 12.7a86.14 86.14 0 0 1 43.08 74.6A140 140 0 0 0 64 28.17H53.96L24.03 80.01l4.21 7.29Z"/>
-          <path class="ax-blade" d="m46.5 48.18 47.64 39.12-53.2-29.48Z"/>
-        </svg>
-        <span>Archi<strong>TECH</strong></span>
-      </a>
-      <nav class="ax-nav" aria-label="Site">
-        <a href="/" aria-current="page">Home</a>
-        <a href="/design/" data-division="design">Design</a>
-        <a href="/automation/">Automation</a>
-        <a href="/#about">About</a>
-        <a href="#contact">Contact</a>
-      </nav>
-    </div>
-  </header>
+  <div id="top" tabindex="-1"></div>
+  <div class="ax-chrome" data-hidden="false">
+    <header class="ax-header">
+      <div class="ax-bar">
+        <a class="ax-brand" href="/" aria-label="ArchiTECH home">
+          <svg width="34" height="34" viewBox="1 0 100 100" aria-hidden="true">
+            <path fill="currentColor" d="M8 87.3L51.06 12.7a86.14 86.14 0 0 1 43.08 74.6A140 140 0 0 0 64 28.17H53.96L24.03 80.01l4.21 7.29Z"/>
+            <path class="ax-blade" d="m46.5 48.18 47.64 39.12-53.2-29.48Z"/>
+          </svg>
+          <span>Archi<strong>TECH</strong></span>
+        </a>
+        <nav class="ax-nav" aria-label="Site">
+          <a href="/" data-division="home" aria-current="page">Home</a>
+          <a href="/design/" data-division="design">Design</a>
+          <a href="/automation/" data-division="automation">Automation</a>
+          <a href="/#about">About</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <span class="ax-mobile-section">Home</span>
+        <button type="button" class="ax-menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="site-menu">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+      <dialog id="site-menu" class="ax-mobile-menu" aria-labelledby="site-menu-title">
+        <div class="ax-menu-head">
+          <span id="site-menu-title">Menu</span>
+          <button type="button" class="ax-menu-close" aria-label="Close menu" autofocus>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"/></svg>
+          </button>
+        </div>
+        <nav class="ax-menu-site" aria-label="Site">
+          <a href="/" data-division="home" aria-current="page">Home</a>
+          <a href="/design/" data-division="design">Design</a>
+          <a href="/automation/" data-division="automation">Automation</a>
+          <a href="/#about">About</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </dialog>
+    </header>
+  </div>
 
   <main id="main" tabindex="-1">
     <div class="first-screen">
@@ -312,9 +335,10 @@
       </div>
       <div class="ax-foot-col">
         <p class="ax-foot-h">Work</p>
+        <a href="/">Home</a>
         <a href="/design/">Design portfolio</a>
         <a href="/automation/">Automation</a>
-        <a href="/automation/demos/">Tool dialogs</a>
+        <a href="/automation/demos/">Dialog gallery</a>
         <a href="/automation/connect/">Get in touch</a>
         <a href="/privacy/">Privacy</a>
       </div>
@@ -329,7 +353,8 @@
       </div>
     </div>
     <div class="ax-foot-base">
-      <span class="ax-foot-mark"><svg width="26" height="26" viewBox="1 0 100 100" aria-hidden="true"><path d="M8 87.3L51.06 12.7a86.14 86.14 0 0 1 43.08 74.6A140 140 0 0 0 64 28.17H53.96L24.03 80.01l4.21 7.29Z"/><path class="ax-blade" d="m46.5 48.18 47.64 39.12-53.2-29.48Z"/></svg>Archi<strong>TECH</strong></span>
+      <a class="ax-foot-mark" href="/" aria-label="ArchiTECH home"><svg width="26" height="26" viewBox="1 0 100 100" aria-hidden="true"><path d="M8 87.3L51.06 12.7a86.14 86.14 0 0 1 43.08 74.6A140 140 0 0 0 64 28.17H53.96L24.03 80.01l4.21 7.29Z"/><path class="ax-blade" d="m46.5 48.18 47.64 39.12-53.2-29.48Z"/></svg>Archi<strong>TECH</strong></a>
+      <a class="ax-foot-top" href="#top">Back to top</a>
       <p>Portfolio of Navneet Singh, New Delhi. All images are visualisations, not photographs. Autodesk and Revit are trademarks of Autodesk, Inc.</p>
     </div>
     <!-- HOOK(contact-form): Navneet has not chosen a form service. Do not post this anywhere and do not add analytics. -->
@@ -385,5 +410,8 @@
       });
     }
   </script>
+  <a class="ax-back-top" href="#top" aria-label="Back to top" hidden>
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="m6 11 6-6 6 6M12 5v14"/></svg>
+  </a>
 </body>
 </html>

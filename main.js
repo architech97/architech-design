@@ -3,7 +3,8 @@
 (() => {
   'use strict';
   const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const navigationMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  const reduce = navigationMotion.matches;
   const fine = matchMedia('(pointer: fine)').matches;
   const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
   const hasGsap = !!(window.gsap && window.ScrollTrigger);
@@ -16,18 +17,36 @@
     lenis.on('scroll', e => { velocity = e.velocity || 0; if (hasGsap) ScrollTrigger.update(); });
     if (hasGsap) { gsap.ticker.add(t => lenis.raf(t * 1000)); gsap.ticker.lagSmoothing(0); }
     else { const raf = t => { lenis.raf(t); requestAnimationFrame(raf); }; requestAnimationFrame(raf); }
-    $$('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
-      const t = $(a.getAttribute('href')); if (!t) return; e.preventDefault(); lenis.scrollTo(t, { duration: 0.8 });
-    }));
   }
   window.__lenis = lenis;
+  // Use the collapsed pill's measured offset for both Lenis and native navigation.
+  $$('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
+    const target = document.getElementById(a.hash.slice(1));
+    if (!target) return;
+    e.preventDefault();
+    if (menuOpen) setMenu(false);
+    const top = target.id === 'top';
+    if (lenis) lenis.scrollTo(top ? 0 : target, { duration: 0.8, offset: top ? 0 : -navigationHeight - 16, immediate: navigationMotion.matches, force: true });
+    else window.scrollTo({ top: top ? 0 : target.getBoundingClientRect().top + scrollY - navigationHeight - 16, behavior: navigationMotion.matches ? 'instant' : 'smooth' });
+    if (location.hash !== a.hash) history.pushState(null, '', a.hash);
+    if (top) target.focus({ preventScroll: true });
+  }));
+  navigationMotion.addEventListener('change', () => {
+    if (lenis) {
+      lenis.options.smoothWheel = !navigationMotion.matches;
+      if (navigationMotion.matches) lenis.scrollTo(scrollY, { immediate: true, force: true });
+    }
+  });
 
   /* ---------- layout cache ---------- */
   const L = {};
-  const track = { hero: $('#hero'), words: $('[data-words]'), reel: $('#reel'), contact: $('#contact') };
+  const track = { hero: $('#hero'), words: $('[data-words]'), reel: $('#reel'), contact: $('#contact'), footer: $('.foot') };
   let docH = 1, vh = innerHeight, vw = innerWidth;
   function measure() {
     vh = innerHeight; vw = innerWidth; docH = document.documentElement.scrollHeight - vh;
+    // The menu expands independently; anchor clearance follows the closed pill.
+    navigationHeight = Math.ceil(parseFloat(getComputedStyle(bar).paddingTop) + $('.division-switcher', nav).offsetHeight + $('.nav-row', nav).offsetHeight);
+    document.documentElement.style.setProperty('--design-nav-height', navigationHeight + 'px');
     for (const k in track) { const el = track[k]; if (!el) continue; const r = el.getBoundingClientRect(); L[k] = { top: r.top + scrollY, h: el.offsetHeight }; }
     measureReel();
     themed = $$('[data-theme], #dwelling').map(el => { const r = el.getBoundingClientRect(); return { el, top: r.top + scrollY, bottom: r.bottom + scrollY, dark: el.dataset.theme === 'dark' }; });
@@ -35,13 +54,24 @@
     ['dwelling', 'plans', 'light', 'living', 'studio', 'contact'].forEach(id => { const el = document.getElementById(id); if (el) L['sec_' + id] = el.getBoundingClientRect().top + scrollY; });
     updateLens();
   }
-  const progressOf = (k, y) => clamp((y - L[k].top) / (L[k].h - vh));
+  // Reduced-motion layouts can make a scene exactly one viewport tall.
+  const progressOf = (k, y) => clamp((y - L[k].top) / Math.max(1, L[k].h - vh));
   const inView = (k, y, pad = 0) => y + vh > L[k].top - pad && y < L[k].top + L[k].h + pad;
 
   /* ---------- header: one Liquid Glass capsule (logo + navigation), adapts to the section below ---------- */
   const bar = $('.bar'), nav = $('#navglass'), glass = $('.glass', nav), toggle = $('.nav-toggle'), menu = $('#nav-menu'), themeMeta = $('#theme-color');
-  const secLinks = $$('[data-sec]', nav), lensImg = $('#lg-refract feImage');
+  const secLinks = $$('[data-sec]', nav), lensImg = $('#lg-refract feImage'), backTop = $('.ax-back-top');
+  let navigationHeight = 112, navigationY = Math.max(0, scrollY);
   let themed = [], logoBox = { x: 0, y: 0, w: 1, h: 1 }, barDark = null, glassHover = false, sx = 1, sy = 1, current = null, menuOpen = false, lensKey = '';
+  function navigationUpdate(y) {
+    const pinned = navigationMotion.matches || menuOpen || bar.contains(document.activeElement) || y <= navigationHeight;
+    if (pinned) bar.dataset.hidden = 'false';
+    else if (y !== navigationY) bar.dataset.hidden = String(y > navigationY);
+    navigationY = y;
+    backTop.hidden = y < vh * 0.8;
+    const footerTop = L.footer ? L.footer.top - y : vh;
+    document.documentElement.style.setProperty('--back-top-bottom', Math.max(24, vh - footerTop + 16) + 'px');
+  }
   // SVG refraction inside backdrop-filter is a Chromium feature; Safari and Firefox get the frosted variant
   // The SVG refraction filter is a long-lived main-thread cost. The frosted glass is the shared look.
   nav.addEventListener('pointerenter', () => glassHover = true);
@@ -91,6 +121,7 @@
   // the mobile menu: the capsule itself expands into a sheet
   function setMenu(open) {
     menuOpen = open; nav.classList.toggle('open', open);
+    if (open) bar.dataset.hidden = 'false';
     menu.inert = !open;
     toggle.setAttribute('aria-expanded', String(open)); toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
     glass.style.setProperty('--sx', 1); glass.style.setProperty('--sy', 1); sx = sy = 1;
@@ -339,6 +370,7 @@
       prog.style.transform = `scaleX(${clamp(y / docH).toFixed(4)})`;
     }
     headerTheme(y);
+    navigationUpdate(Math.max(0, y));
     glassUpdate();
     if (inView('reel', y) && (y !== lastY || Math.abs(velocity) > 0.01)) reelUpdate(y);
     lastY = y;
@@ -378,6 +410,36 @@
       watch.observe(section);
     };
     ['pointerdown', 'keydown', 'wheel', 'touchstart'].forEach(type => addEventListener(type, bootHeavy, { once: true, passive: true }));
+  }
+
+  // Headings, reduced-motion fallbacks and fonts can change the layout after the
+  // browser's first fragment jump. Correct only a fresh, untouched page visit.
+  const initialHash = location.hash;
+  const initialTarget = document.getElementById(initialHash.slice(1));
+  if (initialTarget && performance.getEntriesByType('navigation')[0]?.type !== 'back_forward') {
+    let pending = true;
+    const interrupts = ['pointerdown', 'keydown', 'wheel', 'touchstart', 'popstate', 'hashchange'];
+    const stopInitialAlignment = () => {
+      pending = false;
+      interrupts.forEach(type => removeEventListener(type, stopInitialAlignment, true));
+    };
+    interrupts.forEach(type => addEventListener(type, stopInitialAlignment, { capture: true, passive: true }));
+    const loaded = document.readyState === 'complete' ? Promise.resolve() : new Promise(resolve => addEventListener('load', resolve, { once: true }));
+    Promise.all([loaded, document.fonts.ready]).then(() => requestAnimationFrame(() => requestAnimationFrame(() => {
+      if (pending && location.hash === initialHash) {
+        measure();
+        const targetY = initialTarget.id === 'top' ? 0 : initialTarget.getBoundingClientRect().top + scrollY - navigationHeight - 16;
+        if (lenis) {
+          lenis.resize();
+          lenis.scrollTo(targetY, { immediate: true, force: true });
+        }
+        else window.scrollTo({ top: targetY, behavior: 'instant' });
+        navigationY = Math.max(0, scrollY);
+        bar.dataset.hidden = 'false';
+        navigationUpdate(navigationY);
+      }
+      stopInitialAlignment();
+    })));
   }
 })();
 

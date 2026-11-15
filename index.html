@@ -93,11 +93,11 @@
     <span class="glass" aria-hidden="true"><span class="glass-shine"></span></span>
     <nav class="division-switcher" aria-label="ArchiTECH divisions">
       <a href="/">Home</a>
-      <a href="/design/" aria-current="page">Design</a>
-      <a href="/automation/">Automation</a>
+      <a href="/design/" data-division="design" aria-current="page">Design</a>
+      <a href="/automation/" data-division="automation">Automation</a>
     </nav>
     <div class="nav-row">
-      <a class="bar-logo" href="#top" aria-label="ArchiTECH — back to top"><span class="logo-mask"><img src="/assets/architech-logo-transparent.png" alt="ArchiTECH Design"></span></a>
+      <a class="bar-logo" href="/" aria-label="ArchiTECH home"><span class="logo-mask"><img src="/assets/architech-logo-transparent.png" alt="ArchiTECH Design"></span></a>
       <nav class="nav-links" aria-label="Sections">
         <a href="#dwelling" data-sec="dwelling">The house</a>
         <a href="#plans" data-sec="plans">Plans</a>
@@ -124,7 +124,7 @@
   </div>
 </header>
 
-<main id="top">
+<main id="top" tabindex="-1">
 
 <!-- 01 HERO: day to dusk, scrubbed by scroll -->
 <section class="hero" id="hero" data-theme="dark">
@@ -440,17 +440,22 @@
 </main>
 
 <footer class="foot" data-theme="dark">
-  <span class="logo-mask"><img src="/assets/architech-logo-transparent.png" alt="ArchiTECH Design" width="260" height="64"></span>
+  <a class="logo-mask" href="/" aria-label="ArchiTECH home"><img src="/assets/architech-logo-transparent.png" alt="ArchiTECH Design" width="260" height="64"></a>
   <p>Residence in Vasant Kunj · Design proposal. Design, modelling, rendering and presentation by Navneet Singh. All images are visualisations, not photographs. The 3D sequence uses my own model.</p>
   <nav class="foot-social" aria-label="Social and site">
     <a href="https://www.linkedin.com/in/architech-india/" rel="noopener noreferrer">LinkedIn</a>
     <a href="https://www.instagram.com/architechdesign.in/" rel="noopener noreferrer">Instagram</a>
     <a href="https://www.youtube.com/@ArchiTECH97" rel="noopener noreferrer">YouTube</a>
     <a href="https://x.com/Architech_India" rel="noopener noreferrer">X</a>
+    <a href="/">Home</a>
     <a href="/privacy/">Privacy</a>
     <a href="#top">Back to top ↑</a>
   </nav>
 </footer>
+
+<a class="ax-back-top" href="#top" aria-label="Back to top" hidden>
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="m6 11 6-6 6 6M12 5v14" /></svg>
+</a>
 
 <dialog class="lightbox" id="lightbox">
   <button class="lb-close" aria-label="Close">×</button>
