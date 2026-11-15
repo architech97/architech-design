@@ -58,10 +58,16 @@
 .work-index-head { max-width: 1500px; margin: 0 auto clamp(28px, 4vh, 48px); }
 .work-grid { list-style: none; display: grid; grid-template-columns: 1.35fr 1fr; grid-template-rows: auto auto; gap: 22px 28px; max-width: 1500px; margin: 0 auto; }
 .work-grid > :first-child { grid-row: 1 / span 2; }
+.work-card[hidden] { display: none; }
 .work-card a { display: block; height: 100%; color: inherit; }
 .work-card figure { margin: 0; display: grid; gap: 12px; height: 100%; align-content: start; }
 .work-card img, .work-card .slot-frame { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; background: var(--paper-2); }
 .work-grid > :first-child img { aspect-ratio: 4 / 5; min-height: 100%; }
+/* One visible card (empty slots hidden): drop the vacant second column so no gap remains.
+   Keep the same max-width as the heading, and use the default 3 / 2 crop rather than the tall featured 4 / 5. */
+.work-grid:not(:has(.work-card:not([hidden]) ~ .work-card:not([hidden]))) { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto; }
+.work-grid:not(:has(.work-card:not([hidden]) ~ .work-card:not([hidden]))) > :first-child { grid-row: auto; }
+.work-grid:not(:has(.work-card:not([hidden]) ~ .work-card:not([hidden]))) > :first-child img { aspect-ratio: 3 / 2; min-height: 0; height: auto; }
 .work-card figcaption { display: grid; gap: 4px; }
 .work-card figcaption span { font: 400 11px/1.4 var(--sans); letter-spacing: .2em; text-transform: uppercase; color: var(--ink-2); }
 .work-card strong { font: 300 clamp(28px, 3vw, 48px)/1 var(--serif); }

@@ -122,8 +122,12 @@ await Promise.all([
 ])
 
 // Further Design projects live in projects/<slug>/ and are published at /design/<slug>/.
+// Empty slot pages stay in the repo but are not published until their cards are un-hidden
+// in index.html. Flip this flag when Navneet supplies renders.
+const publishEmptySlots = false
+const isUnpublishedSlot = (filePath) => !publishEmptySlots && /(?:^|[/\\])slot-0\d(?:[/\\]|$)/.test(filePath)
 if (await stat(join(root, 'projects')).catch(() => null)) {
-  await cp(join(root, 'projects'), join(output, 'design'), { recursive: true, filter: copyPublic })
+  await cp(join(root, 'projects'), join(output, 'design'), { recursive: true, filter: path => copyPublic(path) && !isUnpublishedSlot(path) })
 }
 
 const sitemap = ['/', '/design/', '/privacy/', '/automation/', '/automation/plugins/', '/automation/demos/', '/automation/coverage/', '/automation/connect/']
