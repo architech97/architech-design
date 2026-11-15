@@ -62,16 +62,55 @@
   /* ---------- header: one Liquid Glass capsule (logo + navigation), adapts to the section below ---------- */
   const bar = $('.bar'), nav = $('#navglass'), glass = $('.glass', nav), toggle = $('.nav-toggle'), menu = $('#nav-menu'), themeMeta = $('#theme-color');
   const secLinks = $$('[data-sec]', nav), lensImg = $('#lg-refract feImage'), backTop = $('.ax-back-top');
-  let navigationHeight = 112, navigationY = Math.max(0, scrollY);
+  const skipLink = $('.skip');
+  let navigationHeight = 76, navigationY = Math.max(0, scrollY);
   let themed = [], logoBox = { x: 0, y: 0, w: 1, h: 1 }, barDark = null, glassHover = false, sx = 1, sy = 1, current = null, menuOpen = false, lensKey = '';
+  function rectInView(el, pad) {
+    if (!el) return false;
+    const r = el.getBoundingClientRect();
+    const cs = getComputedStyle(el);
+    if (cs.display === 'none' || cs.visibility === 'hidden' || cs.opacity === '0') return false;
+    return r.width > 0 && r.height > 0 && r.bottom > pad && r.top < vh - pad;
+  }
+  function backTopClearCopy() {
+    if (!backTop || backTop.hidden) return;
+    let bottom = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--back-top-bottom')) || 24;
+    const blockers = document.querySelectorAll('p, figcaption, h1, h2, h3, li, dt, dd, .kicker, .skip');
+    for (let step = 0; step < 8; step++) {
+      const b = backTop.getBoundingClientRect();
+      let lift = 0;
+      for (const el of blockers) {
+        if (backTop.contains(el) || el.closest('.bar, .ax-back-top, footer, .foot, .nav-menu')) continue;
+        const r = el.getBoundingClientRect();
+        if (r.width < 2 || r.height < 2) continue;
+        const cs = getComputedStyle(el);
+        if (cs.display === 'none' || cs.visibility === 'hidden' || cs.opacity === '0') continue;
+        if (r.left < b.right && r.right > b.left && r.top < b.bottom && r.bottom > b.top) {
+          lift = Math.max(lift, Math.ceil(b.bottom - r.top + 12));
+        }
+      }
+      if (!lift) return;
+      bottom += lift;
+      if (bottom > vh * 0.45) { backTop.hidden = true; return; }
+      document.documentElement.style.setProperty('--back-top-bottom', bottom + 'px');
+    }
+  }
   function navigationUpdate(y) {
     const pinned = navigationMotion.matches || menuOpen || bar.contains(document.activeElement) || y <= navigationHeight;
     if (pinned) bar.dataset.hidden = 'false';
     else if (y !== navigationY) bar.dataset.hidden = String(y > navigationY);
     navigationY = y;
-    backTop.hidden = y < vh * 0.8;
     const footerTop = L.footer ? L.footer.top - y : vh;
     document.documentElement.style.setProperty('--back-top-bottom', Math.max(24, vh - footerTop + 16) + 'px');
+    const chapterCard = $('.chapter-panel');
+    const corner = { left: vw - 88, right: vw - 8, top: vh - 88, bottom: vh - 8 };
+    const hidesCorner = el => {
+      if (!rectInView(el, 8)) return false;
+      const r = el.getBoundingClientRect();
+      return r.left < corner.right && r.right > corner.left && r.top < corner.bottom && r.bottom > corner.top;
+    };
+    backTop.hidden = y < vh * 0.8 || menuOpen || rectInView(skipLink, 12) || hidesCorner(chapterCard);
+    if (!backTop.hidden) backTopClearCopy();
   }
   // SVG refraction inside backdrop-filter is a Chromium feature; Safari and Firefox get the frosted variant
   // The SVG refraction filter is a long-lived main-thread cost. The frosted glass is the shared look.
@@ -294,9 +333,23 @@
 
   /* ---------- horizontal reel (positions cached, velocity skew) ---------- */
   const reelTrack = $('#reel-track'), reelN = $('#reel-n'), reelItems = $$('.reel-item');
+  const reelSticky = reelTrack && reelTrack.parentElement;
+  const reelIntro = $('.reel-intro');
   const reelImgs = reelItems.map(it => $('img', it));
   let reelMax = 0, itemCenters = [], lastReelN = '';
+  function placeReelIntro() {
+    if (!reelIntro || !reelTrack || !reelSticky) return;
+    if (reduce) {
+      if (reelIntro.parentElement !== reelTrack) reelTrack.insertBefore(reelIntro, reelTrack.firstChild);
+      return;
+    }
+    const phone = vw <= 860;
+    if (phone && reelIntro.parentElement !== reelSticky) reelSticky.insertBefore(reelIntro, reelTrack);
+    else if (!phone && reelIntro.parentElement !== reelTrack) reelTrack.insertBefore(reelIntro, reelTrack.firstChild);
+  }
   function measureReel() {
+    if (!reelTrack) return;
+    placeReelIntro();
     reelTrack.style.transform = 'none';
     reelMax = reelTrack.scrollWidth - vw;
     itemCenters = reelItems.map(it => it.offsetLeft + it.offsetWidth / 2);

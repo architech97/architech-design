@@ -59,8 +59,8 @@
   ]
 }
 </script>
-<link rel="stylesheet" href="/style.original-logo-v3.css?v=lockup1">
-<link rel="stylesheet" href="/portfolio.css?v=slots2">
+<link rel="stylesheet" href="/style.original-logo-v3.css?v=review1">
+<link rel="stylesheet" href="/portfolio.css?v=review1">
 <script>try{if(sessionStorage.getItem('architech-intro')==='1')document.documentElement.classList.add('intro-seen')}catch(e){}</script>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
 </head>
@@ -135,6 +135,11 @@
     </div>
     <div class="nav-menu" id="nav-menu" inert data-lenis-prevent>
       <div class="nav-menu-inner">
+        <div class="nav-menu-divisions">
+          <a href="/">Home</a>
+          <a href="/design/" data-division="design" aria-current="page">Design</a>
+          <a href="/automation/" data-division="automation">Automation</a>
+        </div>
         <a href="#dwelling" data-sec="dwelling"><small>01</small>The house<i>→</i></a>
         <a href="#plans" data-sec="plans"><small>02</small>Plans<i>→</i></a>
         <a href="#light" data-sec="light"><small>03</small>Light study<i>→</i></a>
@@ -299,13 +304,15 @@
       <figcaption>Render · front elevation at dusk</figcaption>
     </figure>
   </div>
-  <figure class="asset-slot">
+  <!-- Empty before/after stays in the markup so it can be shown when Navneet supplies a built pair.
+       To re-enable: remove the hidden attribute on this figure. -->
+  <figure class="asset-slot" hidden>
     <div class="slot-frame"><span>Before / after needed</span></div>
     <figcaption>Placeholder. A true before-and-after of a built site is not in the repo. The day and dusk study further down is a light study of this proposal, not a construction photograph.</figcaption>
   </figure>
   <div class="outcome">
     <p class="kicker">Outcome</p>
-    <p>The proposal is presented as the model, rendered plans for three levels, day and dusk views, and the lifestyle images. A built result is not stated. If the house was constructed, that record still needs to be added.</p>
+    <p>The proposal is presented as the model, rendered plans for three levels, day and dusk views, and the lifestyle images.</p>
   </div>
 </section>
 
@@ -535,7 +542,7 @@
     setInterval(() => document.querySelectorAll('.pf-stagger:not(.pf-in)').forEach((block) => { const box = block.getBoundingClientRect(); if (box.top < innerHeight && box.bottom > 0) block.classList.add('pf-in'); }), 2000);
   }
 </script>
-<script defer src="/main.js?v=pf2"></script>
+<script defer src="/main.js?v=review1"></script>
 </body>
 </html>
 

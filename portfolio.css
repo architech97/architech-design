@@ -79,7 +79,8 @@
 .scope p { font: 300 clamp(18px, 1.6vw, 24px)/1.35 var(--serif); }
 .process-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: clamp(36px, 6vh, 64px); }
 .process-row figure { margin: 0; }
-.process-row img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; background: var(--paper-2); }
+.process-row img { width: 100%; height: auto; background: var(--paper-2); }
+.process-row figure:last-child img { aspect-ratio: 4 / 3; object-fit: cover; }
 .process-row figcaption, .asset-slot figcaption { margin-top: 8px; font-size: 13px; letter-spacing: .04em; color: var(--ink-2); }
 .asset-slot { margin: clamp(28px, 5vh, 48px) 0 0; }
 .asset-slot .slot-frame { aspect-ratio: 16 / 6; }
