@@ -45,7 +45,8 @@
   function measure() {
     vh = innerHeight; vw = innerWidth; docH = document.documentElement.scrollHeight - vh;
     // The menu expands independently; anchor clearance follows the closed pill.
-    navigationHeight = Math.ceil(parseFloat(getComputedStyle(bar).paddingTop) + $('.division-switcher', nav).offsetHeight + $('.nav-row', nav).offsetHeight);
+    const capsuleHeight = nav.getBoundingClientRect().height - menu.getBoundingClientRect().height;
+    navigationHeight = Math.ceil(parseFloat(getComputedStyle(bar).paddingTop) + capsuleHeight);
     document.documentElement.style.setProperty('--design-nav-height', navigationHeight + 'px');
     for (const k in track) { const el = track[k]; if (!el) continue; const r = el.getBoundingClientRect(); L[k] = { top: r.top + scrollY, h: el.offsetHeight }; }
     measureReel();
