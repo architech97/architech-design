@@ -401,3 +401,6 @@ body { background: var(--paper); }
 .tools-try { margin: 18px 0 4px; color: var(--on-dark-2); }
 .tools-try a { color: var(--on-dark, #f3eee6); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--brass); }
 .tools-try a:hover { color: var(--brass); }
+
+/* The I3D preview is squarer than the old strip: keep it inside the A-202 render, caption included. */
+@media (min-width: 861px) { .cross-dialog { top: auto; bottom: 52px; width: min(40%, 520px); } }
