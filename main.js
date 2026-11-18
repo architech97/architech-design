@@ -461,11 +461,14 @@
       const watch = new IntersectionObserver((entries) => {
         if (!entries.some(entry => entry.isIntersecting)) return;
         watch.disconnect();
-        import('/scene.js?v=pf2');
+        import('/scene.js?v=pf3');
       }, { rootMargin: '500px 0px' });
       watch.observe(section);
     };
-    ['pointerdown', 'keydown', 'wheel', 'touchstart'].forEach(type => addEventListener(type, bootHeavy, { once: true, passive: true }));
+    ['pointerdown', 'keydown', 'wheel', 'touchstart', 'scroll'].forEach(type => addEventListener(type, bootHeavy, { once: true, passive: true }));
+    // A visit that starts mid-page (a #section link, a reload, Back) makes no gesture: start as soon as it has loaded.
+    const bootIfDeep = () => { if (location.hash || scrollY > 0) bootHeavy(); };
+    if (document.readyState === 'complete') bootIfDeep(); else addEventListener('load', () => requestAnimationFrame(bootIfDeep), { once: true });
   }
 
   // Headings, reduced-motion fallbacks and fonts can change the layout after the

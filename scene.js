@@ -180,7 +180,8 @@ function prepareMaterial(m, plane) {
 function loadModel() {
   const loader = new GLTFLoader().setMeshoptDecoder(MeshoptDecoder);
   return new Promise((res, rej) => loader.load(MODEL, res, e => {
-    if (loadNote && e.total) loadNote.textContent = `Loading the residence model · ${Math.round(e.loaded / e.total * 100)}%`;
+    // e.total is the compressed size, e.loaded counts unpacked bytes: cap the figure so it never passes 99%.
+    if (loadNote && e.total) loadNote.textContent = `Loading the residence model · ${Math.min(99, Math.round(e.loaded / e.total * 100))}%`;
   }, rej));
 }
 
