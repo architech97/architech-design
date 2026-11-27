@@ -4,7 +4,7 @@
 .project-record-head { margin-bottom: clamp(30px, 5vh, 56px); }
 .project-facts { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); }
 .project-facts > div { padding: 22px 26px 26px 0; border-bottom: 1px solid var(--line); }
-.project-facts dt { font: 400 11px/1.4 var(--sans); letter-spacing: .24em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+.project-facts dt { font: 400 11px/1.4 var(--sans); letter-spacing: .24em; text-transform: uppercase; color: var(--gold-ink); margin-bottom: 10px; }
 .project-facts dd { font: 300 clamp(19px, 1.7vw, 25px)/1.3 var(--serif); max-width: 26em; }
 .project-process { list-style: none; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: clamp(40px, 7vh, 80px); counter-reset: none; }
 .project-process a { display: grid; gap: 8px; height: 100%; padding: 22px 22px 26px 0; border-top: 2px solid var(--ink); transition: border-color .4s var(--ease), padding .5s var(--ease); }
@@ -18,9 +18,9 @@
 .project-list span { font: 400 12px var(--sans); letter-spacing: .2em; color: var(--ink-2); }
 .project-list strong { font: 300 clamp(26px, 3.6vw, 52px)/1 var(--serif); }
 .project-list small { font-size: 14px; color: var(--ink-2); letter-spacing: .04em; }
-.project-list i { font-style: normal; color: var(--gold); }
+.project-list i { font-style: normal; color: var(--gold-ink); }
 .contact-more { display: flex; flex-wrap: wrap; gap: 10px 26px; margin-top: 26px; font-size: 14px; letter-spacing: .06em; }
-.contact-more a { border-bottom: 1px solid currentColor; padding-bottom: 2px; opacity: .85; }
+.contact-more a { border-bottom: 1px solid currentColor; padding-bottom: 2px; }
 .contact-more a:hover { opacity: 1; }
 @media (max-width: 860px) {
   .project-facts { grid-template-columns: 1fr; }
@@ -75,7 +75,7 @@
 .slot-frame { display: grid; place-items: center; border: 1px dashed rgba(42, 36, 32, .4); color: var(--ink-2); text-align: center; padding: 18px; font: 400 13px/1.4 var(--sans); letter-spacing: .12em; text-transform: uppercase; }
 .scope { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: clamp(36px, 6vh, 64px); }
 .scope div { border-top: 2px solid var(--ink); padding-top: 14px; }
-.scope span { display: block; margin-bottom: 8px; font: 400 11px/1.4 var(--sans); letter-spacing: .22em; text-transform: uppercase; color: var(--gold); }
+.scope span { display: block; margin-bottom: 8px; font: 400 11px/1.4 var(--sans); letter-spacing: .22em; text-transform: uppercase; color: var(--gold-ink); }
 .scope p { font: 300 clamp(18px, 1.6vw, 24px)/1.35 var(--serif); }
 .process-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: clamp(36px, 6vh, 64px); }
 .process-row figure { margin: 0; }
