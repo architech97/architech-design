@@ -24,13 +24,11 @@
   <meta name="twitter:image:alt" content="The Vasant Kunj residence beside a Revit add-in window.">
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" href="/assets/architech-mark-transparent.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&amp;family=Jost:wght@300;400;500&amp;display=optional" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&amp;family=Jost:wght@300;400;500&amp;display=optional"></noscript>
   <!-- HOOK(analytics): none. Navneet has not chosen an analytics service. Do not add a tag here. -->
   <link rel="stylesheet" href="/chrome.css?v=pill1">
-  <link rel="stylesheet" href="/plain.css?v=pf2">
+  <link rel="stylesheet" href="/plain.css?v=review2">
+  <link rel="stylesheet" href="/fonts.css?v=review2" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="/fonts.css?v=review2"></noscript>
   <script src="/chrome-nav.js" defer></script>
 </head>
 <body>
@@ -104,6 +102,8 @@
     <p class="kicker">Last updated 18 November 2026</p>
     <h1>Privacy</h1>
     <p>ArchiTECH is the site of Navneet Singh, an architect in New Delhi. Questions about this notice go to <a href="mailto:navneet@architechdesign.in">navneet@architechdesign.in</a>.</p>
+    <p class="mail-fallback"><button type="button" class="copy-email" data-copy-email="navneet@architechdesign.in">Copy email</button></p>
+    <p class="mail-note" data-mail-status>If no mail app opens, copy the address and paste it into any mail program.</p>
     <h2>What this site does not do</h2>
     <p>No analytics product is installed. There is no advertising tag, and no contact form is sent to a server. A blank place is left for a form later. It is not connected, and it does not collect or submit anything.</p>
     <h2>What a visit does</h2>
@@ -111,7 +111,7 @@
       <li>The site is a set of static pages on GitHub Pages. GitHub may keep ordinary server logs of requests. ArchiTECH does not run a separate store of those logs.</li>
       <li>Email and phone links open the visitor's own mail or phone app. Social links leave this site for LinkedIn, Instagram, YouTube and X.</li>
       <li>The Design page may set a <code>sessionStorage</code> flag named <code>architech-intro</code> so the same browser session does not repeat an introduction. That flag stays on the device. It is not sent to ArchiTECH.</li>
-      <li>Pages request typefaces from Google Fonts (<code>fonts.googleapis.com</code> and <code>fonts.gstatic.com</code>). That request is visible to Google.</li>
+      <li>Type is served from files on this site. Pages do not request <code>fonts.googleapis.com</code> or <code>fonts.gstatic.com</code>.</li>
     </ul>
     <h2>If that changes</h2>
     <p>If an analytics service or a form backend is added, this page should be rewritten first and the new service named here. Nothing is collected for those purposes today.</p>
@@ -124,7 +124,8 @@
       </div>
       <div class="ax-foot-col">
         <p class="ax-foot-h">Contact</p>
-        <a href="mailto:navneet@architechdesign.in">navneet@architechdesign.in</a>
+        <p class="mail-fallback"><a href="mailto:navneet@architechdesign.in">navneet@architechdesign.in</a> <button type="button" class="copy-email" data-copy-email="navneet@architechdesign.in">Copy email</button></p>
+        <p class="mail-note" data-mail-status>If no mail app opens, copy the address and paste it into any mail program.</p>
         <a href="tel:+917838040375">+91 78380 40375</a>
         <a href="tel:+918920821258">+91 89208 21258</a>
         <a href="https://www.linkedin.com/in/architech-india/" rel="noopener noreferrer">LinkedIn</a>
@@ -182,5 +183,6 @@
   <a class="ax-back-top" href="#top" aria-label="Back to top" hidden>
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="m6 11 6-6 6 6M12 5v14"/></svg>
   </a>
+  <script src="/mail.js" defer></script>
 </body>
 </html>
