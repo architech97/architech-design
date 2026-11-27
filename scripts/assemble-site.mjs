@@ -102,7 +102,7 @@ async function homeCounts(distPath) {
 }
 
 const automationShell = await readFile(join(dist, 'index.html'), 'utf8')
-if (!automationShell.includes('src="/automation/assets/') || automationShell.includes('noindex')) {
+if (!/["'(]\/automation\/assets\/[^"']+\.js/.test(automationShell) || automationShell.includes('noindex')) {
   throw new Error('Build Automation with BASE=/automation/ before assembling the site.')
 }
 
