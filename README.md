@@ -14,7 +14,7 @@ node scripts/assemble-site.mjs ../architech-plugins/dist _site
 
 Serve `_site` at the root of a static HTTP server. Use a fresh output directory for each assembly.
 
-Home's product counts are filled at assembly from the Automation build's `stats.json` (`products`, `revitTools`, `suiteHomes`, `utilities`, `desktopApps`, `connectors`). `portal.html` keeps `{{tokens}}` for those counts. When `stats.json` is missing, as it is on the pinned revision `1239129`, the assembler writes the hard-coded fallback (58 Revit add-ins, 2 desktop apps, 5 AI connectors, 69 products) and logs a warning. The published homepage is static HTML either way.
+Home's product counts are filled at assembly from the Automation build's `stats.json` (`products`, `revitTools`, `suiteHomes`, `utilities`, `desktopApps`, `connectors`), which is published at `/automation/stats.json`. `portal.html` keeps `{{tokens}}` for those counts. The homepage labels the catalogue total and the Revit add-in count separately. When `stats.json` is missing or the group sum does not equal `products`, the assembler writes the hard-coded fallback (58 Revit add-ins, 3 suite homes, 1 utility, 2 desktop apps, 5 AI connectors, 69 products) and logs a warning. The published homepage is static HTML either way.
 
 ## Adding a Design project
 
@@ -24,6 +24,6 @@ Home's product counts are filled at assembly from the Automation build's `stats.
 2. Copy the case-study block from `index.html` and fill in project, location, status, role, software, scope (modelling, BIM, renders), process images and outcome. State only what is true for that project, and say when images are visualisations.
 3. Add a card to the project grid in `index.html` linking to `/design/<slug>/`.
 
-`projects/slot-02/` and `projects/slot-03/` are empty placeholders kept in the repo and in the `/design/` project list, but hidden until Navneet supplies renders. They are not published, not added to the sitemap, and they stay `noindex`. To show a slot: remove `hidden` from its card in `index.html` and set `publishEmptySlots` to `true` in `scripts/assemble-site.mjs`. Replace a slot only when he supplies a hero render, a brief, the scope, the software, process or before/after images, and an outcome. Do not invent a client name.
+`projects/slot-02/` and `projects/slot-03/` are empty placeholders kept in the repo and in the `/design/` project list, but hidden until Navneet supplies renders. They are not published, not added to the sitemap, and they stay `noindex`. The cards use `data-slot-href` so the unpublished HTML has no crawlable link. To show a slot: remove `hidden` from its card in `index.html` and set `publishEmptySlots` to `true` in `scripts/assemble-site.mjs` (that turns `data-slot-href` into `href` and publishes the page). Replace a slot only when he supplies a hero render, a brief, the scope, the software, process or before/after images, and an outcome. Do not invent a client name.
 
 `privacy/index.html` is a draft notice for Navneet to review. It is published at `/privacy/`.

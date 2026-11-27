@@ -179,7 +179,7 @@
   function intro() {
     if (!hasGsap || reduce) { $$('.hero .line-inner').forEach(l => l.style.transform = 'none'); return; }
     gsap.to('.hero .line-inner', { y: 0, duration: 0.7, ease: 'power2.out', stagger: 0.06, delay: 0.04 });
-    gsap.from('.hero .kicker, .hero-foot > *', { opacity: 0, y: 16, duration: 0.6, ease: 'power2.out', stagger: 0.05, delay: 0.08 });
+    gsap.from('.hero .kicker, .hero-foot > *', { y: 12, duration: 0.6, ease: 'power2.out', stagger: 0.05, delay: 0.08 });
   }
   requestAnimationFrame(() => { dispatchEvent(new Event('architech:ready')); intro(); });
 
@@ -285,7 +285,7 @@
       drawing.src = F.drawing; drawing.alt = `${F.name} technical drawing`;
       caption.textContent = `${F.name} · ${card.classList.contains('flipped') ? 'technical drawing' : 'rendered plan'}`;
       list.innerHTML = F.rooms.map(r => `<li tabindex="0"><i>${String(r[0]).padStart(2, '0')}</i><span>${r[1]}</span><em>${r[2]}</em></li>`).join('');
-      pins.innerHTML = F.rooms.map(r => `<button class="pin" style="left:${((r[3] - 241) / 859 * 100).toFixed(2)}%;top:${(r[4] / 700 * 100).toFixed(2)}%" aria-label="${r[1]}" data-cursor="View">${r[0]}<span class="pin-tip">${r[1]}${r[2] ? ' · ' + r[2] : ''}</span></button>`).join('');
+      pins.innerHTML = F.rooms.map(r => `<button class="pin" style="left:${((r[3] - 241) / 859 * 100).toFixed(2)}%;top:${(r[4] / 700 * 100).toFixed(2)}%" data-cursor="View">${r[0]}<span class="pin-tip">${r[1]}${r[2] ? ' · ' + r[2] : ''}</span></button>`).join('');
       const lis = $$('li', list), ps = $$('.pin', pins);
       [...lis, ...ps].forEach((el, k) => {
         const i = k % F.rooms.length;

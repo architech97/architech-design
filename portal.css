@@ -1,6 +1,80 @@
 /* Home. Tokens, header and footer come from chrome.css (values from /design/). */
 
+/* Local metric fallbacks. The real woff2 files stay in fonts.css and start after the hero paints. */
+@font-face {
+  font-family: "Cormorant Fallback";
+  src: local("Times New Roman"), local("Tinos"), local("Liberation Serif");
+  font-weight: 300;
+  font-style: normal;
+  size-adjust: 95.7%;
+  ascent-override: 96.56%;
+  descent-override: 29.99%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Cormorant Fallback";
+  src: local("Times New Roman"), local("Tinos"), local("Liberation Serif");
+  font-weight: 500;
+  font-style: normal;
+  size-adjust: 99.2%;
+  ascent-override: 93.14%;
+  descent-override: 28.93%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Cormorant Fallback";
+  src: local("Times New Roman Italic"), local("Times New Roman-Italic"), local("Tinos Italic"), local("Liberation Serif Italic");
+  font-weight: 300;
+  font-style: italic;
+  size-adjust: 87.83%;
+  ascent-override: 105.2%;
+  descent-override: 32.68%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Cormorant Fallback";
+  src: local("Times New Roman Italic"), local("Times New Roman-Italic"), local("Tinos Italic"), local("Liberation Serif Italic");
+  font-weight: 500;
+  font-style: italic;
+  size-adjust: 88.83%;
+  ascent-override: 104.02%;
+  descent-override: 32.31%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Jost Fallback";
+  src: local("Arial"), local("Arimo"), local("Liberation Sans");
+  font-weight: 300;
+  font-style: normal;
+  size-adjust: 92.18%;
+  ascent-override: 116.07%;
+  descent-override: 40.68%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Jost Fallback";
+  src: local("Arial"), local("Arimo"), local("Liberation Sans");
+  font-weight: 400;
+  font-style: normal;
+  size-adjust: 95.2%;
+  ascent-override: 112.4%;
+  descent-override: 39.39%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Jost Fallback";
+  src: local("Arial"), local("Arimo"), local("Liberation Sans");
+  font-weight: 500;
+  font-style: normal;
+  size-adjust: 99.9%;
+  ascent-override: 107.11%;
+  descent-override: 37.54%;
+  line-gap-override: 0%;
+}
+
 :root {
+  --serif: "Cormorant Garamond", "Cormorant Fallback", "Times New Roman", Georgia, serif;
+  --sans: "Jost", "Jost Fallback", Arial, sans-serif;
   --home-white: #fff;
   --home-clear: transparent;
   --home-rule-dark: #ffffff38;
@@ -36,6 +110,7 @@ body {
   background: var(--bg);
   color: var(--ink);
   font: 300 1.0625rem/1.6 var(--sans);
+  font-synthesis: none;
   -webkit-font-smoothing: antialiased;
 }
 main { overflow-x: clip; }
@@ -246,19 +321,8 @@ body > .ax-footer { padding-top: var(--s-5); }
   .split:hover .side:hover { flex-grow: 0; }
 }
 
-/* Motion. Scroll-scrubbed only; nothing fades up on its own. */
+/* Motion. Scroll-scrubbed pictures only. The hero text and the LCP photograph stay at full opacity. */
 @media (prefers-reduced-motion: no-preference) {
-  .statement .line > span { animation: line-rise .7s var(--ease-out) both; }
-  .statement .line + .line > span { animation-delay: .08s; }
-  .statement p { animation: settle .6s var(--ease-out) .1s both; }
-  .side { animation: side-open .7s var(--ease-out) both; }
-  .side.automation { animation-delay: .08s; }
-  .side-dialog { animation: dialog-in .65s var(--ease-out) .08s both; }
-  @keyframes line-rise { from { transform: translateY(112%); } to { transform: none; } }
-  @keyframes settle { from { opacity: 0; } to { opacity: 1; } }
-  @keyframes side-open { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
-  @keyframes dialog-in { from { opacity: 0; transform: translate(-50%, 24px); } to { opacity: 1; transform: translateX(-50%); } }
-
   @supports (animation-timeline: view()) {
     /* The paper frame opens to full bleed over the first 70vh of scroll. */
     .split, .stages::before { animation: bleed linear both; animation-timeline: scroll(root); animation-range: 0 70vh; }
@@ -351,9 +415,6 @@ body > .ax-footer { padding-top: var(--s-5); }
   .caps-row li:last-child .cap-img { aspect-ratio: 4 / 3; }
   .proof dt { font-size: .76rem; }
 }
-@media (prefers-reduced-motion: no-preference) {
-  .statement .kicker, .statement-side, .skills, .proof { animation: settle .6s var(--ease-out) .12s both; }
-}
 @media (prefers-reduced-motion: reduce) { .cap-img img { transition: none; } }
 
 /* ---------- Crisp sections: paper, then one night band from Automation to the footer ---------- */
@@ -380,9 +441,7 @@ body { background: var(--paper); }
     .cap-img, .stage-img { animation: sheet-wipe linear both; animation-timeline: view(); animation-range: entry 5% cover 28%; }
     .caps-row li:nth-child(2) .cap-img, .stage-02 .stage-img { animation-range: entry 10% cover 40%; }
     .caps-row li:nth-child(3) .cap-img, .stage-03 .stage-img { animation-range: entry 15% cover 45%; }
-    .sheet-label { animation: rule-draw linear both; animation-timeline: view(); animation-range: entry 0% cover 25%; }
     @keyframes sheet-wipe { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
-    @keyframes rule-draw { from { opacity: .2; } to { opacity: 1; } }
   }
 }
 @media (max-width: 860px) { .about-head { grid-column: 1 / -1; } }
@@ -396,6 +455,14 @@ body { background: var(--paper); }
 .about-facts dd { margin: 3px 0 0; color: var(--on-dark); font-size: .95rem; line-height: 1.45; }
 @media (max-width: 560px) { .about-id { grid-template-columns: 1fr; } .about-portrait { max-width: 200px; } }
 .about-facts .nw { white-space: nowrap; }
+
+.mail-fallback { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin: 14px 0 0; }
+.mail-fallback a { overflow-wrap: anywhere; }
+.copy-email { appearance: none; min-height: 32px; padding: 4px 10px; border: 1px solid currentColor; background: transparent; color: inherit; font: 500 .75rem/1 var(--sans); letter-spacing: .04em; cursor: pointer; }
+.copy-email:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+.mail-note { margin: 8px 0 0; max-width: 38em; color: inherit; font: 400 .85rem/1.45 var(--sans); }
+.ax-foot-col .mail-fallback { margin: 0; }
+.ax-foot-col .mail-note { color: var(--on-dark-2); font-size: .82rem; }
 
 /* Home: the browser demos, one line under the tool index. */
 .tools-try { margin: 18px 0 4px; color: var(--on-dark-2); }

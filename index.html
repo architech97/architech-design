@@ -22,11 +22,8 @@
 <meta name="twitter:image" content="https://architechdesign.in/img/design-share-1200x630.jpg">
 <meta name="twitter:image:alt" content="Visualisation of the Vasant Kunj residence in daylight, seen through trees.">
 <link rel="canonical" href="https://architechdesign.in/design/">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&amp;family=Jost:wght@300;400;500&amp;display=optional" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&amp;family=Jost:wght@300;400;500&amp;display=optional"></noscript>
-<link rel="preload" as="image" type="image/avif" imagesrcset="/img/home-hero-day-640.avif 640w, /img/home-hero-day-1280.avif 1280w, /img/home-hero-day-1520.avif 1520w" imagesizes="100vw" fetchpriority="high">
+<meta name="twitter:url" content="https://architechdesign.in/design/">
+<link rel="preload" as="image" type="image/avif" imagesrcset="/img/home-hero-day-640.avif 640w, /img/home-hero-day-800.avif 800w, /img/home-hero-day-1280.avif 1280w, /img/home-hero-day-1520.avif 1520w" imagesizes="100vw" fetchpriority="high">
 <link rel="icon" type="image/png" href="/assets/architech-mark-transparent.png">
 <!-- HOOK(analytics): none. Navneet has not chosen an analytics service. Do not add a tag here. -->
 <script type="application/ld+json">
@@ -59,12 +56,15 @@
   ]
 }
 </script>
-<link rel="stylesheet" href="/style.original-logo-v3.css?v=cursor1">
-<link rel="stylesheet" href="/portfolio.css?v=review1">
+<link rel="stylesheet" href="/style.original-logo-v3.css?v=review2">
+<link rel="stylesheet" href="/portfolio.css?v=review2">
+<link rel="stylesheet" href="/fonts.css?v=review2" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="/fonts.css?v=review2"></noscript>
 <script>try{if(sessionStorage.getItem('architech-intro')==='1')document.documentElement.classList.add('intro-seen')}catch(e){}</script>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
 </head>
 <body>
+<a class="skip-link" href="#top">Skip to content</a>
 
 <div class="cursor" aria-hidden="true"><span class="cursor-label"></span></div>
 <div class="grain" aria-hidden="true"></div>
@@ -147,7 +147,7 @@
         <a href="#living" data-sec="living"><small>05</small>Living here<i>→</i></a>
         <a href="#studio" data-sec="studio"><small>06</small>What I do<i>→</i></a>
         <a href="#contact" data-sec="contact"><small>07</small>Get in touch<i>→</i></a>
-        <div class="nav-menu-foot"><a href="mailto:navneet@architechdesign.in">navneet@architechdesign.in</a><a href="tel:+917838040375">+91 78380 40375</a><a href="tel:+918920821258">+91 89208 21258</a></div>
+        <div class="nav-menu-foot"><a href="mailto:navneet@architechdesign.in">navneet@architechdesign.in</a><button type="button" class="copy-email" data-copy-email="navneet@architechdesign.in">Copy email</button><p class="mail-note" data-mail-status>If no mail app opens, copy the address and paste it into any mail program.</p><a href="tel:+917838040375">+91 78380 40375</a><a href="tel:+918920821258">+91 89208 21258</a></div>
       </div>
     </div>
     <div class="bar-progress" aria-hidden="true"><span></span></div>
@@ -162,9 +162,9 @@
     <div class="hero-media">
       <canvas id="hero-gl" aria-hidden="true"></canvas>
       <picture>
-        <source type="image/avif" srcset="/img/home-hero-day-640.avif 640w, /img/home-hero-day-1280.avif 1280w, /img/home-hero-day-1520.avif 1520w" sizes="100vw">
-        <source type="image/webp" srcset="/img/home-hero-day-640.webp 640w, /img/home-hero-day-1280.webp 1280w, /img/home-hero-day-1520.webp 1520w" sizes="100vw">
-        <img decoding="async" class="hero-img hero-day" src="/img/home-hero-day-1280.webp" width="1520" height="1013" fetchpriority="high" alt="The residence in late-afternoon sun, seen through a tree and the garden gate: cream plaster, curved columned porch and dark iron balcony railings, two children playing with a puppy on the forecourt">
+        <source type="image/avif" srcset="/img/home-hero-day-640.avif 640w, /img/home-hero-day-800.avif 800w, /img/home-hero-day-1280.avif 1280w, /img/home-hero-day-1520.avif 1520w" sizes="100vw">
+        <source type="image/webp" srcset="/img/home-hero-day-640.webp 640w, /img/home-hero-day-800.webp 800w, /img/home-hero-day-1280.webp 1280w, /img/home-hero-day-1520.webp 1520w" sizes="100vw">
+        <img class="hero-img hero-day" src="/img/home-hero-day-1280.webp" width="1520" height="1013" fetchpriority="high" alt="The residence in late-afternoon sun, seen through a tree and the garden gate: cream plaster, curved columned porch and dark iron balcony railings, two children playing with a puppy on the forecourt">
       </picture>
       <picture>
         <source type="image/avif" srcset="/img/cs-hero-dusk-480.avif 480w, /img/cs-hero-dusk-1280.avif 1280w, /img/cs-hero-dusk-1520.avif 1520w" sizes="100vw">
@@ -217,7 +217,7 @@
          To re-enable a slot: remove the hidden attribute here, and set publishEmptySlots to true
          in scripts/assemble-site.mjs so the slot page is published. -->
     <li class="work-card is-slot" hidden>
-      <a href="/design/slot-02/">
+      <a data-slot-href="/design/slot-02/">
         <figure>
           <div class="slot-frame"><span>Hero render needed</span></div>
           <figcaption>
@@ -229,7 +229,7 @@
       </a>
     </li>
     <li class="work-card is-slot" hidden>
-      <a href="/design/slot-03/">
+      <a data-slot-href="/design/slot-03/">
         <figure>
           <div class="slot-frame"><span>Hero render needed</span></div>
           <figcaption>
@@ -316,9 +316,9 @@
   </div>
 </section>
 
-<div class="marquee" data-dir="1" aria-hidden="true"><div class="marquee-inner">
-  <span>From drawing <em>to dwelling</em></span><i>✦</i><span>Arrive · Gather · Retreat</span><i>✦</i><span>Three levels, <em>one core</em></span><i>✦</i>
-  <span>From drawing <em>to dwelling</em></span><i>✦</i><span>Arrive · Gather · Retreat</span><i>✦</i><span>Three levels, <em>one core</em></span><i>✦</i>
+<div class="marquee" data-dir="1"><div class="marquee-inner">
+  <div class="marquee-copy"><span>From drawing <em>to dwelling</em></span><i aria-hidden="true">✦</i><span>Arrive · Gather · Retreat</span><i aria-hidden="true">✦</i><span>Three levels, <em>one core</em></span><i aria-hidden="true">✦</i></div>
+  <div class="marquee-copy" aria-hidden="true"><span>From drawing <em>to dwelling</em></span><i>✦</i><span>Arrive · Gather · Retreat</span><i>✦</i><span>Three levels, <em>one core</em></span><i>✦</i></div>
 </div></div>
 
 <!-- 03 SIGNATURE: drawing to dwelling (three.js, scroll-driven) -->
@@ -436,9 +436,9 @@
   </div>
 </section>
 
-<div class="marquee marquee-dark" data-theme="dark" data-dir="-1" aria-hidden="true"><div class="marquee-inner">
-  <span>3D modelling</span><i>✦</i><span><em>Rendering</em></span><i>✦</i><span>Rendered plans</span><i>✦</i><span><em>Presentation</em></span><i>✦</i>
-  <span>3D modelling</span><i>✦</i><span><em>Rendering</em></span><i>✦</i><span>Rendered plans</span><i>✦</i><span><em>Presentation</em></span><i>✦</i>
+<div class="marquee marquee-dark" data-theme="dark" data-dir="-1"><div class="marquee-inner">
+  <div class="marquee-copy"><span>3D modelling</span><i aria-hidden="true">✦</i><span><em>Rendering</em></span><i aria-hidden="true">✦</i><span>Rendered plans</span><i aria-hidden="true">✦</i><span><em>Presentation</em></span><i aria-hidden="true">✦</i></div>
+  <div class="marquee-copy" aria-hidden="true"><span>3D modelling</span><i>✦</i><span><em>Rendering</em></span><i>✦</i><span>Rendered plans</span><i>✦</i><span><em>Presentation</em></span><i>✦</i></div>
 </div></div>
 
 
@@ -465,6 +465,8 @@
     <p class="kicker">Connect</p>
     <h2 class="split">Have a project or a role in mind? <em>Let’s talk.</em></h2>
     <a class="contact-mail magnet" href="mailto:navneet@architechdesign.in">navneet@architechdesign.in</a>
+    <p class="mail-fallback"><button type="button" class="copy-email" data-copy-email="navneet@architechdesign.in">Copy email</button></p>
+    <p class="mail-note" data-mail-status>If no mail app opens, copy the address and paste it into any mail program.</p>
     <p class="contact-tel"><a href="tel:+917838040375">+91 78380 40375</a><a href="tel:+918920821258">+91 89208 21258</a></p>
     <p class="contact-more"><a href="https://www.linkedin.com/in/architech-india/" rel="noopener noreferrer">LinkedIn ↗</a><a href="https://www.instagram.com/architechdesign.in/" rel="noopener noreferrer">Instagram ↗</a><a href="https://www.youtube.com/@ArchiTECH97" rel="noopener noreferrer">YouTube ↗</a><a href="https://x.com/Architech_India" rel="noopener noreferrer">X ↗</a><a href="/automation/connect/">Write to me ↗</a><a href="/automation/">See the tools I have built ↗</a></p>
     <!-- HOOK(contact-form): Navneet has not chosen a form service. Do not post this anywhere and do not add analytics. -->
@@ -541,7 +543,8 @@
     setInterval(() => document.querySelectorAll('.pf-stagger:not(.pf-in)').forEach((block) => { const box = block.getBoundingClientRect(); if (box.top < innerHeight && box.bottom > 0) block.classList.add('pf-in'); }), 2000);
   }
 </script>
-<script defer src="/main.js?v=reel5"></script>
+<script defer src="/main.js?v=review2"></script>
+<script defer src="/mail.js"></script>
 </body>
 </html>
 

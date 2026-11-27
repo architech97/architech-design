@@ -12,6 +12,13 @@ body { margin: 0; background: var(--paper); color: var(--ink); font: 300 1.05rem
 .plain ul { padding-left: 1.15em; }
 .plain li { margin: .4em 0; }
 .slot-frame { display: grid; place-items: center; min-height: 220px; margin: 8px 0 28px; border: 1px dashed rgba(42, 36, 32, .45); color: var(--ink-2); text-align: center; padding: 24px; letter-spacing: .08em; text-transform: uppercase; font-size: .85rem; }
+.mail-fallback { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin: 12px 0 0; }
+.mail-fallback a { overflow-wrap: anywhere; }
+.copy-email { appearance: none; min-height: 32px; padding: 4px 10px; border: 1px solid currentColor; background: transparent; color: inherit; font: 500 .75rem/1 var(--sans); letter-spacing: .04em; cursor: pointer; }
+.copy-email:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+.mail-note { margin: 8px 0 0; max-width: 38em; font: 400 .9rem/1.45 var(--sans); color: var(--ink-2); }
+.ax-footer .mail-note { color: var(--on-dark-2); }
+.ax-foot-col .mail-fallback { margin: 0; }
 @media (prefers-reduced-motion: reduce) {
   .skip-link { transition: none; }
 }

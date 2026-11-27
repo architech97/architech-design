@@ -16,13 +16,11 @@
   <meta name="twitter:description" content="This address is not on the site.">
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" href="/assets/architech-mark-transparent.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&amp;family=Jost:wght@300;400;500&amp;display=optional" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&amp;family=Jost:wght@300;400;500&amp;display=optional"></noscript>
   <!-- HOOK(analytics): none. Navneet has not chosen an analytics service. Do not add a tag here. -->
   <link rel="stylesheet" href="/chrome.css?v=pill1">
-  <link rel="stylesheet" href="/plain.css?v=pf2">
+  <link rel="stylesheet" href="/plain.css?v=review2">
+  <link rel="stylesheet" href="/fonts.css?v=review2" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="/fonts.css?v=review2"></noscript>
   <script src="/chrome-nav.js" defer></script>
 </head>
 <body>
@@ -110,7 +108,8 @@
       </div>
       <div class="ax-foot-col">
         <p class="ax-foot-h">Contact</p>
-        <a href="mailto:navneet@architechdesign.in">navneet@architechdesign.in</a>
+        <p class="mail-fallback"><a href="mailto:navneet@architechdesign.in">navneet@architechdesign.in</a> <button type="button" class="copy-email" data-copy-email="navneet@architechdesign.in">Copy email</button></p>
+        <p class="mail-note" data-mail-status>If no mail app opens, copy the address and paste it into any mail program.</p>
         <a href="https://www.linkedin.com/in/architech-india/" rel="noopener noreferrer">LinkedIn</a>
         <a href="https://www.instagram.com/architechdesign.in/" rel="noopener noreferrer">Instagram</a>
         <a href="https://www.youtube.com/@ArchiTECH97" rel="noopener noreferrer">YouTube</a>
@@ -164,5 +163,6 @@
   <a class="ax-back-top" href="#top" aria-label="Back to top" hidden>
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="m6 11 6-6 6 6M12 5v14"/></svg>
   </a>
+  <script src="/mail.js" defer></script>
 </body>
 </html>
